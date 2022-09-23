@@ -94,6 +94,11 @@ function Flow() {
     'rgba(0,0,0,0.2)'
   );
 
+  const miniMapNodeColor = useColorModeValue(
+    'white',
+    'rgba(255,255,255,0.2)'
+  );
+
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>
       <Flex gap={2}>
@@ -127,6 +132,7 @@ function Flow() {
           <MiniMap
             style={{ backgroundColor: miniMapBgColor }}
             maskColor={miniMapMaskColor}
+            nodeColor={miniMapNodeColor}
           />
         </ReactFlowProvider>
       </Box>
