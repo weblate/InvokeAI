@@ -1,9 +1,9 @@
 import { Flex, FormControl, FormLabel, Text } from '@chakra-ui/react';
-import { ReactElement } from 'react';
+import { ReactNode } from 'react';
 
 type ParameterLabelProps = {
   label?: string;
-  children: ReactElement;
+  children: ReactNode;
 };
 
 const ParameterLabel = ({ label, children }: ParameterLabelProps) => {

@@ -5,7 +5,7 @@ import {
   SAMPLERS,
   WIDTHS,
 } from '../../../app/constants';
-import { InputTypes, Module, ModuleTypes, OutputTypes } from '../types';
+import { InputKinds, Module, ModuleTypes, OutputKinds } from '../types';
 
 const generateModule: Module = {
   moduleType: ModuleTypes.Generate,
@@ -13,13 +13,13 @@ const generateModule: Module = {
     {
       id: 'prompt',
       label: 'Prompt In',
-      type: InputTypes.Text,
+      kind: InputKinds.Text,
       value: 'prompt',
     },
     {
       id: 'initialImage',
       label: 'Initial Image In',
-      type: InputTypes.Image,
+      kind: InputKinds.Image,
       value: 'initialImage',
     },
   ],
@@ -27,7 +27,7 @@ const generateModule: Module = {
     {
       id: 'image',
       label: 'Image Out',
-      type: OutputTypes.Image,
+      kind: OutputKinds.Image,
       value: 'image',
     },
   ],
@@ -58,6 +58,8 @@ const generateModule: Module = {
       min: 0,
       max: 200,
       step: 1,
+      withNumberInput: true,
+      numberInputMax: Infinity,
     },
     {
       name: 'cfgScale',
@@ -67,6 +69,7 @@ const generateModule: Module = {
       min: 0,
       max: 10,
       step: 0.1,
+      withNumberInput: true,
     },
     {
       name: 'width',

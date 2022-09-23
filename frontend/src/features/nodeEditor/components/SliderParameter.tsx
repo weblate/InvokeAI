@@ -1,4 +1,6 @@
 import {
+  NumberInput,
+  NumberInputField,
   Slider,
   SliderFilledTrack,
   SliderThumb,
@@ -16,13 +18,33 @@ type SliderParameterProps = {
 
 const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, kind, value, label, min, max, step } = parameter;
-  const handleOnChange = (value: number) =>
+
+  const {
+    name,
+    kind,
+    value,
+    label,
+    min,
+    max,
+    step,
+    withNumberInput,
+    numberInputMax,
+  } = parameter;
+  const handleOnChangeSlider = (value: number) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
         parameterName: name,
         value,
+      })
+    );
+
+  const handleOnChangeNumberInput = (value: string | number) =>
+    dispatch(
+      updateModuleParameterValue({
+        id: moduleId,
+        parameterName: name,
+        value: Number(value),
       })
     );
 
@@ -34,14 +56,31 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
         min={min}
         max={max}
         step={step}
-        onChange={handleOnChange}
+        onChange={handleOnChangeSlider}
         size={'sm'}
+        focusThumbOnChange={false}
       >
         <SliderTrack>
           <SliderFilledTrack />
         </SliderTrack>
         <SliderThumb />
       </Slider>
+      {withNumberInput && (
+        <NumberInput
+          size={'sm'}
+          onChange={handleOnChangeNumberInput}
+          min={min}
+          max={numberInputMax !== undefined ? numberInputMax : max}
+          step={step}
+          value={
+            step < 1
+              ? (Math.round(value * 100) / 100).toFixed(2)
+              : value.toString()
+          }
+        >
+          <NumberInputField paddingInlineStart={2} paddingInlineEnd={2} />
+        </NumberInput>
+      )}
     </ParameterLabel>
   );
 };

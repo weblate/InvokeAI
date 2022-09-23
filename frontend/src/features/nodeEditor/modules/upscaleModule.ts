@@ -1,4 +1,4 @@
-import { InputTypes, Module, ModuleTypes, OutputTypes } from '../types';
+import { InputKinds, Module, ModuleTypes, OutputKinds } from '../types';
 
 const upscaleModule: Module = {
   moduleType: ModuleTypes.Upscale,
@@ -6,7 +6,7 @@ const upscaleModule: Module = {
     {
       id: 'image',
       label: 'Image In',
-      type: InputTypes.Image,
+      kind: InputKinds.Image,
       value: 'image',
     },
   ],
@@ -14,7 +14,7 @@ const upscaleModule: Module = {
     {
       id: 'image',
       label: 'Image Out',
-      type: OutputTypes.Image,
+      kind: OutputKinds.Image,
       value: 'image',
     },
   ],
@@ -35,6 +35,7 @@ const upscaleModule: Module = {
       min: 0,
       max: 1,
       step: 0.01,
+      withNumberInput: true,
     },
   ],
 };

@@ -1,9 +1,9 @@
-export enum InputTypes {
+export enum InputKinds {
   Image = 'IMAGE',
   Text = 'TEXT',
 }
 
-export enum OutputTypes {
+export enum OutputKinds {
   Image = 'IMAGE',
   Text = 'TEXT',
 }
@@ -33,25 +33,25 @@ export declare type SeedWeights = Array<SeedWeightPair>;
 // export declare type NodeInputName = string;
 // export declare type NodeOutputName = string;
 // export declare type NodeInputValue = {
-//   type: InputTypes;
+//   type: InputKinds;
 //   value: any;
 // };
 // export declare type NodeOutputValue = {
-//   type: OutputTypes;
+//   type: OutputKinds;
 //   value: any;
 // };
 
 export declare type NodeInput = {
   id: string;
   label: string;
-  type: InputTypes;
+  kind: InputKinds;
   value: any;
 };
 
 export declare type NodeOutput = {
   id: string;
   label: string;
-  type: OutputTypes;
+  kind: OutputKinds;
   value: any;
 };
 
@@ -78,6 +78,8 @@ export declare type SliderModuleParameter = GenericModuleParameter & {
   min: number;
   max: number;
   step: number;
+  numberInputMax?: number;
+  withNumberInput?: boolean;
 };
 
 export declare type NumberModuleParameter = GenericModuleParameter & {

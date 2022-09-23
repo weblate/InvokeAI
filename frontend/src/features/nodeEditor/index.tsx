@@ -1,16 +1,11 @@
-import { Box, Button, Flex } from '@chakra-ui/react';
+import { Box, Button, Flex, useColorModeValue } from '@chakra-ui/react';
 import { AnyAction } from '@reduxjs/toolkit';
-import { useCallback, useState } from 'react';
+import { useCallback, useRef } from 'react';
 import ReactFlow, {
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
   Connection,
   Edge,
   EdgeChange,
-  Node,
   NodeChange,
-  updateEdge,
   Controls,
   MiniMap,
   ReactFlowProvider,
@@ -20,17 +15,13 @@ import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 import ModuleUIBuilder from './ModuleBuilder';
 import {
   addModule,
-  NodeEditorState,
   onConnect,
   onEdgesChange,
   onEdgeUpdate,
   onNodesChange,
+  setEdges,
 } from './nodeEditorSlice';
 import { v4 as uuidv4 } from 'uuid';
-
-const rfStyle = {
-  backgroundColor: '#B8CEFF',
-};
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -44,6 +35,11 @@ function Flow() {
   );
 
   const dispatch = useAppDispatch();
+
+  const edgeUpdateSuccessful = useRef(true);
+  // const [nodes, , onNodesChange] = useNodesState(initialNodes);
+  // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  // const onConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), []);
 
   const handleOnNodesChange = useCallback(
     (changes: NodeChange[]): AnyAction => dispatch(onNodesChange({ changes })),
@@ -61,6 +57,21 @@ function Flow() {
     [dispatch]
   );
 
+  const handleOnEdgeUpdateStart = useCallback(() => {
+    edgeUpdateSuccessful.current = false;
+  }, []);
+
+  const handleOnEdgeUpdateEnd = useCallback(
+    (_: MouseEvent, edge: Edge<any>) => {
+      if (!edgeUpdateSuccessful.current) {
+        dispatch(setEdges(edges.filter((e) => e.id !== edge.id)));
+      }
+
+      edgeUpdateSuccessful.current = true;
+    },
+    [dispatch, edges]
+  );
+
   const handleOnConnect = useCallback(
     (connection: Connection): AnyAction => dispatch(onConnect({ connection })),
     [dispatch]
@@ -71,6 +82,16 @@ function Flow() {
       dispatch(addModule({ moduleType, uuid: uuidv4() }));
     },
     [dispatch]
+  );
+
+  const miniMapBgColor = useColorModeValue(
+    'white',
+    'var(--chakra-colors-gray-800)'
+  );
+
+  const miniMapMaskColor = useColorModeValue(
+    'rgb(240, 242, 243, 0.7)',
+    'rgba(0,0,0,0.2)'
   );
 
   return (
@@ -85,9 +106,7 @@ function Flow() {
         <Button onClick={() => handleClickAddModule('generate')}>
           Generate
         </Button>
-        <Button onClick={() => handleClickAddModule('upscale')}>
-          Upscale
-        </Button>
+        <Button onClick={() => handleClickAddModule('upscale')}>Upscale</Button>
       </Flex>
       <Box height={'calc(100vh - 100px)'} width={'100vw'}>
         <ReactFlowProvider>
@@ -99,10 +118,16 @@ function Flow() {
             onEdgeUpdate={handleOnEdgeUpdate}
             onConnect={handleOnConnect}
             nodeTypes={nodeTypes}
+            onEdgeUpdateStart={handleOnEdgeUpdateStart}
+            onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
+            defaultZoom={2}
             fitView
           />
           <Controls />
-          <MiniMap />
+          <MiniMap
+            style={{ backgroundColor: miniMapBgColor }}
+            maskColor={miniMapMaskColor}
+          />
         </ReactFlowProvider>
       </Box>
     </Flex>

@@ -45,6 +45,9 @@ export const nodeEditorSlice = createSlice({
       const { changes } = action.payload;
       state.edges = applyEdgeChanges(changes, state.edges);
     },
+    setEdges: (state, action: PayloadAction<Edge<any>[]>) => {
+      state.edges = action.payload;
+    },
     onConnect: (state, action: PayloadAction<{ connection: Connection }>) => {
       const { connection } = action.payload;
       state.edges = addEdge(connection, state.edges);
@@ -112,6 +115,7 @@ export const nodeEditorSlice = createSlice({
 export const {
   onNodesChange,
   onEdgesChange,
+  setEdges,
   onConnect,
   onEdgeUpdate,
   updateModuleParameterValue,

@@ -1,4 +1,4 @@
-import { Module, ModuleTypes, OutputTypes } from '../types';
+import { Module, ModuleTypes, OutputKinds } from '../types';
 
 const simplePromptModule: Module = {
   moduleType: ModuleTypes.SimplePrompt,
@@ -6,7 +6,7 @@ const simplePromptModule: Module = {
     {
       id: 'prompt',
       label: 'Prompt Out',
-      type: OutputTypes.Text,
+      kind: OutputKinds.Text,
       value: 'prompt',
     },
   ],

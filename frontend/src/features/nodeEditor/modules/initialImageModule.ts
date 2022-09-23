@@ -1,4 +1,4 @@
-import { Module, ModuleTypes, OutputTypes } from '../types';
+import { Module, ModuleTypes, OutputKinds } from '../types';
 
 const initialImageModule: Module = {
   moduleType: ModuleTypes.InitialImage,
@@ -6,7 +6,7 @@ const initialImageModule: Module = {
     {
       id: 'initialImage',
       label: 'Image Out',
-      type: OutputTypes.Image,
+      kind: OutputKinds.Image,
       value: 'initialImage',
     },
   ],
@@ -25,6 +25,7 @@ const initialImageModule: Module = {
       min: 0,
       max: 1,
       step: 0.01,
+      withNumberInput: true,
     },
   ],
 };
