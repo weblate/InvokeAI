@@ -133,6 +133,7 @@ export declare type Module = {
   parameters: ModuleParameter[];
 };
 
+// // Nodes from Kyle's backend for testing, need to output something like this in API call
 // {
 //     "nodes":[
 //         {"id":"1","type":"txt2img","prompt":"A man smiling"},
