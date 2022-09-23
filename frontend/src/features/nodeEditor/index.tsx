@@ -37,9 +37,6 @@ function Flow() {
   const dispatch = useAppDispatch();
 
   const edgeUpdateSuccessful = useRef(true);
-  // const [nodes, , onNodesChange] = useNodesState(initialNodes);
-  // const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
-  // const onConnect = useCallback((params) => setEdges((els) => addEdge(params, els)), []);
 
   const handleOnNodesChange = useCallback(
     (changes: NodeChange[]): AnyAction => dispatch(onNodesChange({ changes })),
@@ -94,10 +91,7 @@ function Flow() {
     'rgba(0,0,0,0.2)'
   );
 
-  const miniMapNodeColor = useColorModeValue(
-    'white',
-    'rgba(255,255,255,0.2)'
-  );
+  const miniMapNodeColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)');
 
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>

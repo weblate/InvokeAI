@@ -17,3 +17,7 @@ path.react-flow__edge-path:hover {
 .react-flow__handle-valid {
   background: #55dd99 !important;
 }
+
+.react-flow__node.selected {
+  border-color: red !important;
+}

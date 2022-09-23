@@ -9,49 +9,49 @@ import { InputKinds, Module, ModuleTypes, OutputKinds } from '../types';
 
 const generateModule: Module = {
   moduleType: ModuleTypes.Generate,
-  nodeInputs: [
-    {
+  nodeInputs: {
+    prompt: {
       id: 'prompt',
       label: 'Prompt In',
       kind: InputKinds.Text,
       value: 'prompt',
     },
-    {
+    initialImage: {
       id: 'initialImage',
       label: 'Initial Image In',
       kind: InputKinds.Image,
-      value: 'initialImage',
+      value: 'image',
     },
-  ],
-  nodeOutputs: [
-    {
+  },
+  nodeOutputs: {
+    image: {
       id: 'image',
       label: 'Image Out',
       kind: OutputKinds.Image,
       value: 'image',
     },
-  ],
+  },
   moduleName: 'Generate',
-  parameters: [
-    {
-      name: 'sampler',
+  parameters: {
+    sampler: {
+      id: 'sampler',
       label: 'Sampler',
       kind: 'select',
       value: 'k_lms',
       options: SAMPLERS,
     },
-    {
-      name: 'seed',
+    seed: {
+      id: 'seed',
       label: 'Seed',
       kind: 'number',
       min: NUMPY_RAND_MIN,
       max: NUMPY_RAND_MAX,
       step: 1,
       value: 12345,
-      withRandomizeButton: true,
+      withRandomizeIconButton: true,
     },
-    {
-      name: 'steps',
+    steps: {
+      id: 'steps',
       label: 'Steps',
       kind: 'slider',
       value: 32,
@@ -61,8 +61,8 @@ const generateModule: Module = {
       withNumberInput: true,
       numberInputMax: Infinity,
     },
-    {
-      name: 'cfgScale',
+    cfgScale: {
+      id: 'cfgScale',
       label: 'CFG Scale',
       kind: 'slider',
       value: 7.5,
@@ -71,27 +71,27 @@ const generateModule: Module = {
       step: 0.1,
       withNumberInput: true,
     },
-    {
-      name: 'width',
+    width: {
+      id: 'width',
       label: 'Width',
       kind: 'select',
       value: 512,
       options: WIDTHS,
     },
-    {
-      name: 'height',
+    height: {
+      id: 'height',
       label: 'Height',
       kind: 'select',
       value: 512,
       options: HEIGHTS,
     },
-    {
-      name: 'seamless',
+    seamless: {
+      id: 'seamless',
       label: 'Seamless',
       kind: 'toggle',
       value: false,
     },
-  ],
+  },
 };
 
 export default generateModule;

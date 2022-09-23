@@ -1,11 +1,15 @@
 import {
+  Button,
+  IconButton,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react';
+import { FaRandom } from 'react-icons/fa';
 import { useAppDispatch } from '../../../app/store';
+import randomInt from '../../../common/util/randomInt';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { NumberModuleParameter } from '../types';
 import ParameterLabel from './ParameterLabel';
@@ -26,6 +30,7 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
     max,
     step,
     withRandomizeButton,
+    withRandomizeIconButton,
     withSteppers,
   } = parameter;
 
@@ -37,6 +42,17 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
         value: Number(v),
       })
     );
+
+  const handleOnClickRandomize = () => {
+    dispatch(
+      updateModuleParameterValue({
+        id: moduleId,
+        parameterName: name,
+        value: randomInt(min, max),
+      })
+    );
+  };
+
   return (
     <ParameterLabel label={label}>
       <NumberInput
@@ -55,6 +71,20 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
           </NumberInputStepper>
         )}
       </NumberInput>
+      {withRandomizeButton && (
+        <Button size={'sm'} onClick={handleOnClickRandomize}>
+          Randomize
+        </Button>
+      )}
+      {withRandomizeIconButton && (
+        <IconButton
+          aria-label={`Randomize ${label}`}
+          icon={<FaRandom />}
+          size={'sm'}
+          fontSize={'md'}
+          onClick={handleOnClickRandomize}
+        />
+      )}
     </ParameterLabel>
   );
 };

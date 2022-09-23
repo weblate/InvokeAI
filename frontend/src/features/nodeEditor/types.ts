@@ -68,7 +68,7 @@ export declare type ModuleParameterKind =
   | 'imageUpload';
 
 export declare type GenericModuleParameter = {
-  name: string;
+  id: string;
   label?: string;
 };
 
@@ -89,6 +89,7 @@ export declare type NumberModuleParameter = GenericModuleParameter & {
   max: number;
   step: number;
   withRandomizeButton?: boolean;
+  withRandomizeIconButton?: boolean;
   withSteppers?: boolean;
 };
 
@@ -129,10 +130,10 @@ export declare type ModuleParameter =
 
 export declare type Module = {
   moduleType: ModuleTypes;
-  nodeInputs?: NodeInput[];
-  nodeOutputs?: NodeOutput[];
+  nodeInputs?: Record<string, NodeInput>;
+  nodeOutputs?: Record<string, NodeOutput>;
   moduleName: string;
-  parameters: ModuleParameter[];
+  parameters: Record<string, ModuleParameter>;
 };
 
 // // Nodes from Kyle's backend for testing, need to output something like this in API call
