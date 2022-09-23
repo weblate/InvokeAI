@@ -1,0 +1,19 @@
+path.react-flow__edge-path {
+  stroke-width: 4;
+}
+
+path.react-flow__connection-path {
+  stroke-width: 4;
+}
+
+path.react-flow__edge-path:hover {
+  stroke-width: 10;
+}
+
+.react-flow__handle-connecting {
+  background: #ff6060 !important;
+}
+
+.react-flow__handle-valid {
+  background: #55dd99 !important;
+}

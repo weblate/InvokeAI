@@ -30,7 +30,7 @@ const InitAndMaskImage = () => {
     <Flex direction={'column'} alignItems={'center'} gap={2}>
       <InitAndMaskUploadButtons setShouldShowMask={setShouldShowMask} />
       {initialImagePath && (
-        <Flex position={'relative'} width={'100%'}>
+        <Flex position={'relative'} width={'100%'} maxWidth={200}>
           <Image
             fit={'contain'}
             src={initialImagePath}
