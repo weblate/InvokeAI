@@ -11,12 +11,12 @@ type SelectParameterProps = {
 };
 const SelectParameter = ({ moduleId, parameter }: SelectParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, kind, value, label, options } = parameter;
+  const { id, type, value, label, options } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: Number(e.target.value),
       })
     );

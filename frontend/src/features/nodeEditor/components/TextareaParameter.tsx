@@ -11,12 +11,12 @@ type TextareaParameterProps = {
 };
 const TextareaParameter = ({ moduleId, parameter }: TextareaParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, kind, value, label } = parameter;
+  const { id, type, value, label } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: e.target.value,
       })
     );

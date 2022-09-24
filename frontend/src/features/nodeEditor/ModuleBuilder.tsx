@@ -1,5 +1,6 @@
-import { Flex, Heading, useColorModeValue } from '@chakra-ui/react';
-import { useCallback, useEffect } from 'react';
+import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react';
+import _ from 'lodash';
+import { ReactNode, useCallback, useEffect } from 'react';
 import { Connection, Node, NodeProps, useNodes } from 'react-flow-renderer';
 import ImageUploadParameter from './components/ImageUploadParameter';
 import ModuleHandle from './components/ModuleHandle';
@@ -9,15 +10,55 @@ import SliderParameter from './components/SliderParameter';
 import TextareaParameter from './components/TextareaParameter';
 import TextParameter from './components/TextParameter';
 import ToggleParameter from './components/ToggleParameter';
-import { Module } from './types';
+import { Connectable, Module, ModuleParameter } from './types';
+
+const makeParameter = (
+  parameter: ModuleParameter,
+  moduleId: string
+): ReactNode => {
+  const { id, type, label, connectable } = parameter;
+
+  switch (type) {
+    case 'text':
+      return (
+        <TextParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'textarea':
+      return (
+        <TextareaParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'select':
+      return (
+        <SelectParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'slider':
+      return (
+        <SliderParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'number':
+      return (
+        <NumberParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'toggle':
+      return (
+        <ToggleParameter key={id} moduleId={moduleId} parameter={parameter} />
+      );
+    case 'imageUpload':
+      return (
+        <ImageUploadParameter
+          key={id}
+          moduleId={moduleId}
+          parameter={parameter}
+        />
+      );
+  }
+};
 
 function ModuleUIBuilder(props: NodeProps<Module>) {
   const moduleBgColor = useColorModeValue('white', 'gray.800');
   const headerBgColor = useColorModeValue('gray.100', 'gray.700');
   const headerSelectedBgColor = useColorModeValue('blue.100', 'blue.700');
   const moduleSelectedBorderColor = useColorModeValue('blue.200', 'blue.800');
-  const { id, data, selected } = props;
-  const { moduleName, parameters, nodeInputs, nodeOutputs } = data;
 
   const nodes = useNodes();
 
@@ -36,8 +77,8 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
         connection.targetHandle
       ) {
         return (
-          sourceNode.data.nodeOutputs[connection.sourceHandle].kind ===
-          targetNode.data.nodeInputs[connection.targetHandle].kind
+          sourceNode.data.parameters[connection.sourceHandle].type ===
+          targetNode.data.parameters[connection.targetHandle].type
         );
       }
       return false;
@@ -45,9 +86,18 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
     [nodes]
   );
 
-  useEffect(() => {
-    console.log(nodes);
-  }, [nodes]);
+  const { id: moduleId, data, selected } = props;
+  const { moduleName, parameters } = data;
+
+  // const inputs = _.filter(
+  //   parameters,
+  //   (parameter) => parameter.connectable === Connectable.Input
+  // );
+
+  // const outputs = _.filter(
+  //   parameters,
+  //   (parameter) => parameter.connectable === Connectable.Output
+  // );
 
   return (
     <Flex
@@ -70,100 +120,23 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
         <Heading size={'sm'}>{moduleName}</Heading>
       </Flex>
       <Flex direction={'column'} gap={2} cursor={'initial'} p={2}>
-        {(Object.keys(parameters) as Array<keyof typeof parameters>).map(
-          (p, i) => {
-            const parameter = parameters[p];
-            const { kind } = parameter;
-            switch (kind) {
-              case 'text':
-                return (
-                  <TextParameter key={i} moduleId={id} parameter={parameter} />
-                );
-              case 'textarea':
-                return (
-                  <TextareaParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-              case 'select':
-                return (
-                  <SelectParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-              case 'slider':
-                return (
-                  <SliderParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-              case 'number':
-                return (
-                  <NumberParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-              case 'toggle':
-                return (
-                  <ToggleParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-              case 'imageUpload':
-                return (
-                  <ImageUploadParameter
-                    key={i}
-                    moduleId={id}
-                    parameter={parameter}
-                  />
-                );
-            }
-          }
-        )}
-        {nodeInputs &&
-          (Object.keys(nodeInputs) as Array<keyof typeof nodeInputs>).map(
-            (key, i) => {
-              const input = nodeInputs[key];
-              return (
+        {_.map(parameters, (parameter, i) => {
+          const { id, type, label, connectable } = parameter;
+          return (
+            <Box key={i} position={'relative'} width={'100%'}>
+              {makeParameter(parameter, moduleId)}
+              {connectable && (
                 <ModuleHandle
-                  key={i}
-                  type={'target'}
-                  inputOutput={input}
+                  handleType={connectable}
+                  id={id}
+                  type={type}
+                  label={label}
                   isValidConnection={isValidConnection}
-                  offset={`${
-                    (1 / (Object.keys(nodeInputs).length + 1)) * (i + 1) * 100
-                  }%`}
                 />
-              );
-            }
-          )}
-        {nodeOutputs &&
-          (Object.keys(nodeOutputs) as Array<keyof typeof nodeOutputs>).map(
-            (key, i) => {
-              const output = nodeOutputs[key];
-              return (
-                <ModuleHandle
-                  key={i}
-                  type={'source'}
-                  inputOutput={output}
-                  isValidConnection={isValidConnection}
-                  offset={`${
-                    (1 / (Object.keys(nodeOutputs).length + 1)) * (i + 1) * 100
-                  }%`}
-                />
-              );
-            }
-          )}
+              )}
+            </Box>
+          );
+        })}
       </Flex>
     </Flex>
   );

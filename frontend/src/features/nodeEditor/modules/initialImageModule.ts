@@ -1,26 +1,20 @@
-import { Module, ModuleTypes, OutputKinds } from '../types';
+import { Connectable, Module, ModuleTypes } from '../types';
 
 const initialImageModule: Module = {
   moduleType: ModuleTypes.InitialImage,
-  nodeOutputs: {
-    initialImage: {
-      id: 'initialImage',
-      label: 'Image Out',
-      kind: OutputKinds.Image,
-      value: 'image',
-    },
-  },
   moduleName: 'Initial Image',
   parameters: {
     initialImage: {
       id: 'initialImage',
-      kind: 'imageUpload',
+      label: 'Initial Image',
+      type: 'imageUpload',
       value: undefined,
+      connectable: Connectable.Source,
     },
     strength: {
       id: 'strength',
       label: 'Strength',
-      kind: 'slider',
+      type: 'slider',
       value: 0.7,
       min: 0,
       max: 1,

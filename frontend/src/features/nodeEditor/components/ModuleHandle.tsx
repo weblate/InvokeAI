@@ -1,48 +1,49 @@
 import { Tooltip } from '@chakra-ui/react';
 import { CSSProperties } from 'react';
 import { Connection, Handle, Position } from 'react-flow-renderer';
-import { NodeInput, NodeOutput } from '../types';
+import { ModuleParameter } from '../types';
 
-const handleColors = {
-  TEXT: 'green',
-  IMAGE: 'blue',
-};
 
 type ModuleHandleProps = {
-  type: 'source' | 'target';
-  inputOutput: NodeInput | NodeOutput;
+  handleType: 'source' | 'target';
+  id: string;
+  label?: string;
+  type: string;
   isValidConnection: (connection: Connection) => boolean;
-  offset: string;
+  // offset: string;
+  // style: CSSProperties;
 };
 
 const ModuleHandle = ({
+  handleType,
+  id,
+  label,
   type,
-  inputOutput,
   isValidConnection,
-  offset,
+  // offset,
+  // style
 }: ModuleHandleProps) => {
-  const { id, kind, label, value } = inputOutput;
 
   const style: CSSProperties = {
     width: '1rem',
     height: '1rem',
-    background: handleColors[kind],
+    // background: handleColors[type],
   };
 
-  if (type === 'source') {
-    style.bottom = offset;
-    style.right = '-1rem';
+  if (handleType === 'source') {
+    // style.bottom = offset;
+    style.right = '-1.2rem';
   } else {
-    style.left = '-1rem';
-    style.top = offset;
+    style.left = '-1.2rem';
+    // style.top = offset;
   }
 
-  const position = type === 'source' ? Position.Right : Position.Left;
+  const position = handleType === 'source' ? Position.Right : Position.Left;
 
   return (
     <Tooltip label={label}>
       <Handle
-        type={type}
+        type={handleType}
         position={position}
         id={id}
         style={style}

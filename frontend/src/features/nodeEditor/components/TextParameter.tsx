@@ -8,18 +8,18 @@ import ParameterLabel from './ParameterLabel';
 type TextParameterProps = { moduleId: string; parameter: TextModuleParameter };
 const TextParameter = ({ moduleId, parameter }: TextParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, value, label } = parameter;
+  const { id, value, label } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: e.target.value,
       })
     );
   return (
     <ParameterLabel label={label}>
-      <Input value={value} onChange={handleOnChange} size={'sm'} />
+      <Input value={value} onChange={handleOnChange} size={'sm'} id={id}/>
     </ParameterLabel>
   );
 };

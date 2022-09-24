@@ -16,6 +16,7 @@ import simplePromptModule from './modules/simplePrompt';
 import generateModule from './modules/generateModule';
 import initialImageModule from './modules/initialImageModule';
 import upscaleModule from './modules/upscaleModule';
+import _ from 'lodash';
 
 export type NodeEditorState = {
   nodes: Node[];
@@ -61,23 +62,15 @@ export const nodeEditorSlice = createSlice({
     },
     updateModuleParameterValue: (
       state,
-      action: PayloadAction<{ id: string; parameterName: string; value: any }>
+      action: PayloadAction<{ id: string; parameterId: string; value: any }>
     ) => {
-      const { id, parameterName, value } = action.payload;
+      const { id, parameterId, value } = action.payload;
+      const index = state.nodes.findIndex((n) => n.id === id);
 
-      state.nodes = state.nodes.map((node) => {
-        if (node.id === id) {
-          node.data.parameters = node.data.parameters.map(
-            (p: ModuleParameter) => {
-              if (p.name === parameterName) {
-                p.value = value;
-              }
-              return p;
-            }
-          );
-        }
-        return node;
-      });
+      // Array.prototype.findIndex() returns -1 if not found
+      if (index >= 0) {
+        state.nodes[index].data.parameters[parameterId].value = value;
+      }
     },
     addModule: (
       state,

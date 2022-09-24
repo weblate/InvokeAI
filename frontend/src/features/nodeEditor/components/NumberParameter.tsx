@@ -22,8 +22,8 @@ type NumberParameterProps = {
 const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
   const dispatch = useAppDispatch();
   const {
-    name,
-    kind,
+    id,
+    type,
     value,
     label,
     min,
@@ -38,7 +38,7 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: Number(v),
       })
     );
@@ -47,7 +47,7 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: randomInt(min, max),
       })
     );

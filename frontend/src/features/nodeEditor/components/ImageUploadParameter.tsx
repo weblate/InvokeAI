@@ -14,13 +14,13 @@ const ImageUploadParameter = ({
   parameter,
 }: ImageUploadParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, label, kind, value } = parameter;
+  const { id, label, type, value } = parameter;
 
   const handleOnChange = (v: string | number) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: Number(v),
       })
     );

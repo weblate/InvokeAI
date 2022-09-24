@@ -5,45 +5,44 @@ import {
   SAMPLERS,
   WIDTHS,
 } from '../../../app/constants';
-import { InputKinds, Module, ModuleTypes, OutputKinds } from '../types';
+import { Connectable, Module, ModuleTypes } from '../types';
 
 const generateModule: Module = {
   moduleType: ModuleTypes.Generate,
-  nodeInputs: {
-    prompt: {
-      id: 'prompt',
-      label: 'Prompt In',
-      kind: InputKinds.Text,
-      value: 'prompt',
+  moduleName: 'Generate',
+  parameters: {
+    inputPrompt: {
+      id: 'inputPrompt',
+      label: 'Prompt',
+      type: 'text',
+      value: '',
+      connectable: Connectable.Target,
     },
     initialImage: {
       id: 'initialImage',
-      label: 'Initial Image In',
-      kind: InputKinds.Image,
-      value: 'image',
+      label: 'Initial Image',
+      type: 'image',
+      value: '',
+      connectable: Connectable.Target,
     },
-  },
-  nodeOutputs: {
-    image: {
-      id: 'image',
-      label: 'Image Out',
-      kind: OutputKinds.Image,
-      value: 'image',
+    outputImage: {
+      id: 'outputImage',
+      label: 'Output Image',
+      type: 'image',
+      value: '',
+      connectable: Connectable.Source,
     },
-  },
-  moduleName: 'Generate',
-  parameters: {
     sampler: {
       id: 'sampler',
       label: 'Sampler',
-      kind: 'select',
+      type: 'select',
       value: 'k_lms',
       options: SAMPLERS,
     },
     seed: {
       id: 'seed',
       label: 'Seed',
-      kind: 'number',
+      type: 'number',
       min: NUMPY_RAND_MIN,
       max: NUMPY_RAND_MAX,
       step: 1,
@@ -53,7 +52,7 @@ const generateModule: Module = {
     steps: {
       id: 'steps',
       label: 'Steps',
-      kind: 'slider',
+      type: 'slider',
       value: 32,
       min: 0,
       max: 200,
@@ -64,7 +63,7 @@ const generateModule: Module = {
     cfgScale: {
       id: 'cfgScale',
       label: 'CFG Scale',
-      kind: 'slider',
+      type: 'slider',
       value: 7.5,
       min: 0,
       max: 10,
@@ -74,21 +73,21 @@ const generateModule: Module = {
     width: {
       id: 'width',
       label: 'Width',
-      kind: 'select',
+      type: 'select',
       value: 512,
       options: WIDTHS,
     },
     height: {
       id: 'height',
       label: 'Height',
-      kind: 'select',
+      type: 'select',
       value: 512,
       options: HEIGHTS,
     },
     seamless: {
       id: 'seamless',
       label: 'Seamless',
-      kind: 'toggle',
+      type: 'toggle',
       value: false,
     },
   },

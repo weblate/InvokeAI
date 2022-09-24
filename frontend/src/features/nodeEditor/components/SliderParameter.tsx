@@ -20,8 +20,8 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
   const dispatch = useAppDispatch();
 
   const {
-    name,
-    kind,
+    id,
+    type,
     value,
     label,
     min,
@@ -34,7 +34,7 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value,
       })
     );
@@ -43,7 +43,7 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: Number(value),
       })
     );

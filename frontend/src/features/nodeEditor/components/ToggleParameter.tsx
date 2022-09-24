@@ -12,12 +12,12 @@ type ToggleParameterProps = {
 
 const ToggleParameter = ({ moduleId, parameter }: ToggleParameterProps) => {
   const dispatch = useAppDispatch();
-  const { name, kind, value, label } = parameter;
+  const { id, type, value, label } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterName: name,
+        parameterId: id,
         value: e.target.checked,
       })
     );

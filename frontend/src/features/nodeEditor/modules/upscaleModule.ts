@@ -1,36 +1,34 @@
-import { InputKinds, Module, ModuleTypes, OutputKinds } from '../types';
+import { Connectable, Module, ModuleTypes } from '../types';
 
 const upscaleModule: Module = {
   moduleType: ModuleTypes.Upscale,
-  nodeInputs: {
-    image: {
-      id: 'image',
-      label: 'Image In',
-      kind: InputKinds.Image,
-      value: 'image',
-    },
-  },
-  nodeOutputs: {
-      image: {
-        id: 'image',
-        label: 'Image Out',
-        kind: OutputKinds.Image,
-        value: 'image',
-      },
-    },
   moduleName: 'Upscale Image',
   parameters: {
+    inputImage: {
+      id: 'inputImage',
+      label: 'Image In',
+      type: 'image',
+      value: '',
+      connectable: Connectable.Target,
+    },
+    outputImage: {
+      id: 'outputImage',
+      label: 'Image Out',
+      type: 'image',
+      value: '',
+      connectable: Connectable.Source,
+    },
     scale: {
       id: 'scale',
       label: 'Scale',
-      kind: 'select',
+      type: 'select',
       value: 4,
       options: [2, 4],
     },
     strength: {
       id: 'strength',
       label: 'Strength',
-      kind: 'slider',
+      type: 'slider',
       value: 0.7,
       min: 0,
       max: 1,
