@@ -91,7 +91,10 @@ function Flow() {
     'rgba(0,0,0,0.2)'
   );
 
-  const miniMapNodeColor = useColorModeValue('rgba(0,0,0,0.1)', 'rgba(255,255,255,0.1)');
+  const miniMapNodeColor = useColorModeValue(
+    'rgba(0,0,0,0.1)',
+    'rgba(255,255,255,0.1)'
+  );
 
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>
@@ -106,6 +109,12 @@ function Flow() {
           Generate
         </Button>
         <Button onClick={() => handleClickAddModule('upscale')}>Upscale</Button>
+        <Button onClick={() => handleClickAddModule('showImage')}>
+          Show Image
+        </Button>
+        <Button onClick={() => handleClickAddModule('loadImage')}>
+          Load Image
+        </Button>
       </Flex>
       <Box height={'calc(100vh - 100px)'} width={'100vw'}>
         <ReactFlowProvider>

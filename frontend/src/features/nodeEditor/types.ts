@@ -1,106 +1,60 @@
-export enum InputTypes {
-  Image = 'IMAGE',
-  Text = 'TEXT',
-}
-
-export enum OutputTypes {
-  Image = 'IMAGE',
-  Text = 'TEXT',
-}
-
-export enum ModuleTypes {
-  Generate = 'GENERATE',
-  Upscale = 'UPSCALE',
-  FaceCorrection = 'FACE_CORRECTION',
-  SimplePrompt = 'SIMPLE_PROMPT',
-  InitialImage = 'INITIAL_IMAGE',
-}
-
-export enum Connectable {
-  Target = 'target',
-  Source = 'source',
-}
-
-export enum ConnectableType {
-  Text = 'text',
-  Image = 'image',
-}
-
-export declare type PromptItem = {
-  prompt: string;
-  weight: number;
-};
-
-export declare type Prompt = Array<PromptItem>;
-
-export declare type SeedWeightPair = {
-  seed: number;
-  weight: number;
-};
-
-export declare type SeedWeights = Array<SeedWeightPair>;
-
-// export declare type NodeInputName = string;
-// export declare type NodeOutputName = string;
-// export declare type NodeInputValue = {
-//   type: InputTypes;
-//   value: any;
-// };
-// export declare type NodeOutputValue = {
-//   type: OutputTypes;
-//   value: any;
+// export declare type PromptItem = {
+//   prompt: string;
+//   weight: number;
 // };
 
-export declare type ModuleParameterName = string;
-export declare type ModuleParameterValue = any;
+// export declare type Prompt = Array<PromptItem>;
 
-export declare type ModuleParameterType =
+// export declare type SeedWeightPair = {
+//   seed: number;
+//   weight: number;
+// };
+
+// export declare type SeedWeights = Array<SeedWeightPair>;
+
+export declare type UIType =
   | 'text'
   | 'textarea'
   | 'slider'
   | 'select'
   | 'toggle'
-  | 'number'
-  | 'imageUpload'
+  | 'numberInput'
   | 'image';
+
+export declare type DataType = 'string' | 'number' | 'image';
 
 export declare type GenericModuleParameter = {
   id: string;
   label: string;
-  connectable?: Connectable;
+  connectable?: ['target' | 'source', ...Array<'target' | 'source'>];
+  labelPosition?: 'top' | 'right' | 'bottom' | 'left';
+  optional?: boolean;
+  dependsOn?: string;
 };
 
-// export declare type NodeInputParameter = GenericModuleParameter & {
-//   label: string;
-//   type: InputTypes;
-//   isInput: boolean;
-//   value: string;
-// };
-
-// export declare type NodeOutputParameter = GenericModuleParameter & {
-//   label: string;
-//   type: OutputTypes;
-//   isOutput: boolean;
-//   value: string;
-// };
-
 export declare type ImageModuleParameter = GenericModuleParameter & {
-  type: 'image';
+  uiType: 'image';
+  dataType: 'image';
   value: string;
 };
 
 export declare type SliderModuleParameter = GenericModuleParameter & {
-  type: 'slider';
+  uiType: 'slider';
+  dataType: 'number';
   value: number;
   min: number;
   max: number;
   step: number;
-  numberInputMax?: number;
   withNumberInput?: boolean;
+  numberInputMin?: number;
+  numberInputMax?: number;
+  exclusiveMinimum?: boolean;
+  exclusiveMaximum?: boolean;
 };
 
 export declare type NumberModuleParameter = GenericModuleParameter & {
-  type: 'number';
+  uiType: 'numberInput';
+  dataType: 'number';
   value: number;
   min: number;
   max: number;
@@ -108,50 +62,48 @@ export declare type NumberModuleParameter = GenericModuleParameter & {
   withRandomizeButton?: boolean;
   withRandomizeIconButton?: boolean;
   withSteppers?: boolean;
-};
-
-export declare type TextareaModuleParameter = GenericModuleParameter & {
-  type: 'textarea';
-  value: string;
-};
-
-export declare type TextModuleParameter = GenericModuleParameter & {
-  type: 'text';
-  value: string;
+  exclusiveMinimum?: boolean;
+  exclusiveMaximum?: boolean;
 };
 
 export declare type SelectModuleParameter = GenericModuleParameter & {
-  type: 'select';
+  uiType: 'select';
+  dataType: 'string' | 'number';
   value: string | number;
   options: Array<string | number>;
 };
 
+export declare type TextareaModuleParameter = GenericModuleParameter & {
+  uiType: 'textarea';
+  dataType: 'string';
+  value: string;
+};
+
+export declare type TextModuleParameter = GenericModuleParameter & {
+  uiType: 'text';
+  dataType: 'string';
+  value: string;
+};
+
 export declare type ToggleModuleParameter = GenericModuleParameter & {
-  type: 'toggle';
+  uiType: 'toggle';
+  dataType: 'boolean';
   value: boolean;
 };
 
-export declare type ImageUploadModuleParameter = GenericModuleParameter & {
-  type: 'imageUpload';
-  value: File | undefined;
-};
-
 export declare type ModuleParameter =
+  | ImageModuleParameter
+  | NumberModuleParameter
+  | SelectModuleParameter
   | SliderModuleParameter
   | TextareaModuleParameter
   | TextModuleParameter
-  | SelectModuleParameter
-  | ToggleModuleParameter
-  | NumberModuleParameter
-  | ImageUploadModuleParameter
-  | ImageModuleParameter;
-
+  | ToggleModuleParameter;
 
 export declare type Module = {
-  moduleType: ModuleTypes;
-  // nodeInputs?: Record<string, NodeInput>;
-  // nodeOutputs?: Record<string, NodeOutput>;
-  moduleName: string;
+  moduleId: string;
+  moduleType: string;
+  moduleLabel: string;
   parameters: Record<string, ModuleParameter>;
 };
 

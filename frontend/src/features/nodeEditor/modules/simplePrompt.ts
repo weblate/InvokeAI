@@ -1,17 +1,23 @@
-import { Connectable, Module, ModuleTypes } from '../types';
+import { Module } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
-const simplePromptModule: Module = {
-  moduleType: ModuleTypes.SimplePrompt,
-  moduleName: 'Simple Prompt',
-  parameters: {
-    prompt: {
-      id: 'prompt',
-      type: 'textarea',
-      label: 'Prompt',
-      value: 'This is a test prompt',
-      connectable: Connectable.Source,
+const makeSimplePromptModule = (): Module => {
+  return {
+    moduleId: uuidv4(),
+    moduleType: 'simplePrompt',
+    moduleLabel: 'Simple Prompt',
+    parameters: {
+      prompt: {
+        id: 'prompt',
+        label: 'Prompt',
+        uiType: 'textarea',
+        dataType: 'string',
+        value: 'This is a test prompt',
+        connectable: ['source'],
+        labelPosition: 'top',
+      },
     },
-  },
+  };
 };
 
-export default simplePromptModule;
+export default makeSimplePromptModule;

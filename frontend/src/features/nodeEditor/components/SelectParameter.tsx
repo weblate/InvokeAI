@@ -8,20 +8,25 @@ import ParameterLabel from './ParameterLabel';
 type SelectParameterProps = {
   moduleId: string;
   parameter: SelectModuleParameter;
+  isDisabled?: boolean;
 };
-const SelectParameter = ({ moduleId, parameter }: SelectParameterProps) => {
+const SelectParameter = ({
+  moduleId,
+  parameter,
+  isDisabled,
+}: SelectParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, type, value, label, options } = parameter;
+  const { id, value, options } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
         parameterId: id,
-        value: Number(e.target.value),
+        value: e.target.value,
       })
     );
   return (
-    <ParameterLabel label={label}>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
       <Select value={value} onChange={handleOnChange} size={'sm'}>
         {options.map((opt, i) => (
           <option key={i} value={opt}>

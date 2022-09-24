@@ -17,13 +17,17 @@ import ParameterLabel from './ParameterLabel';
 type NumberParameterProps = {
   moduleId: string;
   parameter: NumberModuleParameter;
+  isDisabled?: boolean;
 };
 
-const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
+const NumberParameter = ({
+  moduleId,
+  parameter,
+  isDisabled,
+}: NumberParameterProps) => {
   const dispatch = useAppDispatch();
   const {
     id,
-    type,
     value,
     label,
     min,
@@ -54,7 +58,7 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
   };
 
   return (
-    <ParameterLabel label={label}>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
       <NumberInput
         onChange={handleOnChange}
         min={min}

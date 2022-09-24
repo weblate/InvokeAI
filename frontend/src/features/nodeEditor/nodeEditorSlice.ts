@@ -11,12 +11,13 @@ import {
   NodeChange,
   updateEdge,
 } from 'react-flow-renderer';
-import { ModuleParameter } from './types';
-import simplePromptModule from './modules/simplePrompt';
-import generateModule from './modules/generateModule';
-import initialImageModule from './modules/initialImageModule';
-import upscaleModule from './modules/upscaleModule';
 import _ from 'lodash';
+import makeSimplePromptModule from './modules/simplePrompt';
+import makeGenerateModule from './modules/generateModule';
+import makeInitialImageModule from './modules/initialImageModule';
+import makeUpscaleModule from './modules/upscaleModule';
+import makeShowImageModule from './modules/showImage';
+import makeLoadImageModule from './modules/loadImage';
 
 export type NodeEditorState = {
   nodes: Node[];
@@ -86,16 +87,22 @@ export const nodeEditorSlice = createSlice({
       };
       switch (moduleType) {
         case 'simplePrompt':
-          node.data = simplePromptModule;
+          node.data = makeSimplePromptModule();
           break;
         case 'generate':
-          node.data = generateModule;
+          node.data = makeGenerateModule();
           break;
         case 'initialImage':
-          node.data = initialImageModule;
+          node.data = makeInitialImageModule();
           break;
         case 'upscale':
-          node.data = upscaleModule;
+          node.data = makeUpscaleModule();
+          break;
+        case 'showImage':
+          node.data = makeShowImageModule();
+          break;
+        case 'loadImage':
+          node.data = makeLoadImageModule();
           break;
         default:
           return state;

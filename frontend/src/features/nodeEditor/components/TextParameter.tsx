@@ -5,10 +5,11 @@ import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { TextModuleParameter } from '../types';
 import ParameterLabel from './ParameterLabel';
 
-type TextParameterProps = { moduleId: string; parameter: TextModuleParameter };
-const TextParameter = ({ moduleId, parameter }: TextParameterProps) => {
+type TextParameterProps = { moduleId: string; parameter: TextModuleParameter, isDisabled?: boolean };
+
+const TextParameter = ({ moduleId, parameter, isDisabled }: TextParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, label } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -18,8 +19,8 @@ const TextParameter = ({ moduleId, parameter }: TextParameterProps) => {
       })
     );
   return (
-    <ParameterLabel label={label}>
-      <Input value={value} onChange={handleOnChange} size={'sm'} id={id}/>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
+      <Input value={value} onChange={handleOnChange} size={'sm'} id={id} />
     </ParameterLabel>
   );
 };

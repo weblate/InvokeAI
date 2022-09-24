@@ -14,22 +14,14 @@ import ParameterLabel from './ParameterLabel';
 type SliderParameterProps = {
   moduleId: string;
   parameter: SliderModuleParameter;
+  isDisabled?: boolean
 };
 
-const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
+const SliderParameter = ({ moduleId, parameter, isDisabled }: SliderParameterProps) => {
   const dispatch = useAppDispatch();
 
-  const {
-    id,
-    type,
-    value,
-    label,
-    min,
-    max,
-    step,
-    withNumberInput,
-    numberInputMax,
-  } = parameter;
+  const { id, value, label, min, max, step, withNumberInput, numberInputMax } =
+    parameter;
   const handleOnChangeSlider = (value: number) =>
     dispatch(
       updateModuleParameterValue({
@@ -49,7 +41,7 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
     );
 
   return (
-    <ParameterLabel label={label}>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
       <Slider
         aria-label={label}
         value={value}

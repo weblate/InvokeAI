@@ -1,24 +1,60 @@
-import { Flex, FormControl, FormLabel, Text } from '@chakra-ui/react';
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  SystemProps,
+  Text,
+} from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { ModuleParameter } from '../types';
 
 type ParameterLabelProps = {
-  label?: string;
+  parameter: ModuleParameter;
   children: ReactNode;
+  isDisabled?: boolean;
 };
 
-const ParameterLabel = ({ label, children }: ParameterLabelProps) => {
+const directions: Record<string, SystemProps['flexDirection']> = {
+  top: 'column',
+  bottom: 'column-reverse',
+  left: 'row',
+  right: 'row-reverse',
+};
+
+const alignItems: Record<string, SystemProps['alignItems']> = {
+  top: 'start',
+  bottom: 'start',
+  left: 'center',
+  right: 'center',
+};
+
+const ParameterLabel = ({
+  parameter,
+  children,
+  isDisabled = false,
+}: ParameterLabelProps) => {
+  const { label, labelPosition } = parameter;
+
   return (
-    <FormControl>
-      <Flex gap={2} justifyContent={'space-between'} alignItems={'center'}>
-        {label && (
-          <FormLabel marginBottom={0}>
+    <FormControl isDisabled={isDisabled}>
+      {label ? (
+        <FormLabel marginBottom={0} marginInlineEnd={0}>
+          <Flex
+            gap={2}
+            justifyContent={'space-between'}
+            alignItems={labelPosition ? alignItems[labelPosition] : 'center'}
+            direction={labelPosition ? directions[labelPosition] : 'row'}
+            textAlign={'left'}
+          >
             <Text fontSize={'sm'} whiteSpace="nowrap">
               {label}
             </Text>
-          </FormLabel>
-        )}
-        {children}
-      </Flex>
+            {children}
+          </Flex>
+        </FormLabel>
+      ) : (
+        children
+      )}
     </FormControl>
   );
 };

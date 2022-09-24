@@ -8,10 +8,11 @@ import ParameterLabel from './ParameterLabel';
 type TextareaParameterProps = {
   moduleId: string;
   parameter: TextareaModuleParameter;
+  isDisabled?: boolean
 };
-const TextareaParameter = ({ moduleId, parameter }: TextareaParameterProps) => {
+const TextareaParameter = ({ moduleId, parameter, isDisabled }: TextareaParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, type, value, label } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -21,7 +22,7 @@ const TextareaParameter = ({ moduleId, parameter }: TextareaParameterProps) => {
       })
     );
   return (
-    <ParameterLabel label={label}>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
       <Textarea value={value} onChange={handleOnChange} size={'sm'} />
     </ParameterLabel>
   );

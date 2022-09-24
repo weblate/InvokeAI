@@ -6,13 +6,14 @@ import { ToggleModuleParameter } from '../types';
 import ParameterLabel from './ParameterLabel';
 
 type ToggleParameterProps = {
+  isDisabled?: boolean;
   moduleId: string;
   parameter: ToggleModuleParameter;
 };
 
-const ToggleParameter = ({ moduleId, parameter }: ToggleParameterProps) => {
+const ToggleParameter = ({ moduleId, parameter, isDisabled }: ToggleParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, type, value, label } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -22,7 +23,7 @@ const ToggleParameter = ({ moduleId, parameter }: ToggleParameterProps) => {
       })
     );
   return (
-    <ParameterLabel label={label}>
+    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
       <Switch checked={value} onChange={handleOnChange} size={'sm'} />
     </ParameterLabel>
   );
