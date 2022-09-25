@@ -1,3 +1,10 @@
+/*:root {
+  --invoke-ai_string_color: var(--chakra-colors-blue-500);
+  --invoke-ai_image_color: var(--chakra-colors-green-500);
+  --invoke-ai_number_color: var(--chakra-colors-yellow-500);
+  --invoke-ai_handle_size: 1.5rem;
+}*/
+/*
 path.react-flow__edge-path {
   stroke-width: 4;
 }
@@ -5,11 +12,11 @@ path.react-flow__edge-path {
 path.react-flow__connection-path {
   stroke-width: 4;
 }
-
+*//*
 path.react-flow__edge-path:hover {
   stroke-width: 10;
-}
-
+}*/
+/*
 .react-flow__handle-connecting {
   background: #ff6060 !important;
 }
@@ -17,7 +24,47 @@ path.react-flow__edge-path:hover {
 .react-flow__handle-valid {
   background: #55dd99 !important;
 }
-
-.react-flow__node.selected {
-  border-color: red !important;
+*/
+/*
+.invoke-ai__handle {
+  width: calc(var(--invoke-ai_handle_size) / 2);
+  height: var(--invoke-ai_handle_size);
 }
+*//*
+.invoke-ai__handle_source {
+  right: -1.2rem;
+  border-radius: 0 var(--invoke-ai_handle_size) var(--invoke-ai_handle_size) 0;
+}
+
+.invoke-ai__handle_target {
+  left: -1.2rem;
+  border-radius: var(--invoke-ai_handle_size) 0 0 var(--invoke-ai_handle_size);
+}
+*/
+/*.invoke-ai__handle_string {
+  background-color: var(--invoke-ai_string_color);
+}
+
+.invoke-ai__handle_image {
+  background-color: var(--invoke-ai_image_color);
+}
+
+.invoke-ai__handle_number {
+  background-color: var(--invoke-ai_number_color);
+}*/
+
+/*.invoke-ai__edge {
+  stroke-width: 3px;
+}*/
+/*
+.invoke-ai__edge_string path {
+  stroke: var(--invoke-ai_string_color);
+}
+
+.invoke-ai__edge_image path {
+  stroke: var(--invoke-ai_image_color);
+}
+
+.invoke-ai__edge_number path {
+  stroke: var(--invoke-ai_number_color);
+}*/

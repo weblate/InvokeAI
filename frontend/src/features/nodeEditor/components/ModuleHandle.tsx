@@ -7,7 +7,7 @@ type ModuleHandleProps = {
   handleType: 'source' | 'target';
   id: string;
   label?: string;
-  type: string;
+  dataType: string;
   isValidConnection: (connection: Connection) => boolean;
 };
 
@@ -15,20 +15,9 @@ const ModuleHandle = ({
   handleType,
   id,
   label,
-  type,
+  dataType,
   isValidConnection,
 }: ModuleHandleProps) => {
-  const style: CSSProperties = {
-    width: '1rem',
-    height: '1rem',
-  };
-
-  if (handleType === 'source') {
-    style.right = '-1.2rem';
-  } else {
-    style.left = '-1.2rem';
-  }
-
   const position = handleType === 'source' ? Position.Right : Position.Left;
 
   return (
@@ -37,7 +26,7 @@ const ModuleHandle = ({
         type={handleType}
         position={position}
         id={id}
-        style={style}
+        className={`invoke-ai__handle invoke-ai__handle_${handleType} invoke-ai__handle_${dataType}`}
         isValidConnection={isValidConnection}
       />
     </Tooltip>

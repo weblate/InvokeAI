@@ -1,4 +1,12 @@
-import { Box, Button, Flex, useColorModeValue } from '@chakra-ui/react';
+import {
+  Badge,
+  Box,
+  Button,
+  Flex,
+  Icon,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import { AnyAction } from '@reduxjs/toolkit';
 import { useCallback, useRef } from 'react';
 import ReactFlow, {
@@ -22,6 +30,9 @@ import {
   setEdges,
 } from './nodeEditorSlice';
 import { v4 as uuidv4 } from 'uuid';
+import Logger from './Logger';
+import { FaCircle } from 'react-icons/fa';
+import Legend from './Legend';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -98,7 +109,7 @@ function Flow() {
 
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>
-      <Flex gap={2}>
+      <Flex gap={2} alignItems={'center'}>
         <Button onClick={() => handleClickAddModule('simplePrompt')}>
           Simple Prompt
         </Button>
@@ -115,30 +126,40 @@ function Flow() {
         <Button onClick={() => handleClickAddModule('loadImage')}>
           Load Image
         </Button>
+        <Legend />
       </Flex>
-      <Box height={'calc(100vh - 100px)'} width={'100vw'}>
-        <ReactFlowProvider>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={handleOnNodesChange}
-            onEdgesChange={handleOnEdgesChange}
-            onEdgeUpdate={handleOnEdgeUpdate}
-            onConnect={handleOnConnect}
-            nodeTypes={nodeTypes}
-            onEdgeUpdateStart={handleOnEdgeUpdateStart}
-            onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
-            defaultZoom={2}
-            fitView
-          />
-          <Controls />
-          <MiniMap
-            style={{ backgroundColor: miniMapBgColor }}
-            maskColor={miniMapMaskColor}
-            nodeColor={miniMapNodeColor}
-          />
-        </ReactFlowProvider>
-      </Box>
+      <ReactFlowProvider>
+        <Flex>
+          <Box height={'calc(100vh - 100px)'} width={'66vw'}>
+            <ReactFlow
+              nodes={nodes}
+              edges={edges}
+              onNodesChange={handleOnNodesChange}
+              onEdgesChange={handleOnEdgesChange}
+              onEdgeUpdate={handleOnEdgeUpdate}
+              onConnect={handleOnConnect}
+              nodeTypes={nodeTypes}
+              onEdgeUpdateStart={handleOnEdgeUpdateStart}
+              onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
+              defaultZoom={2}
+              fitView
+            />
+          </Box>
+          <Box
+            height={'calc(100vh - 100px)'}
+            width={'34vw'}
+            overflowY={'scroll'}
+          >
+            <Logger />
+          </Box>
+        </Flex>
+        <Controls />
+        <MiniMap
+          style={{ backgroundColor: miniMapBgColor }}
+          maskColor={miniMapMaskColor}
+          nodeColor={miniMapNodeColor}
+        />
+      </ReactFlowProvider>
     </Flex>
   );
 }

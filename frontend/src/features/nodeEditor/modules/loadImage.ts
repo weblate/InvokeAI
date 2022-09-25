@@ -12,7 +12,7 @@ const makeLoadImageModule = (): Module => {
         label: 'Image',
         uiType: 'image',
         dataType: 'image',
-        value: '',
+        value: 'outputs/test.png',
         connectable: ['source'],
         labelPosition: 'top',
       },

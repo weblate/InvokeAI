@@ -52,7 +52,21 @@ export const nodeEditorSlice = createSlice({
     },
     onConnect: (state, action: PayloadAction<{ connection: Connection }>) => {
       const { connection } = action.payload;
-      state.edges = addEdge(connection, state.edges);
+      const sourceNode = state.nodes.find((n) => n.id === connection.source);
+      if (sourceNode) {
+        if (connection.sourceHandle) {
+          const sourceDataType =
+            sourceNode.data.parameters[connection.sourceHandle].dataType;
+
+          state.edges = addEdge(
+            {
+              ...connection,
+              className: `invoke-ai__edge invoke-ai__edge_${sourceDataType}`,
+            },
+            state.edges
+          );
+        }
+      }
     },
     onEdgeUpdate: (
       state,
@@ -79,7 +93,7 @@ export const nodeEditorSlice = createSlice({
     ) => {
       const { uuid, moduleType } = action.payload;
       const node: Node = {
-        id: `${moduleType}_${uuid}`,
+        id: uuid,
         type: 'module',
         dragHandle: '.node-drag-handle',
         position: { x: 0, y: 0 },

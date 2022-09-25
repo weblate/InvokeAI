@@ -1,6 +1,21 @@
 import { extendTheme } from '@chakra-ui/react';
 import type { StyleFunctionProps } from '@chakra-ui/styled-system';
 
+const handleSize = 1.5; // rem
+const handleSizeUnit = 'rem';
+const handleSizeString = `${handleSize}${handleSizeUnit}`;
+const handleWidth = `${handleSize / 2}${handleSizeUnit}`;
+const handleHeight = `${handleSize}${handleSizeUnit}`;
+const handleOffset = `-${handleSize}${handleSizeUnit}`;
+const darkStringColor = 'blue.500';
+const lightStringColor = 'blue.400';
+const darkImageColor = 'green.500';
+const lightImageColor = 'green.400';
+const darkNumberColor = 'yellow.500';
+const lightNumberColor = 'yellow.400';
+const darkBooleanColor = 'pink.500';
+const lightBooleanColor = 'pink.400';
+
 export const theme = extendTheme({
   config: {
     initialColorMode: 'dark',
@@ -47,6 +62,66 @@ export const theme = extendTheme({
           },
         }),
       },
+    },
+  },
+  styles: {
+    global: (props: StyleFunctionProps) => {
+      const { colorMode } = props;
+      return {
+        'react-flow__handle-connecting': {
+          background: colorMode === 'dark' ? 'orange' : 'pink',
+        },
+        '.react-flow__node': {
+          shadow:
+            colorMode === 'dark'
+              ? '2px 2px 19px 0px rgba(255,255,255,0.08)'
+              : '2px 2px 19px 0px rgba(0,0,0,0.08)',
+        },
+        '.invoke-ai__edge path': {
+          strokeWidth: '5px',
+          _hover: {
+            strokeWidth: '7px',
+          },
+        },
+        '.invoke-ai__edge_string path': {
+          stroke: colorMode === 'dark' ? darkStringColor : lightStringColor,
+        },
+        '.invoke-ai__edge_image path': {
+          stroke: colorMode === 'dark' ? darkImageColor : lightImageColor,
+        },
+        '.invoke-ai__edge_number path': {
+          stroke: colorMode === 'dark' ? darkNumberColor : lightNumberColor,
+        },
+        '.invoke-ai__edge_boolean path': {
+          stroke: colorMode === 'dark' ? darkBooleanColor : lightBooleanColor,
+        },
+        '.invoke-ai__handle': {
+          width: handleWidth,
+          height: handleHeight,
+          border: 'none',
+        },
+        '.invoke-ai__handle_source': {
+          right: handleOffset,
+          borderRadius: `0 ${handleSizeString} ${handleSizeString} 0`,
+        },
+        '.invoke-ai__handle_target': {
+          left: handleOffset,
+          borderRadius: `${handleSizeString} 0 0 ${handleSizeString}`,
+        },
+        '.invoke-ai__handle_string': {
+          background: colorMode === 'dark' ? darkStringColor : lightStringColor,
+        },
+        '.invoke-ai__handle_image': {
+          background: colorMode === 'dark' ? darkImageColor : lightImageColor,
+        },
+        '.invoke-ai__handle_number': {
+          background: colorMode === 'dark' ? darkNumberColor : lightNumberColor,
+        },
+        '.invoke-ai__handle_boolean': {
+          background:
+            colorMode === 'dark' ? darkBooleanColor : lightBooleanColor,
+        },
+      };
     },
   },
 });

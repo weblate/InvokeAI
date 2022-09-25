@@ -18,19 +18,19 @@ import TextParameter from './components/TextParameter';
 import ToggleParameter from './components/ToggleParameter';
 import { Module, ModuleParameter } from './types';
 
-type makeParameterProps = {
+type ParameterMakerProps = {
   parameter: ModuleParameter;
   moduleId: string;
   isDisabled: boolean;
 };
 
 // TODO: refactor this whole thing
-const makeParameter = ({
+const ParameterMaker = ({
   parameter,
   moduleId,
   isDisabled,
-}: makeParameterProps): ReactNode => {
-  const { id, uiType } = parameter;
+}: ParameterMakerProps) => {
+  const { id, uiType, connectable } = parameter;
 
   switch (uiType) {
     case 'text':
@@ -96,6 +96,8 @@ const makeParameter = ({
           isDisabled={isDisabled}
         />
       );
+    default:
+      return <></>;
   }
 };
 
@@ -190,18 +192,19 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
             : true;
           return (
             <Box key={i} position={'relative'} width={'100%'}>
-              {makeParameter({
-                parameter,
-                moduleId,
-                isDisabled: !isDependsOnConnected,
-              })}
+              <ParameterMaker
+                parameter={parameter}
+                moduleId={moduleId}
+                isDisabled={!isDependsOnConnected}
+              />
               {connectable &&
-                connectable.map((c) => {
+                connectable.map((c, i) => {
                   return (
                     <ModuleHandle
+                      key={i}
                       handleType={c}
                       id={id}
-                      type={dataType}
+                      dataType={dataType}
                       label={label}
                       isValidConnection={isValidConnection}
                     />

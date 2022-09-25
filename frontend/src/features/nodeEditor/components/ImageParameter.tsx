@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react';
+import { Image, Text } from '@chakra-ui/react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { ImageModuleParameter } from '../types';
@@ -16,7 +16,7 @@ const ImageParameter = ({
   isDisabled,
 }: ImageParameterProps) => {
   // const dispatch = useAppDispatch();
-  const { id, value } = parameter;
+  const { id, value, connectable } = parameter;
 
   // const handleOnChange = (v: string | number) =>
   //   dispatch(
@@ -28,7 +28,12 @@ const ImageParameter = ({
   //   );
   return (
     <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      <Text>[Image Upload UI Placeholder]</Text>
+      {!(connectable && connectable.includes('target')) && (
+        <>
+          <Text>{value}</Text>
+          <Image src={value} maxWidth={'300px'} />
+        </>
+      )}
     </ParameterLabel>
   );
 };

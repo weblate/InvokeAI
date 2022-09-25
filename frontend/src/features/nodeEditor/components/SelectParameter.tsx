@@ -16,7 +16,7 @@ const SelectParameter = ({
   isDisabled,
 }: SelectParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, options } = parameter;
+  const { id, value, options, connectable } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -27,13 +27,15 @@ const SelectParameter = ({
     );
   return (
     <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      <Select value={value} onChange={handleOnChange} size={'sm'}>
-        {options.map((opt, i) => (
-          <option key={i} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </Select>
+      {!(connectable && connectable.includes('target')) && (
+        <Select value={value} onChange={handleOnChange} size={'sm'}>
+          {options.map((opt, i) => (
+            <option key={i} value={opt}>
+              {opt}
+            </option>
+          ))}
+        </Select>
+      )}
     </ParameterLabel>
   );
 };

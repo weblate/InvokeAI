@@ -11,9 +11,13 @@ type ToggleParameterProps = {
   parameter: ToggleModuleParameter;
 };
 
-const ToggleParameter = ({ moduleId, parameter, isDisabled }: ToggleParameterProps) => {
+const ToggleParameter = ({
+  moduleId,
+  parameter,
+  isDisabled,
+}: ToggleParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value } = parameter;
+  const { id, value, connectable } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -24,7 +28,9 @@ const ToggleParameter = ({ moduleId, parameter, isDisabled }: ToggleParameterPro
     );
   return (
     <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      <Switch checked={value} onChange={handleOnChange} size={'sm'} />
+      {!(connectable && connectable.includes('target')) && (
+        <Switch checked={value} onChange={handleOnChange} size={'sm'} />
+      )}
     </ParameterLabel>
   );
 };

@@ -36,6 +36,7 @@ const NumberParameter = ({
     withRandomizeButton,
     withRandomizeIconButton,
     withSteppers,
+    connectable,
   } = parameter;
 
   const handleOnChange = (v: string | number) =>
@@ -59,35 +60,39 @@ const NumberParameter = ({
 
   return (
     <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      <NumberInput
-        onChange={handleOnChange}
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        size={'sm'}
-      >
-        <NumberInputField />
-        {withSteppers && (
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        )}
-      </NumberInput>
-      {withRandomizeButton && (
-        <Button size={'sm'} onClick={handleOnClickRandomize}>
-          Randomize
-        </Button>
-      )}
-      {withRandomizeIconButton && (
-        <IconButton
-          aria-label={`Randomize ${label}`}
-          icon={<FaRandom />}
-          size={'sm'}
-          fontSize={'md'}
-          onClick={handleOnClickRandomize}
-        />
+      {!(connectable && connectable.includes('target')) && (
+        <>
+          <NumberInput
+            onChange={handleOnChange}
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            size={'sm'}
+          >
+            <NumberInputField />
+            {withSteppers && (
+              <NumberInputStepper>
+                <NumberIncrementStepper />
+                <NumberDecrementStepper />
+              </NumberInputStepper>
+            )}
+          </NumberInput>
+          {withRandomizeButton && (
+            <Button size={'sm'} onClick={handleOnClickRandomize}>
+              Randomize
+            </Button>
+          )}
+          {withRandomizeIconButton && (
+            <IconButton
+              aria-label={`Randomize ${label}`}
+              icon={<FaRandom />}
+              size={'sm'}
+              fontSize={'md'}
+              onClick={handleOnClickRandomize}
+            />
+          )}
+        </>
       )}
     </ParameterLabel>
   );

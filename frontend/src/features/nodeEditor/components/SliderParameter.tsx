@@ -14,14 +14,27 @@ import ParameterLabel from './ParameterLabel';
 type SliderParameterProps = {
   moduleId: string;
   parameter: SliderModuleParameter;
-  isDisabled?: boolean
+  isDisabled?: boolean;
 };
 
-const SliderParameter = ({ moduleId, parameter, isDisabled }: SliderParameterProps) => {
+const SliderParameter = ({
+  moduleId,
+  parameter,
+  isDisabled,
+}: SliderParameterProps) => {
   const dispatch = useAppDispatch();
 
-  const { id, value, label, min, max, step, withNumberInput, numberInputMax } =
-    parameter;
+  const {
+    id,
+    value,
+    label,
+    min,
+    max,
+    step,
+    withNumberInput,
+    numberInputMax,
+    connectable,
+  } = parameter;
   const handleOnChangeSlider = (value: number) =>
     dispatch(
       updateModuleParameterValue({
@@ -42,36 +55,40 @@ const SliderParameter = ({ moduleId, parameter, isDisabled }: SliderParameterPro
 
   return (
     <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      <Slider
-        aria-label={label}
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={handleOnChangeSlider}
-        size={'sm'}
-        focusThumbOnChange={false}
-      >
-        <SliderTrack>
-          <SliderFilledTrack />
-        </SliderTrack>
-        <SliderThumb />
-      </Slider>
-      {withNumberInput && (
-        <NumberInput
-          size={'sm'}
-          onChange={handleOnChangeNumberInput}
-          min={min}
-          max={numberInputMax !== undefined ? numberInputMax : max}
-          step={step}
-          value={
-            step < 1
-              ? (Math.round(value * 100) / 100).toFixed(2)
-              : value.toString()
-          }
-        >
-          <NumberInputField paddingInlineStart={2} paddingInlineEnd={2} />
-        </NumberInput>
+      {!(connectable && connectable.includes('target')) && (
+        <>
+          <Slider
+            aria-label={label}
+            value={value}
+            min={min}
+            max={max}
+            step={step}
+            onChange={handleOnChangeSlider}
+            size={'sm'}
+            focusThumbOnChange={false}
+          >
+            <SliderTrack>
+              <SliderFilledTrack />
+            </SliderTrack>
+            <SliderThumb />
+          </Slider>
+          {withNumberInput && (
+            <NumberInput
+              size={'sm'}
+              onChange={handleOnChangeNumberInput}
+              min={min}
+              max={numberInputMax !== undefined ? numberInputMax : max}
+              step={step}
+              value={
+                step < 1
+                  ? (Math.round(value * 100) / 100).toFixed(2)
+                  : value.toString()
+              }
+            >
+              <NumberInputField paddingInlineStart={2} paddingInlineEnd={2} />
+            </NumberInput>
+          )}
+        </>
       )}
     </ParameterLabel>
   );

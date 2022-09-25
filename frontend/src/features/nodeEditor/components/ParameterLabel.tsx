@@ -36,7 +36,7 @@ const ParameterLabel = ({
   const { label, labelPosition } = parameter;
 
   return (
-    <FormControl isDisabled={isDisabled}>
+    <FormControl isDisabled={isDisabled} >
       {label ? (
         <FormLabel marginBottom={0} marginInlineEnd={0}>
           <Flex
