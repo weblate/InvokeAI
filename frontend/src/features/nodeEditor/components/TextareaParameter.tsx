@@ -3,20 +3,14 @@ import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { TextareaModuleParameter } from '../types';
-import ParameterLabel from './ParameterLabel';
 
 type TextareaParameterProps = {
   moduleId: string;
   parameter: TextareaModuleParameter;
-  isDisabled?: boolean;
 };
-const TextareaParameter = ({
-  moduleId,
-  parameter,
-  isDisabled,
-}: TextareaParameterProps) => {
+const TextareaParameter = ({ moduleId, parameter }: TextareaParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, connectable } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -25,13 +19,7 @@ const TextareaParameter = ({
         value: e.target.value,
       })
     );
-  return (
-    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      {!(connectable && connectable.includes('target')) && (
-        <Textarea value={value} onChange={handleOnChange} size={'sm'} />
-      )}
-    </ParameterLabel>
-  );
+  return <Textarea value={value} onChange={handleOnChange} size={'sm'} />;
 };
 
 export default TextareaParameter;

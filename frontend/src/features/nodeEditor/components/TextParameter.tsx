@@ -1,23 +1,17 @@
-import { Input, Text } from '@chakra-ui/react';
+import { Input } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { TextModuleParameter } from '../types';
-import ParameterLabel from './ParameterLabel';
 
 type TextParameterProps = {
   moduleId: string;
   parameter: TextModuleParameter;
-  isDisabled?: boolean;
 };
 
-const TextParameter = ({
-  moduleId,
-  parameter,
-  isDisabled,
-}: TextParameterProps) => {
+const TextParameter = ({ moduleId, parameter }: TextParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, connectable } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -26,13 +20,7 @@ const TextParameter = ({
         value: e.target.value,
       })
     );
-  return (
-    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      {!(connectable && connectable.includes('target')) && (
-        <Input value={value} onChange={handleOnChange} size={'sm'} id={id} />
-      )}
-    </ParameterLabel>
-  );
+  return <Input value={value} onChange={handleOnChange} size={'sm'} id={id} />;
 };
 
 export default TextParameter;

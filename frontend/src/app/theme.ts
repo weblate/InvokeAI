@@ -1,12 +1,17 @@
 import { extendTheme } from '@chakra-ui/react';
 import type { StyleFunctionProps } from '@chakra-ui/styled-system';
 
-const handleSize = 1.5; // rem
+// Size of handles
+const handleSize = 1.5;
 const handleSizeUnit = 'rem';
 const handleSizeString = `${handleSize}${handleSizeUnit}`;
 const handleWidth = `${handleSize / 2}${handleSizeUnit}`;
 const handleHeight = `${handleSize}${handleSizeUnit}`;
+
+// Offset from the edge of the node
 const handleOffset = `-${handleSize}${handleSizeUnit}`;
+
+// Colors for datatypes
 const darkStringColor = 'blue.500';
 const lightStringColor = 'blue.400';
 const darkImageColor = 'green.500';
@@ -15,6 +20,8 @@ const darkNumberColor = 'yellow.500';
 const lightNumberColor = 'yellow.400';
 const darkBooleanColor = 'pink.500';
 const lightBooleanColor = 'pink.400';
+
+// Width of connection lines
 
 export const theme = extendTheme({
   config: {
@@ -68,14 +75,22 @@ export const theme = extendTheme({
     global: (props: StyleFunctionProps) => {
       const { colorMode } = props;
       return {
-        'react-flow__handle-connecting': {
-          background: colorMode === 'dark' ? 'orange' : 'pink',
+        '.react-flow__handle-connecting': {
+          background:
+            colorMode === 'dark' ? 'red !important' : 'red !important',
+        },
+        '.react-flow__handle-valid': {
+          background:
+            colorMode === 'dark' ? 'green !important' : 'green !important',
         },
         '.react-flow__node': {
           shadow:
             colorMode === 'dark'
               ? '2px 2px 19px 0px rgba(255,255,255,0.08)'
               : '2px 2px 19px 0px rgba(0,0,0,0.08)',
+        },
+        'path.react-flow__connection-path': {
+          strokeWidth: '4px',
         },
         '.invoke-ai__edge path': {
           strokeWidth: '5px',
@@ -120,6 +135,9 @@ export const theme = extendTheme({
         '.invoke-ai__handle_boolean': {
           background:
             colorMode === 'dark' ? darkBooleanColor : lightBooleanColor,
+        },
+        '.ivoke-ai__module': {
+          background: colorMode === 'dark' ? 'gray.800' : 'white',
         },
       };
     },

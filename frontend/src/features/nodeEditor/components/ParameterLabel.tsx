@@ -14,6 +14,7 @@ type ParameterLabelProps = {
   isDisabled?: boolean;
 };
 
+// Map label positions to flex-direction
 const directions: Record<string, SystemProps['flexDirection']> = {
   top: 'column',
   bottom: 'column-reverse',
@@ -21,6 +22,7 @@ const directions: Record<string, SystemProps['flexDirection']> = {
   right: 'row-reverse',
 };
 
+// Map label positions to align-items
 const alignItems: Record<string, SystemProps['alignItems']> = {
   top: 'start',
   bottom: 'start',
@@ -36,7 +38,7 @@ const ParameterLabel = ({
   const { label, labelPosition } = parameter;
 
   return (
-    <FormControl isDisabled={isDisabled} >
+    <FormControl isDisabled={isDisabled}>
       {label ? (
         <FormLabel marginBottom={0} marginInlineEnd={0}>
           <Flex

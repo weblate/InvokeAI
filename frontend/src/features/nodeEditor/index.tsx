@@ -1,43 +1,28 @@
-import {
-  Badge,
-  Box,
-  Button,
-  Flex,
-  Icon,
-  Text,
-  useColorModeValue,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, useColorModeValue } from '@chakra-ui/react';
 import { AnyAction } from '@reduxjs/toolkit';
 import { useCallback, useRef } from 'react';
 import ReactFlow, {
-  Connection,
-  Edge,
-  EdgeChange,
-  NodeChange,
-  Controls,
-  MiniMap,
-  ReactFlowProvider,
+    Connection, Controls, Edge,
+    EdgeChange, MiniMap, NodeChange, ReactFlowProvider
 } from 'react-flow-renderer';
-import './flow.css';
-import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
-import ModuleUIBuilder from './ModuleBuilder';
-import {
-  addModule,
-  onConnect,
-  onEdgesChange,
-  onEdgeUpdate,
-  onNodesChange,
-  setEdges,
-} from './nodeEditorSlice';
 import { v4 as uuidv4 } from 'uuid';
-import Logger from './Logger';
-import { FaCircle } from 'react-icons/fa';
+import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 import Legend from './Legend';
+import Logger from './Logger';
+import ModuleUIBuilder from './ModuleUIBuilder';
+import {
+    addModule,
+    onConnect,
+    onEdgesChange,
+    onEdgeUpdate,
+    onNodesChange,
+    setEdges
+} from './nodeEditorSlice';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = {
-  module: ModuleUIBuilder,
+  invocation: ModuleUIBuilder,
 };
 
 function Flow() {
@@ -112,9 +97,6 @@ function Flow() {
       <Flex gap={2} alignItems={'center'}>
         <Button onClick={() => handleClickAddModule('simplePrompt')}>
           Simple Prompt
-        </Button>
-        <Button onClick={() => handleClickAddModule('initialImage')}>
-          Initial Image
         </Button>
         <Button onClick={() => handleClickAddModule('generate')}>
           Generate

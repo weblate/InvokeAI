@@ -1,7 +1,5 @@
 import { Tooltip } from '@chakra-ui/react';
-import { CSSProperties } from 'react';
 import { Connection, Handle, Position } from 'react-flow-renderer';
-import { ModuleParameter } from '../types';
 
 type ModuleHandleProps = {
   handleType: 'source' | 'target';

@@ -3,21 +3,15 @@ import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { ToggleModuleParameter } from '../types';
-import ParameterLabel from './ParameterLabel';
 
 type ToggleParameterProps = {
-  isDisabled?: boolean;
   moduleId: string;
   parameter: ToggleModuleParameter;
 };
 
-const ToggleParameter = ({
-  moduleId,
-  parameter,
-  isDisabled,
-}: ToggleParameterProps) => {
+const ToggleParameter = ({ moduleId, parameter }: ToggleParameterProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, connectable } = parameter;
+  const { id, value } = parameter;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
@@ -26,13 +20,7 @@ const ToggleParameter = ({
         value: e.target.checked,
       })
     );
-  return (
-    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      {!(connectable && connectable.includes('target')) && (
-        <Switch checked={value} onChange={handleOnChange} size={'sm'} />
-      )}
-    </ParameterLabel>
-  );
+  return <Switch checked={value} onChange={handleOnChange} size={'sm'} />;
 };
 
 export default ToggleParameter;

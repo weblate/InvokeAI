@@ -14,7 +14,6 @@ import {
 import _ from 'lodash';
 import makeSimplePromptModule from './modules/simplePrompt';
 import makeGenerateModule from './modules/generateModule';
-import makeInitialImageModule from './modules/initialImageModule';
 import makeUpscaleModule from './modules/upscaleModule';
 import makeShowImageModule from './modules/showImage';
 import makeLoadImageModule from './modules/loadImage';
@@ -92,36 +91,35 @@ export const nodeEditorSlice = createSlice({
       action: PayloadAction<{ uuid: string; moduleType: string }>
     ) => {
       const { uuid, moduleType } = action.payload;
-      const node: Node = {
-        id: uuid,
-        type: 'module',
-        dragHandle: '.node-drag-handle',
-        position: { x: 0, y: 0 },
-        data: undefined,
-      };
-      switch (moduleType) {
-        case 'simplePrompt':
-          node.data = makeSimplePromptModule();
-          break;
-        case 'generate':
-          node.data = makeGenerateModule();
-          break;
-        case 'initialImage':
-          node.data = makeInitialImageModule();
-          break;
-        case 'upscale':
-          node.data = makeUpscaleModule();
-          break;
-        case 'showImage':
-          node.data = makeShowImageModule();
-          break;
-        case 'loadImage':
-          node.data = makeLoadImageModule();
-          break;
-        default:
-          return state;
+
+      const data = (() => {
+        switch (moduleType) {
+          case 'simplePrompt':
+            return makeSimplePromptModule();
+          case 'generate':
+            return makeGenerateModule();
+          case 'upscale':
+            return makeUpscaleModule();
+          case 'showImage':
+            return makeShowImageModule();
+          case 'loadImage':
+            return makeLoadImageModule();
+          default:
+            return false;
+        }
+      })();
+
+      if (data) {
+        const node: Node = {
+          id: uuid,
+          type: 'invocation',
+          dragHandle: '.node-drag-handle',
+          position: { x: 0, y: 0 },
+          data,
+        };
+
+        state.nodes.push(node);
       }
-      state.nodes.push(node);
     },
   },
 });

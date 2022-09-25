@@ -12,19 +12,13 @@ import { useAppDispatch } from '../../../app/store';
 import randomInt from '../../../common/util/randomInt';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
 import { NumberModuleParameter } from '../types';
-import ParameterLabel from './ParameterLabel';
 
 type NumberParameterProps = {
   moduleId: string;
   parameter: NumberModuleParameter;
-  isDisabled?: boolean;
 };
 
-const NumberParameter = ({
-  moduleId,
-  parameter,
-  isDisabled,
-}: NumberParameterProps) => {
+const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
   const dispatch = useAppDispatch();
   const {
     id,
@@ -36,7 +30,6 @@ const NumberParameter = ({
     withRandomizeButton,
     withRandomizeIconButton,
     withSteppers,
-    connectable,
   } = parameter;
 
   const handleOnChange = (v: string | number) =>
@@ -59,42 +52,38 @@ const NumberParameter = ({
   };
 
   return (
-    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      {!(connectable && connectable.includes('target')) && (
-        <>
-          <NumberInput
-            onChange={handleOnChange}
-            min={min}
-            max={max}
-            step={step}
-            value={value}
-            size={'sm'}
-          >
-            <NumberInputField />
-            {withSteppers && (
-              <NumberInputStepper>
-                <NumberIncrementStepper />
-                <NumberDecrementStepper />
-              </NumberInputStepper>
-            )}
-          </NumberInput>
-          {withRandomizeButton && (
-            <Button size={'sm'} onClick={handleOnClickRandomize}>
-              Randomize
-            </Button>
-          )}
-          {withRandomizeIconButton && (
-            <IconButton
-              aria-label={`Randomize ${label}`}
-              icon={<FaRandom />}
-              size={'sm'}
-              fontSize={'md'}
-              onClick={handleOnClickRandomize}
-            />
-          )}
-        </>
+    <>
+      <NumberInput
+        onChange={handleOnChange}
+        min={min}
+        max={max}
+        step={step}
+        value={value}
+        size={'sm'}
+      >
+        <NumberInputField />
+        {withSteppers && (
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        )}
+      </NumberInput>
+      {withRandomizeButton && (
+        <Button size={'sm'} onClick={handleOnClickRandomize}>
+          Randomize
+        </Button>
       )}
-    </ParameterLabel>
+      {withRandomizeIconButton && (
+        <IconButton
+          aria-label={`Randomize ${label}`}
+          icon={<FaRandom />}
+          size={'sm'}
+          fontSize={'md'}
+          onClick={handleOnClickRandomize}
+        />
+      )}
+    </>
   );
 };
 

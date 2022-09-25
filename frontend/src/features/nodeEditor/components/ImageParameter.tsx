@@ -7,14 +7,9 @@ import ParameterLabel from './ParameterLabel';
 type ImageParameterProps = {
   moduleId: string;
   parameter: ImageModuleParameter;
-  isDisabled: boolean;
 };
 
-const ImageParameter = ({
-  moduleId,
-  parameter,
-  isDisabled,
-}: ImageParameterProps) => {
+const ImageParameter = ({ moduleId, parameter }: ImageParameterProps) => {
   // const dispatch = useAppDispatch();
   const { id, value, connectable } = parameter;
 
@@ -27,14 +22,10 @@ const ImageParameter = ({
   //     })
   //   );
   return (
-    <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-      {!(connectable && connectable.includes('target')) && (
-        <>
-          <Text>{value}</Text>
-          <Image src={value} maxWidth={'300px'} />
-        </>
-      )}
-    </ParameterLabel>
+    <>
+      <Text>{value}</Text>
+      <Image src={value} maxWidth={'300px'} />
+    </>
   );
 };
 
