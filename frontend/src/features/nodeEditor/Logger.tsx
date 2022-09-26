@@ -28,7 +28,7 @@ const Logger = () => {
 
   const formattedNodes = nodes.map((node: Node) => {
     let nodeType = '';
-    if (node.data.moduleType === 'generateModule') {
+    if (node.data.moduleType === 'generate') {
       if (
         edges.find(
           (edge: Edge) =>

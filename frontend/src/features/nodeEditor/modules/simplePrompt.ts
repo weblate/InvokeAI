@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const makeSimplePromptModule = (): Module => {
   return {
     moduleId: uuidv4(),
-    moduleType: 'simplePrompt',
+    moduleType: 'simple_prompt',
     moduleLabel: 'Simple Prompt',
     parameters: {
       prompt: {

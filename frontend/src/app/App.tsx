@@ -12,6 +12,7 @@ import Loading from '../Loading';
 import { useAppDispatch } from './store';
 import { requestAllImages, requestSystemConfig } from './socketio/actions';
 import Flow from '../features/nodeEditor';
+import { ReactFlowProvider } from 'react-flow-renderer';
 
 const App = () => {
   const dispatch = useAppDispatch();
@@ -25,10 +26,10 @@ const App = () => {
   }, [dispatch]);
 
   return isReady ? (
-    <>
+    <ReactFlowProvider>
       <SiteHeader />
       <Flow />
-    </>
+    </ReactFlowProvider>
   ) : (
     <Loading />
   );

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const makeUpscaleModule = (): Module => {
   return {
     moduleId: uuidv4(),
-    moduleType: 'upscaleModule',
+    moduleType: 'upscale',
     moduleLabel: 'Upscale Image',
     parameters: {
       inputImage: {
@@ -15,10 +15,9 @@ const makeUpscaleModule = (): Module => {
         value: '',
         connectable: ['target'],
       },
-
-      scale: {
-        id: 'scale',
-        label: 'Scale',
+      level: {
+        id: 'level',
+        label: 'Level',
         uiType: 'select',
         dataType: 'number',
         value: 4,

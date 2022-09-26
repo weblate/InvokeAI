@@ -11,7 +11,7 @@ import { v4 as uuidv4 } from 'uuid';
 const makeGenerateModule = (): Module => {
   return {
     moduleId: uuidv4(),
-    moduleType: 'generateModule',
+    moduleType: 'generate',
     moduleLabel: 'Generate',
     parameters: {
       prompt: {
@@ -22,8 +22,8 @@ const makeGenerateModule = (): Module => {
         value: '',
         connectable: ['target'],
       },
-      initialImage: {
-        id: 'initialImage',
+      input_image: {
+        id: 'input_image',
         label: 'Initial image',
         uiType: 'image',
         dataType: 'image',
@@ -40,11 +40,11 @@ const makeGenerateModule = (): Module => {
         max: 1,
         value: 0.75,
         step: 0.01,
-        dependsOn: 'initialImage',
+        dependsOn: 'input_image',
         withNumberInput: true,
       },
-      sampler: {
-        id: 'sampler',
+      sampler_name: {
+        id: 'sampler_name',
         label: 'Sampler',
         uiType: 'select',
         dataType: 'string',
@@ -74,8 +74,8 @@ const makeGenerateModule = (): Module => {
         withNumberInput: true,
         numberInputMax: Infinity,
       },
-      cfgScale: {
-        id: 'cfgScale',
+      cfg_scale: {
+        id: 'cfg_scale',
         label: 'CFG Scale',
         uiType: 'slider',
         dataType: 'number',
@@ -109,8 +109,8 @@ const makeGenerateModule = (): Module => {
         dataType: 'boolean',
         value: false,
       },
-      outputImage: {
-        id: 'outputImage',
+      output_image: {
+        id: 'output_image',
         label: 'Output image',
         uiType: 'image',
         dataType: 'image',

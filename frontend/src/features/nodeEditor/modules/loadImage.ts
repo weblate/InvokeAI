@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 const makeLoadImageModule = (): Module => {
   return {
     moduleId: uuidv4(),
-    moduleType: 'loadImage',
+    moduleType: 'load_image',
     moduleLabel: 'Load Image',
     parameters: {
       image: {

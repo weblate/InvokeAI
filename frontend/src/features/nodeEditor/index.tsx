@@ -1,22 +1,31 @@
 import { Box, Button, Flex, useColorModeValue } from '@chakra-ui/react';
 import { AnyAction } from '@reduxjs/toolkit';
-import { useCallback, useRef } from 'react';
+import _ from 'lodash';
+import { useCallback, useEffect, useRef } from 'react';
 import ReactFlow, {
-    Connection, Controls, Edge,
-    EdgeChange, MiniMap, NodeChange, ReactFlowProvider
+  Connection,
+  Controls,
+  Edge,
+  EdgeChange,
+  MiniMap,
+  Node,
+  NodeChange,
+  ReactFlowProvider,
+  useReactFlow,
 } from 'react-flow-renderer';
+import SwaggerParser from 'swagger-parser';
 import { v4 as uuidv4 } from 'uuid';
 import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 import Legend from './Legend';
 import Logger from './Logger';
 import ModuleUIBuilder from './ModuleUIBuilder';
 import {
-    addModule,
-    onConnect,
-    onEdgesChange,
-    onEdgeUpdate,
-    onNodesChange,
-    setEdges
+  addModule,
+  onConnect,
+  onEdgesChange,
+  onEdgeUpdate,
+  onNodesChange,
+  setEdges,
 } from './nodeEditorSlice';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
@@ -92,6 +101,95 @@ function Flow() {
     'rgba(255,255,255,0.1)'
   );
 
+  const flow = useReactFlow();
+
+  useEffect(() => {
+    const api = SwaggerParser.dereference(
+      'http://0.0.0.0:9090/openapi.json',
+      (err, api) => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log(api);
+        }
+      }
+    );
+  }, []);
+
+  const handleClickProcess = useCallback(() => {
+    const nodes = flow.getNodes();
+    const edges = flow.getEdges();
+
+    const formattedNodes = nodes.map((node: Node) => {
+      let nodeType = '';
+      if (node.data.moduleType === 'generate') {
+        if (
+          edges.find(
+            (edge: Edge) =>
+              edge.target === node.id && edge.targetHandle === 'input_image'
+          )
+        ) {
+          nodeType = 'img2img';
+        } else {
+          nodeType = 'txt2img';
+        }
+      } else {
+        nodeType = node.data.moduleType;
+      }
+
+      const parameters = _.reduce(
+        node.data.parameters,
+        (acc: Record<string, any>, curr: Record<string, any>) => {
+          if (!(curr.connectable && curr.connectable.includes('target'))) {
+            acc[curr.id] = curr.value;
+          }
+          return acc;
+        },
+        {}
+      );
+      return {
+        id: node.id,
+        type: nodeType,
+        ...parameters,
+      };
+    });
+
+    const formattedEdges = edges.map((edge: Edge) => {
+      return {
+        from_node: {
+          id: edge.source,
+          field: edge.sourceHandle,
+        },
+        to_node: {
+          id: edge.target,
+          field: edge.targetHandle,
+        },
+      };
+    });
+
+    const data = {
+      nodes: formattedNodes,
+      links: formattedEdges,
+    };
+
+    console.log(data);
+
+    fetch('http://0.0.0.0:9090/api/v1/invocations/', {
+      method: 'POST', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, [flow]);
+
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>
       <Flex gap={2} alignItems={'center'}>
@@ -109,39 +207,34 @@ function Flow() {
           Load Image
         </Button>
         <Legend />
+        <Button onClick={handleClickProcess}>Process</Button>
       </Flex>
-      <ReactFlowProvider>
-        <Flex>
-          <Box height={'calc(100vh - 100px)'} width={'66vw'}>
-            <ReactFlow
-              nodes={nodes}
-              edges={edges}
-              onNodesChange={handleOnNodesChange}
-              onEdgesChange={handleOnEdgesChange}
-              onEdgeUpdate={handleOnEdgeUpdate}
-              onConnect={handleOnConnect}
-              nodeTypes={nodeTypes}
-              onEdgeUpdateStart={handleOnEdgeUpdateStart}
-              onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
-              defaultZoom={2}
-              fitView
-            />
-          </Box>
-          <Box
-            height={'calc(100vh - 100px)'}
-            width={'34vw'}
-            overflowY={'scroll'}
-          >
-            <Logger />
-          </Box>
-        </Flex>
-        <Controls />
-        <MiniMap
-          style={{ backgroundColor: miniMapBgColor }}
-          maskColor={miniMapMaskColor}
-          nodeColor={miniMapNodeColor}
-        />
-      </ReactFlowProvider>
+      <Flex>
+        <Box height={'calc(100vh - 100px)'} width={'66vw'}>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={handleOnNodesChange}
+            onEdgesChange={handleOnEdgesChange}
+            onEdgeUpdate={handleOnEdgeUpdate}
+            onConnect={handleOnConnect}
+            nodeTypes={nodeTypes}
+            onEdgeUpdateStart={handleOnEdgeUpdateStart}
+            onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
+            defaultZoom={2}
+            fitView
+          />
+        </Box>
+        <Box height={'calc(100vh - 100px)'} width={'34vw'} overflowY={'scroll'}>
+          <Logger />
+        </Box>
+      </Flex>
+      <Controls />
+      <MiniMap
+        style={{ backgroundColor: miniMapBgColor }}
+        maskColor={miniMapMaskColor}
+        nodeColor={miniMapNodeColor}
+      />
     </Flex>
   );
 }
