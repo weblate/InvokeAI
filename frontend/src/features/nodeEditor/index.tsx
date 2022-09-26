@@ -10,7 +10,6 @@ import ReactFlow, {
   MiniMap,
   Node,
   NodeChange,
-  ReactFlowProvider,
   useReactFlow,
 } from 'react-flow-renderer';
 import SwaggerParser from 'swagger-parser';
@@ -27,6 +26,7 @@ import {
   onNodesChange,
   setEdges,
 } from './nodeEditorSlice';
+import prepareState from './prepareState';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -120,58 +120,7 @@ function Flow() {
     const nodes = flow.getNodes();
     const edges = flow.getEdges();
 
-    const formattedNodes = nodes.map((node: Node) => {
-      let nodeType = '';
-      if (node.data.moduleType === 'generate') {
-        if (
-          edges.find(
-            (edge: Edge) =>
-              edge.target === node.id && edge.targetHandle === 'input_image'
-          )
-        ) {
-          nodeType = 'img2img';
-        } else {
-          nodeType = 'txt2img';
-        }
-      } else {
-        nodeType = node.data.moduleType;
-      }
-
-      const parameters = _.reduce(
-        node.data.parameters,
-        (acc: Record<string, any>, curr: Record<string, any>) => {
-          if (!(curr.connectable && curr.connectable.includes('target'))) {
-            acc[curr.id] = curr.value;
-          }
-          return acc;
-        },
-        {}
-      );
-      return {
-        id: node.id,
-        type: nodeType,
-        ...parameters,
-      };
-    });
-
-    const formattedEdges = edges.map((edge: Edge) => {
-      return {
-        from_node: {
-          id: edge.source,
-          field: edge.sourceHandle,
-        },
-        to_node: {
-          id: edge.target,
-          field: edge.targetHandle,
-        },
-      };
-    });
-
-    const data = {
-      nodes: formattedNodes,
-      links: formattedEdges,
-    };
-
+    const data = prepareState(nodes, edges);
     console.log(data);
 
     fetch('http://0.0.0.0:9090/api/v1/invocations/', {

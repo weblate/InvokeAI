@@ -2,20 +2,25 @@ import { Select } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { SelectModuleParameter } from '../types';
+import { SelectField } from '../types';
 
-type SelectParameterProps = {
+type SelectFieldComponentProps = {
   moduleId: string;
-  parameter: SelectModuleParameter;
+  field: SelectField;
+  fieldId: string;
 };
-const SelectParameter = ({ moduleId, parameter }: SelectParameterProps) => {
+const SelectFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: SelectFieldComponentProps) => {
   const dispatch = useAppDispatch();
-  const { id, value, options } = parameter;
+  const { value, options } = field;
   const handleOnChange = (e: ChangeEvent<HTMLSelectElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: e.target.value,
       })
     );
@@ -30,4 +35,4 @@ const SelectParameter = ({ moduleId, parameter }: SelectParameterProps) => {
   );
 };
 
-export default SelectParameter;
+export default SelectFieldComponent;

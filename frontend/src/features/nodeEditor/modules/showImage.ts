@@ -1,20 +1,25 @@
-import { Module } from '../types';
+import { Invocation } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
-const makeShowImageModule = (): Module => {
+const makeShowImageModule = (): Invocation => {
   return {
     moduleId: uuidv4(),
     moduleType: 'show_image',
     moduleLabel: 'Show Image',
-    parameters: {
+    fields: {
       image: {
-        id: 'image',
         label: 'Image',
         uiType: 'image',
         dataType: 'image',
-        value: '',
-        connectable: ['target', 'source'],
         labelPosition: 'top',
+        requiresConnection: true,
+      },
+    },
+    outputs: {
+      image: {
+        dataType: 'image',
+        label: 'Image pass-through',
+        nextTo: 'image',
       },
     },
   };

@@ -1,17 +1,21 @@
 import { Image, Text } from '@chakra-ui/react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { ImageModuleParameter } from '../types';
-import ParameterLabel from './ParameterLabel';
+import { ImageField } from '../types';
 
-type ImageParameterProps = {
+type ImageFieldComponentProps = {
   moduleId: string;
-  parameter: ImageModuleParameter;
+  field: ImageField;
+  fieldId: string;
 };
 
-const ImageParameter = ({ moduleId, parameter }: ImageParameterProps) => {
+const ImageFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: ImageFieldComponentProps) => {
   // const dispatch = useAppDispatch();
-  const { id, value, connectable } = parameter;
+  const { value } = field;
 
   // const handleOnChange = (v: string | number) =>
   //   dispatch(
@@ -29,4 +33,4 @@ const ImageParameter = ({ moduleId, parameter }: ImageParameterProps) => {
   );
 };
 
-export default ImageParameter;
+export default ImageFieldComponent;

@@ -1,24 +1,18 @@
 import { Invocation } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
-const makeUpscaleModule = (): Invocation => {
+const makeFaceCorrectionModule = (): Invocation => {
   return {
     moduleId: uuidv4(),
-    moduleType: 'upscale',
-    moduleLabel: 'Upscale Image',
+    moduleType: 'restore_face',
+    moduleLabel: 'Face Correction',
     fields: {
       image: {
         label: 'Input image',
         uiType: 'image',
         dataType: 'image',
+        value: '',
         requiresConnection: true,
-      },
-      level: {
-        label: 'Level',
-        uiType: 'select',
-        dataType: 'number',
-        value: 4,
-        options: [2, 4],
       },
       strength: {
         label: 'Strength',
@@ -40,4 +34,4 @@ const makeUpscaleModule = (): Invocation => {
   };
 };
 
-export default makeUpscaleModule;
+export default makeFaceCorrectionModule;

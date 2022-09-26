@@ -1,15 +1,15 @@
-import { Box, Flex, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useCallback } from 'react';
 import { Connection, NodeProps, useReactFlow } from 'react-flow-renderer';
+import FieldComponentLabel from './components/FieldComponentLabel';
+import FieldComponent from './FieldComponent';
 import ModuleHandle from './ModuleHandle';
-import ParameterLabel from './components/ParameterLabel';
-import ModuleParameterUIComponent from './ModuleParameterUIComponent';
-import { Module, ModuleParameter } from './types';
+import { Invocation } from './types';
 
-function ModuleUIBuilder(props: NodeProps<Module>) {
+function ModuleUIBuilder(props: NodeProps<Invocation>) {
   const { id: moduleId, data, selected } = props;
-  const { moduleLabel, parameters } = data;
+  const { moduleLabel, fields, outputs } = data;
 
   const moduleBgColor = useColorModeValue('white', 'gray.800');
   const headerBgColor = useColorModeValue('gray.100', 'gray.700');
@@ -48,8 +48,8 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
         ) {
           // connection dataTypes must be the same for a connection
           return (
-            sourceNode.data.parameters[connection.sourceHandle].dataType ===
-            targetNode.data.parameters[connection.targetHandle].dataType
+            sourceNode.data.outputs[connection.sourceHandle].dataType ===
+            targetNode.data.fields[connection.targetHandle].dataType
           );
         }
       }
@@ -60,23 +60,23 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
     [flow]
   );
 
-  const isDependsOnConnected = useCallback(
-    (parameter: ModuleParameter): boolean => {
-      return parameter.dependsOn
-        ? Boolean(
-            flow
-              .getEdges()
-              .find(
-                (edge) =>
-                  edge.target === moduleId &&
-                  edge.targetHandle ===
-                    parameters[parameter.dependsOn as keyof ModuleParameter].id
-              )
-          )
-        : true;
-    },
-    [flow, moduleId, parameters]
-  );
+  // const isDependsOnConnected = useCallback(
+  //   (field: Field): boolean => {
+  //     return field.dependsOn
+  //       ? Boolean(
+  //           flow
+  //             .getEdges()
+  //             .find(
+  //               (edge) =>
+  //                 edge.target === moduleId &&
+  //                 edge.targetHandle ===
+  //                   fields[field.dependsOn as keyof Field].id
+  //             )
+  //         )
+  //       : true;
+  //   },
+  //   [flow, moduleId, fields]
+  // );
 
   return (
     <Flex
@@ -98,45 +98,61 @@ function ModuleUIBuilder(props: NodeProps<Module>) {
         <Heading size={'sm'}>{moduleLabel}</Heading>
       </Flex>
       <Flex direction={'column'} gap={2} cursor={'initial'} p={2}>
-        {_.map(parameters, (parameter, i) => {
-          const { id, dataType, label, connectable } = parameter;
-          const isDisabled = !(parameter.dependsOn
+        {_.map(fields, (field, id) => {
+          const { dataType, label, requiresConnection } = field;
+          const isDisabled = !(field.dependsOn
             ? Boolean(
                 flow
                   .getEdges()
                   .find(
                     (edge) =>
                       edge.target === moduleId &&
-                      edge.targetHandle ===
-                        parameters[parameter.dependsOn as keyof ModuleParameter]
-                          .id
+                      edge.targetHandle === field.dependsOn
                   )
               )
             : true);
           return (
-            <Box key={i} position={'relative'} width={'100%'}>
-              <ParameterLabel parameter={parameter} isDisabled={isDisabled}>
-                {!(connectable && connectable.includes('target')) && (
-                  <ModuleParameterUIComponent
-                    parameter={parameter}
+            <Box key={id} position={'relative'} width={'100%'}>
+              <FieldComponentLabel field={field} isDisabled={isDisabled}>
+                {!requiresConnection && (
+                  <FieldComponent
+                    field={field}
                     moduleId={moduleId}
+                    fieldId={id}
                   />
                 )}
-              </ParameterLabel>
-              {connectable &&
-                connectable.map((c, i) => {
-                  return (
-                    <ModuleHandle
-                      key={i}
-                      handleType={c}
-                      id={id}
-                      dataType={dataType}
-                      label={label}
-                      isValidConnection={isValidConnection}
-                    />
-                  );
-                })}
+              </FieldComponentLabel>
+              {requiresConnection && (
+                <ModuleHandle
+                  handleType={'target'}
+                  id={id}
+                  dataType={dataType}
+                  label={label}
+                  isValidConnection={isValidConnection}
+                />
+              )}
             </Box>
+          );
+        })}
+        {_.map(outputs, (output, key) => {
+          const { dataType, label } = output;
+          return (
+            <Flex
+              key={key}
+              position={'relative'}
+              width={'100%'}
+              justifyContent={'flex-end'}
+              alignItems={'center'}
+            >
+              <Text>{label}</Text>
+              <ModuleHandle
+                handleType={'source'}
+                id={key}
+                dataType={dataType}
+                label={label}
+                isValidConnection={isValidConnection}
+              />
+            </Flex>
           );
         })}
       </Flex>

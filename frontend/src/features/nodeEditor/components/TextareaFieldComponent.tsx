@@ -2,24 +2,29 @@ import { Textarea } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { TextareaModuleParameter } from '../types';
+import { TextareaField } from '../types';
 
-type TextareaParameterProps = {
+type TextareaFieldComponentProps = {
   moduleId: string;
-  parameter: TextareaModuleParameter;
+  field: TextareaField;
+  fieldId: string;
 };
-const TextareaParameter = ({ moduleId, parameter }: TextareaParameterProps) => {
+const TextareaFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: TextareaFieldComponentProps) => {
   const dispatch = useAppDispatch();
-  const { id, value } = parameter;
+  const { value } = field;
   const handleOnChange = (e: ChangeEvent<HTMLTextAreaElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: e.target.value,
       })
     );
   return <Textarea value={value} onChange={handleOnChange} size={'sm'} />;
 };
 
-export default TextareaParameter;
+export default TextareaFieldComponent;

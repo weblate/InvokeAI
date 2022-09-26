@@ -2,25 +2,30 @@ import { Switch } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { ToggleModuleParameter } from '../types';
+import { ToggleField } from '../types';
 
-type ToggleParameterProps = {
+type ToggleFieldComponentProps = {
   moduleId: string;
-  parameter: ToggleModuleParameter;
+  field: ToggleField;
+  fieldId: string;
 };
 
-const ToggleParameter = ({ moduleId, parameter }: ToggleParameterProps) => {
+const ToggleFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: ToggleFieldComponentProps) => {
   const dispatch = useAppDispatch();
-  const { id, value } = parameter;
+  const { value } = field;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: e.target.checked,
       })
     );
   return <Switch checked={value} onChange={handleOnChange} size={'sm'} />;
 };
 
-export default ToggleParameter;
+export default ToggleFieldComponent;

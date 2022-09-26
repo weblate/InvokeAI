@@ -23,25 +23,25 @@ export declare type UIType =
 
 export declare type DataType = 'string' | 'number' | 'image';
 
-export declare type GenericModuleParameter = {
-  id: string;
+export declare type BaseField = {
   label: string;
-  connectable?: ['target' | 'source', ...Array<'target' | 'source'>];
+  // connectable?: ['target' | 'source', ...Array<'target' | 'source'>];
   labelPosition?: 'top' | 'right' | 'bottom' | 'left';
   optional?: boolean;
   dependsOn?: string;
+  requiresConnection?: boolean;
 };
 
-export declare type ImageModuleParameter = GenericModuleParameter & {
+export declare type ImageField = BaseField & {
   uiType: 'image';
   dataType: 'image';
-  value: string;
+  value?: string;
 };
 
-export declare type SliderModuleParameter = GenericModuleParameter & {
+export declare type SliderField = BaseField & {
   uiType: 'slider';
   dataType: 'number';
-  value: number;
+  value?: number;
   min: number;
   max: number;
   step: number;
@@ -52,10 +52,10 @@ export declare type SliderModuleParameter = GenericModuleParameter & {
   exclusiveMaximum?: boolean;
 };
 
-export declare type NumberModuleParameter = GenericModuleParameter & {
+export declare type NumberField = BaseField & {
   uiType: 'numberInput';
   dataType: 'number';
-  value: number;
+  value?: number;
   min: number;
   max: number;
   step: number;
@@ -66,45 +66,52 @@ export declare type NumberModuleParameter = GenericModuleParameter & {
   exclusiveMaximum?: boolean;
 };
 
-export declare type SelectModuleParameter = GenericModuleParameter & {
+export declare type SelectField = BaseField & {
   uiType: 'select';
   dataType: 'string' | 'number';
-  value: string | number;
+  value?: string | number;
   options: Array<string | number>;
 };
 
-export declare type TextareaModuleParameter = GenericModuleParameter & {
+export declare type TextareaField = BaseField & {
   uiType: 'textarea';
   dataType: 'string';
-  value: string;
+  value?: string;
 };
 
-export declare type TextModuleParameter = GenericModuleParameter & {
+export declare type TextField = BaseField & {
   uiType: 'text';
   dataType: 'string';
-  value: string;
+  value?: string;
 };
 
-export declare type ToggleModuleParameter = GenericModuleParameter & {
+export declare type ToggleField = BaseField & {
   uiType: 'toggle';
   dataType: 'boolean';
-  value: boolean;
+  value?: boolean;
 };
 
-export declare type ModuleParameter =
-  | ImageModuleParameter
-  | NumberModuleParameter
-  | SelectModuleParameter
-  | SliderModuleParameter
-  | TextareaModuleParameter
-  | TextModuleParameter
-  | ToggleModuleParameter;
+export declare type Field =
+  | ImageField
+  | NumberField
+  | SelectField
+  | SliderField
+  | TextareaField
+  | TextField
+  | ToggleField;
 
-export declare type Module = {
+export declare type Output = {
+  dataType: DataType;
+    label: string;
+    nextTo?: string;
+};
+
+export declare type Invocation = {
   moduleId: string;
   moduleType: string;
   moduleLabel: string;
-  parameters: Record<string, ModuleParameter>;
+  fields: Record<string, Field>;
+  outputs?: Record<string, Output>;
 };
 
 // // Nodes from Kyle's backend for testing, need to output something like this in API call

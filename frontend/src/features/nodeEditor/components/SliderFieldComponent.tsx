@@ -8,23 +8,28 @@ import {
 } from '@chakra-ui/react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { SliderModuleParameter } from '../types';
+import { SliderField } from '../types';
 
-type SliderParameterProps = {
+type SliderFieldComponentProps = {
   moduleId: string;
-  parameter: SliderModuleParameter;
+  field: SliderField;
+  fieldId: string;
 };
 
-const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
+const SliderFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: SliderFieldComponentProps) => {
   const dispatch = useAppDispatch();
 
-  const { id, value, label, min, max, step, withNumberInput, numberInputMax } =
-    parameter;
+  const { value, label, min, max, step, withNumberInput, numberInputMax } =
+    field;
   const handleOnChangeSlider = (value: number) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value,
       })
     );
@@ -33,7 +38,7 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: Number(value),
       })
     );
@@ -75,4 +80,4 @@ const SliderParameter = ({ moduleId, parameter }: SliderParameterProps) => {
   );
 };
 
-export default SliderParameter;
+export default SliderFieldComponent;

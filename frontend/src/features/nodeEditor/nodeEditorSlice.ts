@@ -55,7 +55,7 @@ export const nodeEditorSlice = createSlice({
       if (sourceNode) {
         if (connection.sourceHandle) {
           const sourceDataType =
-            sourceNode.data.parameters[connection.sourceHandle].dataType;
+            sourceNode.data.outputs[connection.sourceHandle].dataType;
 
           state.edges = addEdge(
             {
@@ -76,14 +76,14 @@ export const nodeEditorSlice = createSlice({
     },
     updateModuleParameterValue: (
       state,
-      action: PayloadAction<{ id: string; parameterId: string; value: any }>
+      action: PayloadAction<{ id: string; fieldId: string; value: any }>
     ) => {
-      const { id, parameterId, value } = action.payload;
+      const { id, fieldId, value } = action.payload;
       const index = state.nodes.findIndex((n) => n.id === id);
 
       // Array.prototype.findIndex() returns -1 if not found
       if (index >= 0) {
-        state.nodes[index].data.parameters[parameterId].value = value;
+        state.nodes[index].data.fields[fieldId].value = value;
       }
     },
     addModule: (

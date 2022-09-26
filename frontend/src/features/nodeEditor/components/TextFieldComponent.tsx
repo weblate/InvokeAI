@@ -2,25 +2,30 @@ import { Input } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
 import { useAppDispatch } from '../../../app/store';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { TextModuleParameter } from '../types';
+import { TextField } from '../types';
 
-type TextParameterProps = {
+type TextFieldComponentProps = {
   moduleId: string;
-  parameter: TextModuleParameter;
+  field: TextField;
+  fieldId: string;
 };
 
-const TextParameter = ({ moduleId, parameter }: TextParameterProps) => {
+const TextFieldComponent = ({
+  moduleId,
+  field,
+  fieldId,
+}: TextFieldComponentProps) => {
   const dispatch = useAppDispatch();
-  const { id, value } = parameter;
+  const { value } = field;
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: e.target.value,
       })
     );
-  return <Input value={value} onChange={handleOnChange} size={'sm'} id={id} />;
+  return <Input value={value} onChange={handleOnChange} size={'sm'} />;
 };
 
-export default TextParameter;
+export default TextFieldComponent;

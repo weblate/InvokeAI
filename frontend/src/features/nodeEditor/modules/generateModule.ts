@@ -5,34 +5,29 @@ import {
   SAMPLERS,
   WIDTHS,
 } from '../../../app/constants';
-import { Module } from '../types';
+import { Invocation } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
-const makeGenerateModule = (): Module => {
+const makeGenerateModule = (): Invocation => {
   return {
     moduleId: uuidv4(),
     moduleType: 'generate',
     moduleLabel: 'Generate',
-    parameters: {
+    fields: {
       prompt: {
-        id: 'prompt',
         label: 'Prompt',
         uiType: 'text',
         dataType: 'string',
-        value: '',
-        connectable: ['target'],
+        requiresConnection: true,
       },
-      input_image: {
-        id: 'input_image',
+      image: {
         label: 'Initial image',
         uiType: 'image',
         dataType: 'image',
-        value: '',
-        connectable: ['target'],
+        requiresConnection: true,
         optional: true,
       },
       strength: {
-        id: 'strength',
         label: 'Initial image strength',
         uiType: 'slider',
         dataType: 'number',
@@ -44,7 +39,6 @@ const makeGenerateModule = (): Module => {
         withNumberInput: true,
       },
       sampler_name: {
-        id: 'sampler_name',
         label: 'Sampler',
         uiType: 'select',
         dataType: 'string',
@@ -52,7 +46,6 @@ const makeGenerateModule = (): Module => {
         options: SAMPLERS,
       },
       seed: {
-        id: 'seed',
         label: 'Seed',
         uiType: 'numberInput',
         dataType: 'number',
@@ -63,7 +56,6 @@ const makeGenerateModule = (): Module => {
         withRandomizeIconButton: true,
       },
       steps: {
-        id: 'steps',
         label: 'Steps',
         uiType: 'slider',
         dataType: 'number',
@@ -75,7 +67,6 @@ const makeGenerateModule = (): Module => {
         numberInputMax: Infinity,
       },
       cfg_scale: {
-        id: 'cfg_scale',
         label: 'CFG Scale',
         uiType: 'slider',
         dataType: 'number',
@@ -87,7 +78,6 @@ const makeGenerateModule = (): Module => {
         withNumberInput: true,
       },
       width: {
-        id: 'width',
         label: 'Width',
         uiType: 'select',
         dataType: 'number',
@@ -95,7 +85,6 @@ const makeGenerateModule = (): Module => {
         options: WIDTHS,
       },
       height: {
-        id: 'height',
         label: 'Height',
         uiType: 'select',
         dataType: 'number',
@@ -103,19 +92,16 @@ const makeGenerateModule = (): Module => {
         options: HEIGHTS,
       },
       seamless: {
-        id: 'seamless',
         label: 'Seamless',
         uiType: 'toggle',
         dataType: 'boolean',
         value: false,
       },
-      output_image: {
-        id: 'output_image',
+    },
+    outputs: {
+      image: {
         label: 'Output image',
-        uiType: 'image',
         dataType: 'image',
-        value: '',
-        connectable: ['source'],
       },
     },
   };

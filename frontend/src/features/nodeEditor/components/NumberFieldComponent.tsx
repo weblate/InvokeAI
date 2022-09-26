@@ -11,17 +11,17 @@ import { FaRandom } from 'react-icons/fa';
 import { useAppDispatch } from '../../../app/store';
 import randomInt from '../../../common/util/randomInt';
 import { updateModuleParameterValue } from '../nodeEditorSlice';
-import { NumberModuleParameter } from '../types';
+import { NumberField } from '../types';
 
-type NumberParameterProps = {
+type NumberFieldComponentProps = {
   moduleId: string;
-  parameter: NumberModuleParameter;
+  field: NumberField;
+  fieldId: string;
 };
 
-const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
+const NumberFieldComponent = ({ moduleId, field, fieldId }: NumberFieldComponentProps) => {
   const dispatch = useAppDispatch();
   const {
-    id,
     value,
     label,
     min,
@@ -30,13 +30,13 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
     withRandomizeButton,
     withRandomizeIconButton,
     withSteppers,
-  } = parameter;
+  } = field;
 
   const handleOnChange = (v: string | number) =>
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: Number(v),
       })
     );
@@ -45,7 +45,7 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
     dispatch(
       updateModuleParameterValue({
         id: moduleId,
-        parameterId: id,
+        fieldId,
         value: randomInt(min, max),
       })
     );
@@ -87,4 +87,4 @@ const NumberParameter = ({ moduleId, parameter }: NumberParameterProps) => {
   );
 };
 
-export default NumberParameter;
+export default NumberFieldComponent;

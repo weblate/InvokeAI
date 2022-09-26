@@ -6,10 +6,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
-import { ModuleParameter } from '../types';
+import { Field } from '../types';
 
-type ParameterLabelProps = {
-  parameter: ModuleParameter;
+type FieldComponentLabelProps = {
+  field: Field;
   children: ReactNode;
   isDisabled?: boolean;
 };
@@ -30,12 +30,12 @@ const alignItems: Record<string, SystemProps['alignItems']> = {
   right: 'center',
 };
 
-const ParameterLabel = ({
-  parameter,
+const FieldComponentLabel = ({
+  field,
   children,
   isDisabled = false,
-}: ParameterLabelProps) => {
-  const { label, labelPosition } = parameter;
+}: FieldComponentLabelProps) => {
+  const { label, labelPosition } = field;
 
   return (
     <FormControl isDisabled={isDisabled}>
@@ -61,4 +61,4 @@ const ParameterLabel = ({
   );
 };
 
-export default ParameterLabel;
+export default FieldComponentLabel;
