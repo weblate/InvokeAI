@@ -24,81 +24,87 @@ export declare type UIType =
 export declare type DataType =
   | 'string'
   | 'integer'
-  | 'float'
+  | 'number'
   | 'boolean'
   | 'image';
 
 export declare type BaseField = {
   label: string;
-  // connectable?: ['target' | 'source', ...Array<'target' | 'source'>];
-  labelPosition?: 'top' | 'right' | 'bottom' | 'left';
-  optional?: boolean;
-  dependsOn?: string;
-  requiresConnection?: boolean;
+  value: string | number | boolean;
+  ui: {
+    label_position?: 'top' | 'right' | 'bottom' | 'left';
+    optional?: boolean;
+    depends_on?: string;
+    requires_connection?: boolean;
+  };
 };
 
 export declare type ImageField = BaseField & {
-  uiType: 'image';
-  dataType: 'image';
+  type: 'image';
   value?: string;
+  ui_type: 'image';
 };
 
 export declare type SliderField = BaseField & {
-  uiType: 'slider';
-  dataType: 'integer' | 'float';
+  type: 'integer' | 'number';
   value?: number;
-  min: number;
-  max: number;
-  step: number;
-  withNumberInput?: boolean;
-  numberInputMin?: number;
-  numberInputMax?: number;
-  exclusiveMinimum?: boolean;
-  exclusiveMaximum?: boolean;
+  minimum?: number;
+  maximum?: number;
+  multiple_of?: number;
+  exclusive_minimum?: number;
+  exclusive_maximum?: number;
+  ui_type: 'slider';
+  ui: {
+    with_number_input?: boolean;
+    number_input_min?: number;
+    number_input_max?: number;
+  };
 };
 
-export declare type NumberField = BaseField & {
-  uiType: 'numberInput';
-  dataType: 'integer' | 'float';
+export declare type NumberInputField = BaseField & {
+  type: 'integer' | 'number';
   value?: number;
   min: number;
   max: number;
   step: number;
-  withRandomizeButton?: boolean;
-  withRandomizeIconButton?: boolean;
-  withSteppers?: boolean;
-  exclusiveMinimum?: boolean;
-  exclusiveMaximum?: boolean;
+  exclusive_minimum?: boolean;
+  exclusive_maximum?: boolean;
+  ui_type: 'number_input';
+  ui: {
+    with_randomize_button?: boolean;
+    with_randomize_icon_button?: boolean;
+    with_steppers?: boolean;
+  };
 };
 
 export declare type SelectField = BaseField & {
-  uiType: 'select';
-  dataType: 'string' | 'integer' | 'float';
+  type: 'string' | 'integer' | 'number';
   value?: string | number;
   options: Array<string | number>;
+  ui_type: 'select';
 };
 
 export declare type TextareaField = BaseField & {
-  uiType: 'textarea';
-  dataType: 'string';
+  type: 'string';
   value?: string;
+  ui_type: 'textarea';
 };
 
 export declare type TextField = BaseField & {
-  uiType: 'text';
-  dataType: 'string';
+  type: 'string';
   value?: string;
+  ui_type: 'text';
 };
 
 export declare type ToggleField = BaseField & {
-  uiType: 'toggle';
-  dataType: 'boolean';
+  type: 'boolean';
   value?: boolean;
+  ui_type: 'toggle';
 };
 
 export declare type Field =
   | ImageField
-  | NumberField
+  | NumberInputField
   | SelectField
   | SliderField
   | TextareaField
@@ -106,9 +112,11 @@ export declare type Field =
   | ToggleField;
 
 export declare type Output = {
-  dataType: DataType;
+  type: DataType;
   label: string;
-  nextTo?: string;
+  ui: {
+    next_to?: string;
+  };
 };
 
 export declare type Invocation = {
@@ -118,24 +126,3 @@ export declare type Invocation = {
   fields: Record<string, Field>;
   outputs?: Record<string, Output>;
 };
-
-// // Nodes from Kyle's backend for testing, need to output something like this in API call
-// {
-//     "nodes":[
-//         {"id":"1","type":"txt2img","prompt":"A man smiling"},
-//         {"id":"2","type":"show_image"},
-//         {"id":"3","type":"img2img","prompt":"A man wearing a red hat and smiling","strength":"0.5"},
-//         {"id":"4","type":"show_image"},
-//         {"id":"5","type":"restore_face","strength":"0.5"},
-//         {"id":"6","type":"upscale","level":"2"},
-//         {"id":"7","type":"show_image"}
-//     ],
-//     "links":[
-//         {"from_node":{"id":"1","field":"image"},"to_node":{"id":"2","field":"image"}},
-//         {"from_node":{"id":"2","field":"image"},"to_node":{"id":"3","field":"image"}},
-//         {"from_node":{"id":"3","field":"image"},"to_node":{"id":"4","field":"image"}},
-//         {"from_node":{"id":"4","field":"image"},"to_node":{"id":"5","field":"image"}},
-//         {"from_node":{"id":"5","field":"image"},"to_node":{"id":"6","field":"image"}},
-//         {"from_node":{"id":"6","field":"image"},"to_node":{"id":"7","field":"image"}}
-//     ]
-// }

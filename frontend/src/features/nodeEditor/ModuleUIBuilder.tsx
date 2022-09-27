@@ -11,11 +11,6 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
   const { id: moduleId, data, selected } = props;
   const { moduleLabel, fields, outputs } = data;
 
-  // const moduleBgColor = useColorModeValue('white', 'gray.800');
-  // const headerBgColor = useColorModeValue('gray.100', 'gray.700');
-  // const headerSelectedBgColor = useColorModeValue('blue.100', 'blue.700');
-  // const moduleSelectedBorderColor = useColorModeValue('blue.200', 'blue.800');
-
   const flow = useReactFlow();
 
   // Check if an in-progress connection is valid

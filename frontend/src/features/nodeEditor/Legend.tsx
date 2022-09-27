@@ -5,7 +5,7 @@ const Legend = () => {
     { dataType: 'string', label: 'Text' },
     { dataType: 'image', label: 'Image' },
     { dataType: 'integer', label: 'Integer' },
-    { dataType: 'float', label: 'Float' },
+    { dataType: 'number', label: 'Number' },
     { dataType: 'boolean', label: 'Boolean' },
   ];
 

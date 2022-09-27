@@ -35,7 +35,7 @@ const nodeTypes = {
 };
 
 function Flow() {
-  const { nodes, edges, schema } = useAppSelector(
+  const { nodes, edges } = useAppSelector(
     (state: RootState) => state.invoker
   );
 
@@ -130,51 +130,6 @@ function Flow() {
       });
   }, [flow]);
 
-  if (schema) {
-    const invocations = _.reduce(
-      schema.components.schemas,
-      (schemas: Record<string, any>, schema, id) => {
-        if (id.match(/Invocation$/)) {
-          schemas[id] = {
-            fields: _.reduce(
-              schema.properties,
-              (fields: Record<string, any>, property, id) => {
-                if (!['id', 'type'].includes(id)) {
-                  let t = property.type;
-                  if ('enum' in property) {
-                    t = 'select';
-                  } else if (
-                    'allOf' in property &&
-                    property.allOf[0].title === 'ImageField'
-                  ) {
-                    t = 'image';
-                  }
-                  fields[id] = {
-                    value: property.default,
-                    label: property.title,
-                    type: t,
-                  };
-                }
-                return fields;
-              },
-              {}
-            ),
-            outputs: _.reduce(
-              schema.additionalProperties.outputs.properties,
-              (outputs: Record<string, any>, property, id) => {
-                outputs[id] = property;
-                return outputs;
-              },
-              {}
-            ),
-          };
-        }
-        return schemas;
-      },
-      {}
-    );
-    console.log(invocations);
-  }
 
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>

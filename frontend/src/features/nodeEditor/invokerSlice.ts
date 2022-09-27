@@ -18,6 +18,7 @@ import makeUpscaleModule from './modules/upscaleModule';
 import makeShowImageModule from './modules/showImage';
 import makeLoadImageModule from './modules/loadImage';
 import SwaggerParser from 'swagger-parser';
+import { Invocation } from './types';
 
 export type InvokerState = {
   nodes: Node[];
@@ -25,6 +26,7 @@ export type InvokerState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   schema?: any;
   error?: string;
+  schemaGeneratedInvocations?: Record<string, Invocation>
 };
 
 const initialState: InvokerState = {
@@ -134,7 +136,129 @@ export const invokerSlice = createSlice({
       })
       .addCase(getSchema.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.schema = action.payload;
+        const schema = action.payload;
+
+        console.log(schema);
+        const invocations = _.reduce(
+          schema.components.schemas,
+          (schemas: Record<string, any>, schema, id) => {
+            if (id.match(/Invocation$/)) {
+              schemas[id] = {
+                fields: _.reduce(
+                  schema.properties,
+                  (fields: Record<string, any>, property, id) => {
+                    if (!['id', 'type'].includes(id)) {
+                      const { title, type, ui } = property;
+                      let ui_type = ui?.type;
+                      let additional: Record<string, any> = {};
+
+                      if (!ui_type) {
+                        if ('enum' in property) {
+                          ui_type = 'select';
+                        } else if (
+                          'allOf' in property &&
+                          property.allOf[0].title === 'ImageField'
+                        ) {
+                          ui_type = 'image';
+                        } else if (type === 'string') {
+                          ui_type = 'text';
+                        } else if (['integer', 'number'].includes(type)) {
+                          ui_type = 'slider';
+                        } else if (type === 'boolean') {
+                          ui_type = 'toggle';
+                        }
+                      }
+
+                      switch (ui_type) {
+                        case 'text': {
+                          break;
+                        }
+                        case 'textarea': {
+                          break;
+                        }
+                        case 'number_input':
+                        case 'slider': {
+                          const {
+                            minimum,
+                            maximum,
+                            multipleOf,
+                            exclusiveMinimum,
+                            exclusiveMaximum,
+                          } = property;
+
+                          if (exclusiveMinimum !== undefined) {
+                            additional.exclusive_minimum = exclusiveMinimum;
+                          } else if (minimum !== undefined) {
+                            additional.minimum = minimum;
+                          } else {
+                            additional.minimum = 1;
+                          }
+
+                          if (exclusiveMaximum !== undefined) {
+                            additional.exclusive_maximum = exclusiveMaximum;
+                          } else if (maximum !== undefined) {
+                            additional.maximum = maximum;
+                          } else {
+                            additional.maximum = 100;
+                          }
+
+                          if (multipleOf) {
+                            additional.multiple_of = multipleOf;
+                          } else {
+                            if (type === 'number') {
+                              additional.multiple_of = 0.01;
+                            } else {
+                              additional.multiple_of = 1;
+                            }
+                          }
+
+                          break;
+                        }
+                        case 'select': {
+                          additional = { options: property.enum };
+                          break;
+                        }
+                        case 'image': {
+                          break;
+                        }
+                        case 'toggle': {
+                          break;
+                        }
+                      }
+
+                      fields[id] = {
+                        value: property.default,
+                        label: title,
+                        type,
+                        ui_type,
+                        ui: { ...ui },
+                        ...additional,
+                      };
+                    }
+                    return fields;
+                  },
+                  {}
+                ),
+                outputs: _.reduce(
+                  schema.additionalProperties.outputs.properties,
+                  (outputs: Record<string, any>, property, id) => {
+                    outputs[id] = {
+                      label: property.title,
+                      type: property.type,
+                      ui: { ...property.ui },
+                    };
+                    return outputs;
+                  },
+                  {}
+                ),
+              };
+            }
+            return schemas;
+          },
+          {}
+        );
+        console.log(invocations);
+        state.schemaGeneratedInvocations = invocations;
       })
       .addCase(getSchema.rejected, (state, action) => {
         state.status = 'failed';

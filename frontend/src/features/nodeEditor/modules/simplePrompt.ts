@@ -9,17 +9,19 @@ const makeSimplePromptModule = (): Invocation => {
     fields: {
       prompt: {
         label: 'Prompt',
-        uiType: 'textarea',
-        dataType: 'string',
+        type: 'string',
         value: 'This is a test prompt',
-        labelPosition: 'top',
+        ui: {
+          type: 'textarea',
+          label_position: 'top',
+        },
       },
     },
     outputs: {
       prompt: {
-        dataType: 'string',
+        type: 'string',
         label: 'Prompt',
-        nextTo: 'prompt',
+        ui: { next_to: 'prompt' },
       },
     },
   };

@@ -71,7 +71,7 @@ const dataTypeColors = {
     dark: 'yellow.500',
     light: 'yellow.400',
   },
-  float: {
+  number: {
     dark: 'orange.500',
     light: 'orange.400',
   },
@@ -208,8 +208,8 @@ export const theme = extendTheme({
         '.invoke-ai__edge_integer path': {
           stroke: dataTypeColors.integer[colorMode],
         },
-        '.invoke-ai__edge_float path': {
-          stroke: dataTypeColors.float[colorMode],
+        '.invoke-ai__edge_number path': {
+          stroke: dataTypeColors.number[colorMode],
         },
         '.invoke-ai__edge_boolean path': {
           stroke: dataTypeColors.boolean[colorMode],
@@ -237,8 +237,8 @@ export const theme = extendTheme({
         '.invoke-ai__handle_integer': {
           background: dataTypeColors.integer[colorMode],
         },
-        '.invoke-ai__handle_float': {
-          background: dataTypeColors.float[colorMode],
+        '.invoke-ai__handle_number': {
+          background: dataTypeColors.number[colorMode],
         },
         '.invoke-ai__handle_boolean': {
           background: dataTypeColors.boolean[colorMode],

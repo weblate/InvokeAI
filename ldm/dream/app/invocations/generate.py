@@ -18,11 +18,11 @@ class TextToImageInvocation(BaseInvocation):
     # Inputs
     # TODO: consider making prompt optional to enable providing prompt through a link
     prompt: Optional[str]     = Field(description="The prompt to generate an image from")
-    seed: int                 = Field(default=0, description="The seed to use (0 for a random seed)")
-    steps: int                = Field(default=10, gt=0, description="The number of steps to use to generate the image")
-    width: int                = Field(default=512, gt=0, description="The width of the resulting image")
-    height: int               = Field(default=512, gt=0, description="The height of the resulting image")
-    cfg_scale: float          = Field(default=7.5, description="The Classifier-Free Guidance, higher values may result in a result closer to the prompt")
+    seed: int                 = Field(default=0, ge=0, le=4294967295, description="The seed to use (0 for a random seed)")
+    steps: int                = Field(default=10, gt=0, le=1000, description="The number of steps to use to generate the image")
+    width: int                = Field(default=512, gt=0, le=4096, multiple_of=64, description="The width of the resulting image")
+    height: int               = Field(default=512, gt=0, le=4096, multiple_of=64, description="The height of the resulting image")
+    cfg_scale: float          = Field(default=7.5, gt=0, le=20, description="The Classifier-Free Guidance, higher values may result in a result closer to the prompt")
     sampler_name: SAMPLER_NAME_VALUES = Field(default="k_lms", description="The sampler to use")
     seamless: bool            = Field(default=False, description="Whether or not to generate an image that can tile without seams")
     model: str                = Field(default='', description="The model to use (currently ignored)")
