@@ -440,7 +440,7 @@ class Generate:
     def _make_img2img(self):
         if not self.generators.get('img2img'):
             from ldm.dream.generator.img2img import Img2Img
-            self.generators['img2img'] = Img2Img(self.model)
+            self.generators['img2img'] = Img2Img(self.model, 'float32')
         return self.generators['img2img']
     
     def _make_embiggen(self):
@@ -452,7 +452,7 @@ class Generate:
     def _make_txt2img(self):
         if not self.generators.get('txt2img'):
             from ldm.dream.generator.txt2img import Txt2Img
-            self.generators['txt2img'] = Txt2Img(self.model)
+            self.generators['txt2img'] = Txt2Img(self.model, 'float32')
         return self.generators['txt2img']
 
     def _make_inpaint(self):
