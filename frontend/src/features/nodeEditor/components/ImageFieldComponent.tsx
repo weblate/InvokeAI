@@ -1,6 +1,6 @@
 import { Image, Text } from '@chakra-ui/react';
 import { useAppDispatch } from '../../../app/store';
-import { updateModuleParameterValue } from '../nodeEditorSlice';
+import { updateModuleParameterValue } from '../invokerSlice';
 import { ImageField } from '../types';
 
 type ImageFieldComponentProps = {

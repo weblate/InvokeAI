@@ -10,7 +10,7 @@ import {
 import { FaRandom } from 'react-icons/fa';
 import { useAppDispatch } from '../../../app/store';
 import randomInt from '../../../common/util/randomInt';
-import { updateModuleParameterValue } from '../nodeEditorSlice';
+import { updateModuleParameterValue } from '../invokerSlice';
 import { NumberField } from '../types';
 
 type NumberFieldComponentProps = {

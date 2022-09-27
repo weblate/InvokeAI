@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {
   addEdge,
@@ -17,19 +17,24 @@ import makeGenerateModule from './modules/generateModule';
 import makeUpscaleModule from './modules/upscaleModule';
 import makeShowImageModule from './modules/showImage';
 import makeLoadImageModule from './modules/loadImage';
+import SwaggerParser from 'swagger-parser';
 
-export type NodeEditorState = {
+export type InvokerState = {
   nodes: Node[];
   edges: Edge[];
+  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  schema?: any;
+  error?: string;
 };
 
-const initialState: NodeEditorState = {
+const initialState: InvokerState = {
   nodes: [],
   edges: [],
+  status: 'idle',
 };
 
-export const nodeEditorSlice = createSlice({
-  name: 'nodeEditor',
+export const invokerSlice = createSlice({
+  name: 'invoker',
   initialState,
   reducers: {
     onNodesChange: (
@@ -122,6 +127,29 @@ export const nodeEditorSlice = createSlice({
       }
     },
   },
+  extraReducers(builder) {
+    builder
+      .addCase(getSchema.pending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addCase(getSchema.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.schema = action.payload;
+      })
+      .addCase(getSchema.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+// Grabs the API schema so we can build a UI from it
+export const getSchema = createAsyncThunk('invoker/getSchema', async () => {
+  const api = await SwaggerParser.dereference(
+    'http://0.0.0.0:9090/openapi.json'
+  );
+
+  return api;
 });
 
 export const {
@@ -132,6 +160,6 @@ export const {
   onEdgeUpdate,
   updateModuleParameterValue,
   addModule,
-} = nodeEditorSlice.actions;
+} = invokerSlice.actions;
 
-export default nodeEditorSlice.reducer;
+export default invokerSlice.reducer;

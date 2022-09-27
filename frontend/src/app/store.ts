@@ -8,7 +8,7 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 import optionsReducer from '../features/options/optionsSlice';
 import galleryReducer from '../features/gallery/gallerySlice';
 import systemReducer from '../features/system/systemSlice';
-import nodeEditorReducer from '../features/nodeEditor/nodeEditorSlice';
+import invokerReducer from '../features/nodeEditor/invokerSlice';
 import { socketioMiddleware } from './socketio/middleware';
 
 /**
@@ -32,7 +32,7 @@ import { socketioMiddleware } from './socketio/middleware';
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['gallery', 'system', 'nodeEditor'],
+  blacklist: ['gallery', 'system', 'invoker'],
 };
 
 const systemPersistConfig = {
@@ -57,7 +57,7 @@ const reducers = combineReducers({
   options: optionsReducer,
   gallery: galleryReducer,
   system: persistReducer(systemPersistConfig, systemReducer),
-  nodeEditor: nodeEditorReducer
+  invoker: invokerReducer
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, reducers);

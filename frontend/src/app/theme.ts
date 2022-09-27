@@ -1,7 +1,53 @@
 import { extendTheme } from '@chakra-ui/react';
 import type { StyleFunctionProps } from '@chakra-ui/styled-system';
 
-// Size of handles
+/**
+ * Chakra compiles the theme here to CSS.
+ *
+ * Custom classes can be added as keys, use the CSS selector
+ * as the object key.
+ */
+
+// Color mode
+const initialColorMode = 'dark';
+const useSystemColorMode = false; // always start in dark mode
+
+// Tooltip text color was weird for some reason, fixing it here
+const tooltipTextColor = {
+  dark: 'gray.800',
+  light: 'gray.100',
+};
+
+// Node/module colors
+const nodeBackgroundColor = {
+  dark: 'gray.800',
+  light: 'rgb(253, 252, 252)',
+};
+
+const nodeBorderColor = {
+  dark: 'blue.800',
+  light: 'blue.200',
+};
+
+const nodeHeaderBackgroundColor = {
+  dark: 'gray.700',
+  light: 'gray.100',
+  selected: {
+    dark: 'blue.700',
+    light: 'blue.100',
+  },
+};
+
+const nodeDropShadow = {
+  dark: 'drop-shadow(2px 2px 15px rgba(255,255,255,0.08))',
+  light: 'drop-shadow(2px 2px 15px rgba(0,0,0,0.08))',
+};
+
+// Handles
+const handleDropShadow = {
+  dark: `drop-shadow(1px 1px 4px rgba(255,255,255,0.2))`,
+  light: `drop-shadow(1px 1px 4px rgba(0,0,0,0.2))`,
+};
 const handleSize = 1.5;
 const handleSizeUnit = 'rem';
 const handleSizeString = `${handleSize}${handleSizeUnit}`;
@@ -9,40 +55,91 @@ const handleWidth = `${handleSize / 2}${handleSizeUnit}`;
 const handleHeight = `${handleSize}${handleSizeUnit}`;
 
 // Offset from the edge of the node
-const handleOffset = `-${handleSize}${handleSizeUnit}`;
+const handleOffset = `-${handleSize - 0.2}${handleSizeUnit}`;
 
-// Colors for datatypes
-const darkStringColor = 'blue.500';
-const lightStringColor = 'blue.400';
-const darkImageColor = 'green.500';
-const lightImageColor = 'green.400';
-const darkNumberColor = 'yellow.500';
-const lightNumberColor = 'yellow.400';
-const darkBooleanColor = 'pink.500';
-const lightBooleanColor = 'pink.400';
+// Colors for datatypes, used for color Legend, handles, connection lines
+const dataTypeColors = {
+  string: {
+    dark: 'blue.500',
+    light: 'blue.400',
+  },
+  image: {
+    dark: 'green.500',
+    light: 'green.400',
+  },
+  integer: {
+    dark: 'yellow.500',
+    light: 'yellow.400',
+  },
+  float: {
+    dark: 'orange.500',
+    light: 'orange.400',
+  },
+  boolean: {
+    dark: 'pink.500',
+    light: 'pink.400',
+  },
+};
 
-// Width of connection lines
+// Accordion styling
+const accordionButtonFontWeight = 'bold';
+const accordionButtonHoverBgColor = {
+  dark: 'rgba(255,255,255,0.05)',
+  light: 'rgba(0,0,0,0.05)',
+};
+
+// FormLabel styling
+const formLabelFontWeight = 'light';
+
+// Gallery HoverableImage icon buttons
+const hoverableImageIconButton = {
+  background: {
+    dark: 'blackAlpha.700',
+    light: 'whiteAlpha.800',
+  },
+  color: {
+    dark: 'whiteAlpha.700',
+    light: 'blackAlpha.700',
+  },
+  hover: {
+    background: {
+      dark: 'blackAlpha.800',
+      light: 'whiteAlpha.800',
+    },
+    color: {
+      dark: 'whiteAlpha.900',
+      light: 'blackAlpha.900',
+    },
+  },
+};
+
+// Connection lines
+const connectionLineWidth = 5;
+const connectionLineWidthHover = 7;
+const connectionLineWidthString = `${connectionLineWidth}px`;
+const connectionLineWidthHoverString = `${connectionLineWidthHover}px`;
+const connectionLineDropShadow = {
+  dark: `drop-shadow(1px 1px 4px rgba(255,255,255,0.3))`,
+  light: `drop-shadow(1px 1px 4px rgba(0,0,0,0.3))`,
+};
 
 export const theme = extendTheme({
   config: {
-    initialColorMode: 'dark',
-    useSystemColorMode: false,
+    initialColorMode,
+    useSystemColorMode,
   },
   components: {
     Tooltip: {
       baseStyle: (props: StyleFunctionProps) => ({
-        textColor: props.colorMode === 'dark' ? 'gray.800' : 'gray.100',
+        textColor: tooltipTextColor[props.colorMode],
       }),
     },
     Accordion: {
       baseStyle: (props: StyleFunctionProps) => ({
         button: {
-          fontWeight: 'bold',
+          fontWeight: accordionButtonFontWeight,
           _hover: {
-            bgColor:
-              props.colorMode === 'dark'
-                ? 'rgba(255,255,255,0.05)'
-                : 'rgba(0,0,0,0.05)',
+            bgColor: accordionButtonHoverBgColor[props.colorMode],
           },
         },
         panel: {
@@ -52,22 +149,22 @@ export const theme = extendTheme({
     },
     FormLabel: {
       baseStyle: {
-        fontWeight: 'light',
+        fontWeight: formLabelFontWeight,
       },
     },
     Button: {
       variants: {
-        imageHoverIconButton: (props: StyleFunctionProps) => ({
-          bg: props.colorMode === 'dark' ? 'blackAlpha.700' : 'whiteAlpha.800',
-          color:
-            props.colorMode === 'dark' ? 'whiteAlpha.700' : 'blackAlpha.700',
-          _hover: {
-            bg:
-              props.colorMode === 'dark' ? 'blackAlpha.800' : 'whiteAlpha.800',
-            color:
-              props.colorMode === 'dark' ? 'whiteAlpha.900' : 'blackAlpha.900',
-          },
-        }),
+        imageHoverIconButton: (props: StyleFunctionProps) => {
+          const { colorMode } = props;
+          return {
+            bg: hoverableImageIconButton.background[colorMode],
+            color: hoverableImageIconButton.color[colorMode],
+            _hover: {
+              bg: hoverableImageIconButton.hover.background[colorMode],
+              color: hoverableImageIconButton.hover.color[colorMode],
+            },
+          };
+        },
       },
     },
   },
@@ -84,36 +181,44 @@ export const theme = extendTheme({
             colorMode === 'dark' ? 'green !important' : 'green !important',
         },
         '.react-flow__node': {
-          shadow:
-            colorMode === 'dark'
-              ? '2px 2px 19px 0px rgba(255,255,255,0.08)'
-              : '2px 2px 19px 0px rgba(0,0,0,0.08)',
+          // filter: nodeDropShadow[colorMode],
+          // background: nodeBackgroundColor[colorMode],
+          //   shadow:
+          //     colorMode === 'dark'
+          //       ? '2px 2px 19px 0px rgba(255,255,255,0.08)'
+          //       : '2px 2px 19px 0px rgba(0,0,0,0.08)',
         },
         'path.react-flow__connection-path': {
-          strokeWidth: '4px',
+          strokeWidth: connectionLineWidthString,
+          filter: connectionLineDropShadow[colorMode],
         },
         '.invoke-ai__edge path': {
-          strokeWidth: '5px',
+          strokeWidth: connectionLineWidthString,
+          filter: connectionLineDropShadow[colorMode],
           _hover: {
-            strokeWidth: '7px',
+            strokeWidth: connectionLineWidthHoverString,
           },
         },
         '.invoke-ai__edge_string path': {
-          stroke: colorMode === 'dark' ? darkStringColor : lightStringColor,
+          stroke: dataTypeColors.string[colorMode],
         },
         '.invoke-ai__edge_image path': {
-          stroke: colorMode === 'dark' ? darkImageColor : lightImageColor,
+          stroke: dataTypeColors.image[colorMode],
         },
-        '.invoke-ai__edge_number path': {
-          stroke: colorMode === 'dark' ? darkNumberColor : lightNumberColor,
+        '.invoke-ai__edge_integer path': {
+          stroke: dataTypeColors.integer[colorMode],
+        },
+        '.invoke-ai__edge_float path': {
+          stroke: dataTypeColors.float[colorMode],
         },
         '.invoke-ai__edge_boolean path': {
-          stroke: colorMode === 'dark' ? darkBooleanColor : lightBooleanColor,
+          stroke: dataTypeColors.boolean[colorMode],
         },
         '.invoke-ai__handle': {
           width: handleWidth,
           height: handleHeight,
           border: 'none',
+          filter: handleDropShadow[colorMode],
         },
         '.invoke-ai__handle_source': {
           right: handleOffset,
@@ -124,20 +229,32 @@ export const theme = extendTheme({
           borderRadius: `${handleSizeString} 0 0 ${handleSizeString}`,
         },
         '.invoke-ai__handle_string': {
-          background: colorMode === 'dark' ? darkStringColor : lightStringColor,
+          background: dataTypeColors.string[colorMode],
         },
         '.invoke-ai__handle_image': {
-          background: colorMode === 'dark' ? darkImageColor : lightImageColor,
+          background: dataTypeColors.image[colorMode],
         },
-        '.invoke-ai__handle_number': {
-          background: colorMode === 'dark' ? darkNumberColor : lightNumberColor,
+        '.invoke-ai__handle_integer': {
+          background: dataTypeColors.integer[colorMode],
+        },
+        '.invoke-ai__handle_float': {
+          background: dataTypeColors.float[colorMode],
         },
         '.invoke-ai__handle_boolean': {
-          background:
-            colorMode === 'dark' ? darkBooleanColor : lightBooleanColor,
+          background: dataTypeColors.boolean[colorMode],
         },
         '.ivoke-ai__module': {
-          background: colorMode === 'dark' ? 'gray.800' : 'white',
+          filter: nodeDropShadow[colorMode],
+          background: nodeBackgroundColor[colorMode],
+        },
+        '.ivoke-ai__module.selected': {
+          borderColor: nodeBorderColor[colorMode],
+        },
+        '.invoke-ai__module_header': {
+          background: nodeHeaderBackgroundColor[colorMode],
+        },
+        '.invoke-ai__module_header.selected': {
+          background: nodeHeaderBackgroundColor.selected[colorMode],
         },
       };
     },

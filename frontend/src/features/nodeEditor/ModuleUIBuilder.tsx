@@ -11,10 +11,10 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
   const { id: moduleId, data, selected } = props;
   const { moduleLabel, fields, outputs } = data;
 
-  const moduleBgColor = useColorModeValue('white', 'gray.800');
-  const headerBgColor = useColorModeValue('gray.100', 'gray.700');
-  const headerSelectedBgColor = useColorModeValue('blue.100', 'blue.700');
-  const moduleSelectedBorderColor = useColorModeValue('blue.200', 'blue.800');
+  // const moduleBgColor = useColorModeValue('white', 'gray.800');
+  // const headerBgColor = useColorModeValue('gray.100', 'gray.700');
+  // const headerSelectedBgColor = useColorModeValue('blue.100', 'blue.700');
+  // const moduleSelectedBorderColor = useColorModeValue('blue.200', 'blue.800');
 
   const flow = useReactFlow();
 
@@ -85,13 +85,13 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
       direction={'column'}
       cursor={'initial'}
       minWidth={'300px'}
-      backgroundColor={moduleBgColor}
-      borderColor={selected ? moduleSelectedBorderColor : undefined}
+      className={`ivoke-ai__module ${selected && 'selected'}`}
     >
       <Flex
-        className={'node-drag-handle'}
+        className={`node-drag-handle invoke-ai__module_header ${
+          selected && 'selected'
+        }`}
         cursor={'move'}
-        backgroundColor={selected ? headerSelectedBgColor : headerBgColor}
         borderTopRadius={'md'}
         p={2}
       >

@@ -7,7 +7,7 @@ import {
   SliderTrack,
 } from '@chakra-ui/react';
 import { useAppDispatch } from '../../../app/store';
-import { updateModuleParameterValue } from '../nodeEditorSlice';
+import { updateModuleParameterValue } from '../invokerSlice';
 import { SliderField } from '../types';
 
 type SliderFieldComponentProps = {

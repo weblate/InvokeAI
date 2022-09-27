@@ -4,7 +4,8 @@ const Legend = () => {
   const legend = [
     { dataType: 'string', label: 'Text' },
     { dataType: 'image', label: 'Image' },
-    { dataType: 'number', label: 'Number' },
+    { dataType: 'integer', label: 'Integer' },
+    { dataType: 'float', label: 'Float' },
     { dataType: 'boolean', label: 'Boolean' },
   ];
 

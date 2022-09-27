@@ -21,7 +21,12 @@ export declare type UIType =
   | 'numberInput'
   | 'image';
 
-export declare type DataType = 'string' | 'number' | 'image';
+export declare type DataType =
+  | 'string'
+  | 'integer'
+  | 'float'
+  | 'boolean'
+  | 'image';
 
 export declare type BaseField = {
   label: string;
@@ -40,7 +45,7 @@ export declare type ImageField = BaseField & {
 
 export declare type SliderField = BaseField & {
   uiType: 'slider';
-  dataType: 'number';
+  dataType: 'integer' | 'float';
   value?: number;
   min: number;
   max: number;
@@ -54,7 +59,7 @@ export declare type SliderField = BaseField & {
 
 export declare type NumberField = BaseField & {
   uiType: 'numberInput';
-  dataType: 'number';
+  dataType: 'integer' | 'float';
   value?: number;
   min: number;
   max: number;
@@ -68,7 +73,7 @@ export declare type NumberField = BaseField & {
 
 export declare type SelectField = BaseField & {
   uiType: 'select';
-  dataType: 'string' | 'number';
+  dataType: 'string' | 'integer' | 'float';
   value?: string | number;
   options: Array<string | number>;
 };
@@ -102,8 +107,8 @@ export declare type Field =
 
 export declare type Output = {
   dataType: DataType;
-    label: string;
-    nextTo?: string;
+  label: string;
+  nextTo?: string;
 };
 
 export declare type Invocation = {
