@@ -16,7 +16,7 @@ class SimplePromptInvocation(BaseInvocation):
     class Outputs(BaseInvocationOutput):
         prompt: str = Field(ui={"next_to": "prompt"})
 
-    def invoke(self, services: InvocationServices) -> Outputs: 
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
         return SimplePromptInvocation.Outputs.construct(
             prompt = self.prompt
         )
