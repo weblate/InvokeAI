@@ -13,6 +13,9 @@ class SimplePromptInvocation(BaseInvocation):
     # Inputs
     prompt: str = Field(default="", description="The prompt", ui={"type": "textarea", "label_position": "top"})
 
+    # UI hints for Invocation
+    ui: dict = {"label": 'Simple Prompt'}
+
     class Outputs(BaseInvocationOutput):
         prompt: str = Field(ui={"next_to": "prompt"})
 

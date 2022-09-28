@@ -14,6 +14,9 @@ class RestoreFaceInvocation(BaseInvocation):
     image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the restoration")
 
+    # UI hints for Invocation
+    ui: dict = {"label": 'Face Correction'}
+
     class Outputs(BaseImageOutput):
         ...
 

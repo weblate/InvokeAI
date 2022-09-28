@@ -6,16 +6,16 @@ import ReactFlow, {
   Controls,
   Edge,
   EdgeChange,
+  getRectOfNodes,
   MiniMap,
   NodeChange,
+  useKeyPress,
   useReactFlow,
 } from 'react-flow-renderer';
-import SwaggerParser from 'swagger-parser';
 import { v4 as uuidv4 } from 'uuid';
 import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 import Legend from './Legend';
 import Logger from './Logger';
-import ModuleUIBuilder from './ModuleUIBuilder';
 import {
   addModule,
   getSchema,
@@ -28,11 +28,14 @@ import {
 import prepareState from './prepareState';
 import _ from 'lodash';
 import { Invocation } from './types';
+import InvocationUIBuilder from './InvocationUIBuilder';
+import InvocationGroup from './components/InvocationGroup';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = {
-  invocation: ModuleUIBuilder,
+  invocation: InvocationUIBuilder,
+  invocationGroup: InvocationGroup,
 };
 
 function Flow() {
@@ -80,14 +83,6 @@ function Flow() {
     [dispatch]
   );
 
-  const handleClickAddModule = useCallback(
-    (invocation: Omit<Invocation, 'moduleId'>) => {
-      const i: Invocation = { ...invocation, moduleId: uuidv4() };
-      dispatch(addModule({ uuid: uuidv4(), invocation: i }));
-    },
-    [dispatch]
-  );
-
   const miniMapBgColor = useColorModeValue(
     'white',
     'var(--chakra-colors-gray-800)'
@@ -104,6 +99,51 @@ function Flow() {
   );
 
   const flow = useReactFlow();
+
+  const cmdAndGPressed = useKeyPress(['Meta+g', 'Strg+g']);
+
+  useEffect(() => {
+    if (cmdAndGPressed) {
+      // group nodes
+      const selectedNodes = flow.getNodes().filter((node) => node.selected);
+
+      if (selectedNodes.length) {
+        const groupNodeId = uuidv4();
+        const parentPadding = 10;
+        const rect = getRectOfNodes(selectedNodes);
+
+        const newNodes = flow.getNodes().map((node) => {
+          if (node.selected) {
+            node.parentNode = groupNodeId;
+            node.extent = 'parent';
+            // child nodes are positioned absolutely and relative to parent, calculate new positions
+            node.position = {
+              x: 0 - rect.x + node.position.x + parentPadding,
+              y: 0 - rect.y + node.position.y + parentPadding,
+            };
+          }
+          return node;
+        });
+
+        const { x, y, width, height } = rect;
+        const groupNode = {
+          id: groupNodeId,
+          data: { label: 'Group' },
+          type: 'invocationGroup',
+          position: {
+            x: x - parentPadding,
+            y: y - parentPadding,
+          },
+          style: {
+            width: width + parentPadding * 2,
+            height: height + parentPadding * 2,
+          },
+        };
+
+        flow.setNodes([groupNode, ...newNodes]);
+      }
+    }
+  }, [cmdAndGPressed, flow]);
 
   useEffect(() => {
     dispatch(getSchema());
@@ -149,19 +189,6 @@ function Flow() {
               </Button>
             );
           })}
-        {/*<Button onClick={() => handleClickAddModule('simplePrompt')}>
-          Simple Prompt
-        </Button>
-        <Button onClick={() => handleClickAddModule('generate')}>
-          Generate
-        </Button>
-        <Button onClick={() => handleClickAddModule('upscale')}>Upscale</Button>
-        <Button onClick={() => handleClickAddModule('showImage')}>
-          Show Image
-        </Button>
-        <Button onClick={() => handleClickAddModule('loadImage')}>
-          Load Image
-        </Button>*/}
         <Legend />
         <Button onClick={handleClickProcess}>Process</Button>
       </Flex>

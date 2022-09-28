@@ -8,7 +8,7 @@ import {
 import { ReactNode } from 'react';
 import { Field } from '../types';
 
-type FieldComponentLabelProps = {
+type InvocationFieldLabelProps = {
   field: Field;
   children: ReactNode;
   isDisabled?: boolean;
@@ -30,12 +30,12 @@ const alignItems: Record<string, SystemProps['alignItems']> = {
   right: 'center',
 };
 
-const FieldComponentLabel = ({
+const InvocationFieldLabel = ({
   field,
   children,
   isDisabled = false,
-}: FieldComponentLabelProps) => {
-  const { label, labelPosition } = field;
+}: InvocationFieldLabelProps) => {
+  const { label, ui: {label_position} } = field;
 
   return (
     <FormControl isDisabled={isDisabled}>
@@ -44,8 +44,8 @@ const FieldComponentLabel = ({
           <Flex
             gap={2}
             justifyContent={'space-between'}
-            alignItems={labelPosition ? alignItems[labelPosition] : 'center'}
-            direction={labelPosition ? directions[labelPosition] : 'row'}
+            alignItems={label_position ? alignItems[label_position] : 'center'}
+            direction={label_position ? directions[label_position] : 'row'}
             textAlign={'left'}
           >
             <Text fontSize={'sm'} whiteSpace="nowrap">
@@ -61,4 +61,4 @@ const FieldComponentLabel = ({
   );
 };
 
-export default FieldComponentLabel;
+export default InvocationFieldLabel;

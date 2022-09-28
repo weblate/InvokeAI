@@ -225,8 +225,8 @@ export const theme = extendTheme({
           borderRadius: `0 ${handleSizeString} ${handleSizeString} 0`,
         },
         '.invoke-ai__handle_target': {
-          left: handleOffset,
-          borderRadius: `${handleSizeString} 0 0 ${handleSizeString}`,
+          left: '-0.6rem',
+          borderRadius: `0 ${handleSizeString} ${handleSizeString} 0`,
         },
         '.invoke-ai__handle_string': {
           background: typeColors.string[colorMode],

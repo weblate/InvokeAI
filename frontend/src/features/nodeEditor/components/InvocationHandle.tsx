@@ -1,8 +1,8 @@
 import { Tooltip } from '@chakra-ui/react';
 import { Connection, Handle, Position } from 'react-flow-renderer';
-import { DataType } from './types';
+import { DataType } from '../types';
 
-type ModuleHandleProps = {
+type InvocationHandleProps = {
   handleType: 'source' | 'target';
   id: string;
   label?: string;
@@ -10,13 +10,13 @@ type ModuleHandleProps = {
   isValidConnection: (connection: Connection) => boolean;
 };
 
-const ModuleHandle = ({
+const InvocationHandle = ({
   handleType,
   id,
   label,
   type,
   isValidConnection,
-}: ModuleHandleProps) => {
+}: InvocationHandleProps) => {
   const position = handleType === 'source' ? Position.Right : Position.Left;
 
   return (
@@ -32,4 +32,4 @@ const ModuleHandle = ({
   );
 };
 
-export default ModuleHandle;
+export default InvocationHandle;

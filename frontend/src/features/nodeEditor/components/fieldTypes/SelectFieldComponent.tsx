@@ -1,8 +1,8 @@
 import { Select } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
-import { useAppDispatch } from '../../../app/store';
-import { updateModuleParameterValue } from '../invokerSlice';
-import { SelectField } from '../types';
+import { useAppDispatch } from '../../../../app/store';
+import { updateModuleParameterValue } from '../../invokerSlice';
+import { SelectField } from '../../types';
 
 type SelectFieldComponentProps = {
   moduleId: string;

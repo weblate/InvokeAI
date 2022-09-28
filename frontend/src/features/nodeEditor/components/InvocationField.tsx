@@ -1,24 +1,22 @@
-import ImageFieldComponent from './components/ImageFieldComponent';
-// import SliderFieldComponent from './components/NumberFieldComponent';
-import NumberFieldComponent from './components/NumberFieldComponent';
-import SelectFieldComponent from './components/SelectFieldComponent';
-// import SliderFieldComponent from './components/SliderFieldComponent';
-import TextareaFieldComponent from './components/TextareaFieldComponent';
-import TextFieldComponent from './components/TextFieldComponent';
-import ToggleFieldComponent from './components/ToggleFieldComponent';
-import { Field } from './types';
+import { Field } from "../types";
+import ImageFieldComponent from "./fieldTypes/ImageFieldComponent";
+import NumberFieldComponent from "./fieldTypes/NumberFieldComponent";
+import SelectFieldComponent from "./fieldTypes/SelectFieldComponent";
+import TextareaFieldComponent from "./fieldTypes/TextareaFieldComponent";
+import TextFieldComponent from "./fieldTypes/TextFieldComponent";
+import ToggleFieldComponent from "./fieldTypes/ToggleFieldComponent";
 
-type FieldComponentProps = {
+type InvocationFieldProps = {
   field: Field;
   moduleId: string;
   fieldId: string;
 };
 
-const FieldComponent = ({
+const InvocationField = ({
   field,
   moduleId,
   fieldId,
-}: FieldComponentProps) => {
+}: InvocationFieldProps) => {
   const { ui_type } = field;
 
   switch (ui_type) {
@@ -76,4 +74,4 @@ const FieldComponent = ({
   }
 };
 
-export default FieldComponent;
+export default InvocationField;

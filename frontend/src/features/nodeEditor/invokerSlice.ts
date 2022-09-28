@@ -12,13 +12,9 @@ import {
   updateEdge,
 } from 'react-flow-renderer';
 import _ from 'lodash';
-import makeSimplePromptModule from './modules/simplePrompt';
-import makeGenerateModule from './modules/generateModule';
-import makeUpscaleModule from './modules/upscaleModule';
-import makeShowImageModule from './modules/showImage';
-import makeLoadImageModule from './modules/loadImage';
 import SwaggerParser from 'swagger-parser';
 import { Invocation } from './types';
+import parseSchema from './parseSchema';
 
 export type InvokerState = {
   nodes: Node[];
@@ -99,24 +95,6 @@ export const invokerSlice = createSlice({
     ) => {
       const { uuid, invocation } = action.payload;
 
-      // const data = (() => {
-      //   switch (moduleType) {
-      //     case 'simplePrompt':
-      //       return makeSimplePromptModule();
-      //     case 'generate':
-      //       return makeGenerateModule();
-      //     case 'upscale':
-      //       return makeUpscaleModule();
-      //     case 'showImage':
-      //       return makeShowImageModule();
-      //     case 'loadImage':
-      //       return makeLoadImageModule();
-      //     default:
-      //       return false;
-      //   }
-      // })();
-
-      // if (data) {
       const node: Node = {
         id: uuid,
         type: 'invocation',
@@ -126,7 +104,6 @@ export const invokerSlice = createSlice({
       };
 
       state.nodes.push(node);
-      // }
     },
   },
   extraReducers(builder) {
@@ -138,140 +115,15 @@ export const invokerSlice = createSlice({
         state.status = 'succeeded';
         const schema = action.payload;
 
-        console.log(schema);
+        console.log('OpenAPI schema:', schema);
+
         const invocations: Record<
           string,
           Omit<Invocation, 'moduleId'>
-        > = _.reduce(
-          schema.components.schemas,
-          (schemas: Record<string, any>, schema, id) => {
-            if (id.match(/Invocation$/)) {
-              schemas[id] = {
-                moduleType: schema.properties.type.enum[0],
-                moduleLabel: id,
-                fields: _.reduce(
-                  schema.properties,
-                  (fields: Record<string, any>, property, id) => {
-                    if (!['id', 'type'].includes(id)) {
-                      if (property?.ui?.in_settings_panel) {
-                        return fields;
-                      }
-                      const { title, ui } = property;
-                      let t: string = property.type;
-                      let ui_type = ui?.type;
-                      let additional: Record<string, any> = {};
+        > = parseSchema(schema);
 
-                      if (!ui_type) {
-                        if ('enum' in property) {
-                          ui_type = 'select';
-                        } else if (
-                          'allOf' in property &&
-                          property.allOf[0].title === 'ImageField'
-                        ) {
-                          ui_type = 'image';
-                          t = 'image';
-                        } else if (t === 'string') {
-                          ui_type = 'text';
-                        } else if (['integer', 'number'].includes(t)) {
-                          ui_type = 'slider';
-                        } else if (t === 'boolean') {
-                          ui_type = 'toggle';
-                        }
-                      }
+        console.log('Parsed invocations:', invocations);
 
-                      switch (ui_type) {
-                        case 'text': {
-                          break;
-                        }
-                        case 'textarea': {
-                          break;
-                        }
-                        case 'number_input':
-                        case 'slider': {
-                          const {
-                            minimum,
-                            maximum,
-                            multipleOf,
-                            exclusiveMinimum,
-                            exclusiveMaximum,
-                          } = property;
-
-                          if (exclusiveMinimum !== undefined) {
-                            additional.exclusive_minimum = exclusiveMinimum;
-                          } else if (minimum !== undefined) {
-                            additional.minimum = minimum;
-                          }
-
-                          if (exclusiveMaximum !== undefined) {
-                            additional.exclusive_maximum = exclusiveMaximum;
-                          } else if (maximum !== undefined) {
-                            additional.maximum = maximum;
-                          }
-
-                          if (multipleOf) {
-                            additional.multiple_of = multipleOf;
-                          } else {
-                            if (t === 'number') {
-                              additional.multiple_of = 0.01;
-                            } else {
-                              additional.multiple_of = 1;
-                            }
-                          }
-
-                          break;
-                        }
-                        case 'select': {
-                          additional = { options: property.enum };
-                          break;
-                        }
-                        case 'image': {
-                          break;
-                        }
-                        case 'toggle': {
-                          break;
-                        }
-                      }
-
-                      fields[id] = {
-                        value: property.default,
-                        label: title,
-                        type: t,
-                        ui_type,
-                        ui: { ...ui },
-                        ...additional,
-                      };
-                    }
-                    return fields;
-                  },
-                  {}
-                ),
-                outputs: _.reduce(
-                  schema.additionalProperties.outputs.properties,
-                  (outputs: Record<string, any>, property, id) => {
-                    let t = property.type;
-                    if (
-                      'allOf' in property &&
-                      property.allOf[0].title === 'ImageField'
-                    ) {
-                      t = 'image';
-                    }
-
-                    outputs[id] = {
-                      label: property.title,
-                      type: t,
-                      ui: { ...property.ui },
-                    };
-                    return outputs;
-                  },
-                  {}
-                ),
-              };
-            }
-            return schemas;
-          },
-          {}
-        );
-        console.log(invocations);
         state.schemaGeneratedInvocations = invocations;
       })
       .addCase(getSchema.rejected, (state, action) => {

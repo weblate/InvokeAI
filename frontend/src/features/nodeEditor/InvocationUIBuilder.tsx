@@ -1,17 +1,20 @@
-import { Box, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { Connection, NodeProps, useReactFlow } from 'react-flow-renderer';
-import FieldComponentLabel from './components/FieldComponentLabel';
-import FieldComponent from './FieldComponent';
-import ModuleHandle from './ModuleHandle';
+import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import InvocationField from './components/InvocationField';
+import InvocationFieldLabel from './components/InvocationFieldLabel';
+import InvocationHandle from './components/InvocationHandle';
+import InvocationHandleLabel from './components/InvocationHandleLabel';
 import { Invocation } from './types';
 
-function ModuleUIBuilder(props: NodeProps<Invocation>) {
+function InvocationUIBuilder(props: NodeProps<Invocation>) {
   const { id: moduleId, data, selected } = props;
   const { moduleLabel, fields, outputs } = data;
 
   const flow = useReactFlow();
+  const [isExpanded, setIsExpanded] = useState<boolean>(true);
 
   // Check if an in-progress connection is valid
   const isValidConnection = useCallback(
@@ -91,6 +94,15 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
         p={2}
       >
         <Heading size={'sm'}>{moduleLabel}</Heading>
+        <Spacer />
+        <IconButton
+          size={'sm'}
+          fontSize={'md'}
+          variant={'link'}
+          aria-label="Collapse/open node"
+          onClick={() => setIsExpanded(!isExpanded)}
+          icon={isExpanded ? <FaChevronUp /> : <FaChevronDown />}
+        />
       </Flex>
       <Flex direction={'column'} gap={2} cursor={'initial'} p={2}>
         {_.map(fields, (field, id) => {
@@ -111,47 +123,53 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
               )
             : true);
           return (
-            <Box key={id} position={'relative'} width={'100%'}>
-              <FieldComponentLabel field={field} isDisabled={isDisabled}>
-                {!requires_connection && (
-                  <FieldComponent
-                    field={field}
-                    moduleId={moduleId}
-                    fieldId={id}
-                  />
-                )}
-              </FieldComponentLabel>
-              {requires_connection && (
-                <ModuleHandle
-                  handleType={'target'}
-                  id={id}
-                  type={type}
-                  label={label}
-                  isValidConnection={isValidConnection}
-                />
+            <>
+              {!requires_connection && isExpanded && (
+                <Box key={id} position={'relative'} width={'100%'}>
+                  <InvocationFieldLabel field={field} isDisabled={isDisabled}>
+                    <InvocationField
+                      field={field}
+                      moduleId={moduleId}
+                      fieldId={id}
+                    />
+                  </InvocationFieldLabel>
+                </Box>
               )}
-            </Box>
+
+              {requires_connection && (
+                <InvocationHandleLabel
+                  key={id}
+                  label={label}
+                  handleType={'target'}
+                >
+                  <InvocationHandle
+                    handleType={'target'}
+                    id={id}
+                    type={type}
+                    label={label}
+                    isValidConnection={isValidConnection}
+                  />
+                </InvocationHandleLabel>
+              )}
+            </>
           );
         })}
         {_.map(outputs, (output, key) => {
           const { type, label } = output;
           return (
-            <Flex
+            <InvocationHandleLabel
               key={key}
-              position={'relative'}
-              width={'100%'}
-              justifyContent={'flex-end'}
-              alignItems={'center'}
+              label={label}
+              handleType={'source'}
             >
-              <Text>{label}</Text>
-              <ModuleHandle
+              <InvocationHandle
                 handleType={'source'}
                 id={key}
                 type={type}
                 label={label}
                 isValidConnection={isValidConnection}
               />
-            </Flex>
+            </InvocationHandleLabel>
           );
         })}
       </Flex>
@@ -159,4 +177,4 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
   );
 }
 
-export default ModuleUIBuilder;
+export default InvocationUIBuilder;

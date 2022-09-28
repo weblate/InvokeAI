@@ -1,8 +1,8 @@
 import { Switch } from '@chakra-ui/react';
 import { ChangeEvent } from 'react';
-import { useAppDispatch } from '../../../app/store';
-import { updateModuleParameterValue } from '../invokerSlice';
-import { ToggleField } from '../types';
+import { useAppDispatch } from '../../../../app/store';
+import { updateModuleParameterValue } from '../../invokerSlice';
+import { ToggleField } from '../../types';
 
 type ToggleFieldComponentProps = {
   moduleId: string;

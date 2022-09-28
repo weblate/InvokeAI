@@ -26,6 +26,9 @@ class LoadImageInvocation(BaseInvocation):
     # Inputs
     uri: str = Field(description="The URI from which to load the image")
 
+    # UI hints for Invocation
+    ui: dict = {"label": 'Load Image'}
+
     class Outputs(BaseImageOutput):
         ...
 
@@ -41,6 +44,9 @@ class ShowImageInvocation(BaseInvocation):
 
     # Inputs
     image: ImageField = Field(default=None, description="The image to show", ui={"requires_connection": True})
+
+    # UI hints for Invocation
+    ui: dict = {"label": 'Show Image'}
 
     class Outputs(BaseImageOutput):
         ...

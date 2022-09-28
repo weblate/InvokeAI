@@ -17,6 +17,9 @@ class UpscaleInvocation(BaseInvocation):
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength")
     level: Literal[2,4]           = Field(default=2, description = "The upscale level")
 
+    # UI hints for Invocation
+    ui: dict = {"label": 'Upscale'}
+
     class Outputs(BaseImageOutput):
         ...
 

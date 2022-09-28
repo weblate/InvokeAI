@@ -8,12 +8,11 @@ import {
   SliderTrack,
 } from '@chakra-ui/react';
 import { FaRandom } from 'react-icons/fa';
-import { NUMPY_RAND_MAX } from '../../../app/constants';
-import { useAppDispatch } from '../../../app/store';
-import randomInt, { randomMultiple } from '../../../common/util/randomInt';
-import { updateModuleParameterValue } from '../invokerSlice';
-import { NumberField } from '../types';
-// import { SliderField } from '../types';
+import { NUMPY_RAND_MAX } from '../../../../app/constants';
+import { useAppDispatch } from '../../../../app/store';
+import randomInt, { randomMultiple } from '../../../../common/util/randomInt';
+import { updateModuleParameterValue } from '../../invokerSlice';
+import { NumberField } from '../../types';
 
 type NumberFieldComponentProps = {
   moduleId: string;
