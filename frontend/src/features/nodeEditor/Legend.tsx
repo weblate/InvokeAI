@@ -2,11 +2,11 @@ import { Box, Flex } from '@chakra-ui/react';
 
 const Legend = () => {
   const legend = [
-    { dataType: 'string', label: 'Text' },
-    { dataType: 'image', label: 'Image' },
-    { dataType: 'integer', label: 'Integer' },
-    { dataType: 'number', label: 'Number' },
-    { dataType: 'boolean', label: 'Boolean' },
+    { type: 'string', label: 'Text' },
+    { type: 'image', label: 'Image' },
+    { type: 'integer', label: 'Integer' },
+    { type: 'number', label: 'Number' },
+    { type: 'boolean', label: 'Boolean' },
   ];
 
   return (
@@ -14,7 +14,7 @@ const Legend = () => {
       {legend.map((legendItem, i) => (
         <Box
           key={i}
-          className={`invoke-ai__handle_${legendItem.dataType}`}
+          className={`invoke-ai__handle_${legendItem.type}`}
           pl={2}
           pr={2}
           pt={0.5}

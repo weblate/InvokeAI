@@ -58,7 +58,7 @@ const handleHeight = `${handleSize}${handleSizeUnit}`;
 const handleOffset = `-${handleSize - 0.2}${handleSizeUnit}`;
 
 // Colors for datatypes, used for color Legend, handles, connection lines
-const dataTypeColors = {
+const typeColors = {
   string: {
     dark: 'blue.500',
     light: 'blue.400',
@@ -200,19 +200,19 @@ export const theme = extendTheme({
           },
         },
         '.invoke-ai__edge_string path': {
-          stroke: dataTypeColors.string[colorMode],
+          stroke: typeColors.string[colorMode],
         },
         '.invoke-ai__edge_image path': {
-          stroke: dataTypeColors.image[colorMode],
+          stroke: typeColors.image[colorMode],
         },
         '.invoke-ai__edge_integer path': {
-          stroke: dataTypeColors.integer[colorMode],
+          stroke: typeColors.integer[colorMode],
         },
         '.invoke-ai__edge_number path': {
-          stroke: dataTypeColors.number[colorMode],
+          stroke: typeColors.number[colorMode],
         },
         '.invoke-ai__edge_boolean path': {
-          stroke: dataTypeColors.boolean[colorMode],
+          stroke: typeColors.boolean[colorMode],
         },
         '.invoke-ai__handle': {
           width: handleWidth,
@@ -229,19 +229,19 @@ export const theme = extendTheme({
           borderRadius: `${handleSizeString} 0 0 ${handleSizeString}`,
         },
         '.invoke-ai__handle_string': {
-          background: dataTypeColors.string[colorMode],
+          background: typeColors.string[colorMode],
         },
         '.invoke-ai__handle_image': {
-          background: dataTypeColors.image[colorMode],
+          background: typeColors.image[colorMode],
         },
         '.invoke-ai__handle_integer': {
-          background: dataTypeColors.integer[colorMode],
+          background: typeColors.integer[colorMode],
         },
         '.invoke-ai__handle_number': {
-          background: dataTypeColors.number[colorMode],
+          background: typeColors.number[colorMode],
         },
         '.invoke-ai__handle_boolean': {
-          background: dataTypeColors.boolean[colorMode],
+          background: typeColors.boolean[colorMode],
         },
         '.ivoke-ai__module': {
           filter: nodeDropShadow[colorMode],

@@ -41,10 +41,10 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
           connection.sourceHandle &&
           connection.targetHandle
         ) {
-          // connection dataTypes must be the same for a connection
+          // connection types must be the same for a connection
           return (
-            sourceNode.data.outputs[connection.sourceHandle].dataType ===
-            targetNode.data.fields[connection.targetHandle].dataType
+            sourceNode.data.outputs[connection.sourceHandle].type ===
+            targetNode.data.fields[connection.targetHandle].type
           );
         }
       }
@@ -94,22 +94,26 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
       </Flex>
       <Flex direction={'column'} gap={2} cursor={'initial'} p={2}>
         {_.map(fields, (field, id) => {
-          const { dataType, label, requiresConnection } = field;
-          const isDisabled = !(field.dependsOn
+          const {
+            type,
+            label,
+            ui: { requires_connection, depends_on },
+          } = field;
+          const isDisabled = !(depends_on
             ? Boolean(
                 flow
                   .getEdges()
                   .find(
                     (edge) =>
                       edge.target === moduleId &&
-                      edge.targetHandle === field.dependsOn
+                      edge.targetHandle === depends_on
                   )
               )
             : true);
           return (
             <Box key={id} position={'relative'} width={'100%'}>
               <FieldComponentLabel field={field} isDisabled={isDisabled}>
-                {!requiresConnection && (
+                {!requires_connection && (
                   <FieldComponent
                     field={field}
                     moduleId={moduleId}
@@ -117,11 +121,11 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
                   />
                 )}
               </FieldComponentLabel>
-              {requiresConnection && (
+              {requires_connection && (
                 <ModuleHandle
                   handleType={'target'}
                   id={id}
-                  dataType={dataType}
+                  type={type}
                   label={label}
                   isValidConnection={isValidConnection}
                 />
@@ -130,7 +134,7 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
           );
         })}
         {_.map(outputs, (output, key) => {
-          const { dataType, label } = output;
+          const { type, label } = output;
           return (
             <Flex
               key={key}
@@ -143,7 +147,7 @@ function ModuleUIBuilder(props: NodeProps<Invocation>) {
               <ModuleHandle
                 handleType={'source'}
                 id={key}
-                dataType={dataType}
+                type={type}
                 label={label}
                 isValidConnection={isValidConnection}
               />

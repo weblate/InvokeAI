@@ -26,7 +26,7 @@ export type InvokerState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   schema?: any;
   error?: string;
-  schemaGeneratedInvocations?: Record<string, Invocation>
+  schemaGeneratedInvocations?: Record<string, Omit<Invocation, 'moduleId'>>;
 };
 
 const initialState: InvokerState = {
@@ -62,7 +62,7 @@ export const invokerSlice = createSlice({
       if (sourceNode) {
         if (connection.sourceHandle) {
           const sourceDataType =
-            sourceNode.data.outputs[connection.sourceHandle].dataType;
+            sourceNode.data.outputs[connection.sourceHandle].type;
 
           state.edges = addEdge(
             {
@@ -95,38 +95,38 @@ export const invokerSlice = createSlice({
     },
     addModule: (
       state,
-      action: PayloadAction<{ uuid: string; moduleType: string }>
+      action: PayloadAction<{ uuid: string; invocation: Invocation }>
     ) => {
-      const { uuid, moduleType } = action.payload;
+      const { uuid, invocation } = action.payload;
 
-      const data = (() => {
-        switch (moduleType) {
-          case 'simplePrompt':
-            return makeSimplePromptModule();
-          case 'generate':
-            return makeGenerateModule();
-          case 'upscale':
-            return makeUpscaleModule();
-          case 'showImage':
-            return makeShowImageModule();
-          case 'loadImage':
-            return makeLoadImageModule();
-          default:
-            return false;
-        }
-      })();
+      // const data = (() => {
+      //   switch (moduleType) {
+      //     case 'simplePrompt':
+      //       return makeSimplePromptModule();
+      //     case 'generate':
+      //       return makeGenerateModule();
+      //     case 'upscale':
+      //       return makeUpscaleModule();
+      //     case 'showImage':
+      //       return makeShowImageModule();
+      //     case 'loadImage':
+      //       return makeLoadImageModule();
+      //     default:
+      //       return false;
+      //   }
+      // })();
 
-      if (data) {
-        const node: Node = {
-          id: uuid,
-          type: 'invocation',
-          dragHandle: '.node-drag-handle',
-          position: { x: 0, y: 0 },
-          data,
-        };
+      // if (data) {
+      const node: Node = {
+        id: uuid,
+        type: 'invocation',
+        dragHandle: '.node-drag-handle',
+        position: { x: 0, y: 0 },
+        data: invocation,
+      };
 
-        state.nodes.push(node);
-      }
+      state.nodes.push(node);
+      // }
     },
   },
   extraReducers(builder) {
@@ -139,16 +139,25 @@ export const invokerSlice = createSlice({
         const schema = action.payload;
 
         console.log(schema);
-        const invocations = _.reduce(
+        const invocations: Record<
+          string,
+          Omit<Invocation, 'moduleId'>
+        > = _.reduce(
           schema.components.schemas,
           (schemas: Record<string, any>, schema, id) => {
             if (id.match(/Invocation$/)) {
               schemas[id] = {
+                moduleType: schema.properties.type.enum[0],
+                moduleLabel: id,
                 fields: _.reduce(
                   schema.properties,
                   (fields: Record<string, any>, property, id) => {
                     if (!['id', 'type'].includes(id)) {
-                      const { title, type, ui } = property;
+                      if (property?.ui?.in_settings_panel) {
+                        return fields;
+                      }
+                      const { title, ui } = property;
+                      let t: string = property.type;
                       let ui_type = ui?.type;
                       let additional: Record<string, any> = {};
 
@@ -160,11 +169,12 @@ export const invokerSlice = createSlice({
                           property.allOf[0].title === 'ImageField'
                         ) {
                           ui_type = 'image';
-                        } else if (type === 'string') {
+                          t = 'image';
+                        } else if (t === 'string') {
                           ui_type = 'text';
-                        } else if (['integer', 'number'].includes(type)) {
+                        } else if (['integer', 'number'].includes(t)) {
                           ui_type = 'slider';
-                        } else if (type === 'boolean') {
+                        } else if (t === 'boolean') {
                           ui_type = 'toggle';
                         }
                       }
@@ -190,22 +200,18 @@ export const invokerSlice = createSlice({
                             additional.exclusive_minimum = exclusiveMinimum;
                           } else if (minimum !== undefined) {
                             additional.minimum = minimum;
-                          } else {
-                            additional.minimum = 1;
                           }
 
                           if (exclusiveMaximum !== undefined) {
                             additional.exclusive_maximum = exclusiveMaximum;
                           } else if (maximum !== undefined) {
                             additional.maximum = maximum;
-                          } else {
-                            additional.maximum = 100;
                           }
 
                           if (multipleOf) {
                             additional.multiple_of = multipleOf;
                           } else {
-                            if (type === 'number') {
+                            if (t === 'number') {
                               additional.multiple_of = 0.01;
                             } else {
                               additional.multiple_of = 1;
@@ -229,7 +235,7 @@ export const invokerSlice = createSlice({
                       fields[id] = {
                         value: property.default,
                         label: title,
-                        type,
+                        type: t,
                         ui_type,
                         ui: { ...ui },
                         ...additional,
@@ -242,9 +248,17 @@ export const invokerSlice = createSlice({
                 outputs: _.reduce(
                   schema.additionalProperties.outputs.properties,
                   (outputs: Record<string, any>, property, id) => {
+                    let t = property.type;
+                    if (
+                      'allOf' in property &&
+                      property.allOf[0].title === 'ImageField'
+                    ) {
+                      t = 'image';
+                    }
+
                     outputs[id] = {
                       label: property.title,
-                      type: property.type,
+                      type: t,
                       ui: { ...property.ui },
                     };
                     return outputs;

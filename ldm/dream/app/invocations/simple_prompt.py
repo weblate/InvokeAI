@@ -11,7 +11,7 @@ class SimplePromptInvocation(BaseInvocation):
     type: Literal["simple_prompt"]
 
     # Inputs
-    prompt: str = Field(default="", description="The prompt", ui={"type": "textarea", "requires_connection": True, "label_position": "top"})
+    prompt: str = Field(default="", description="The prompt", ui={"type": "textarea", "label_position": "top"})
 
     class Outputs(BaseInvocationOutput):
         prompt: str = Field(ui={"next_to": "prompt"})

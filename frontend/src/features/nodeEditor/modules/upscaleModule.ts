@@ -10,19 +10,19 @@ const makeUpscaleModule = (): Invocation => {
       image: {
         label: 'Input image',
         uiType: 'image',
-        dataType: 'image',
+        type: 'image',
         requiresConnection: true,
       },
       level: {
         label: 'Level',
         uiType: 'select',
-        dataType: 'number',
+        type: 'number',
         value: 4,
         options: [2, 4],
       },
       strength: {
         label: 'Strength',
-        dataType: 'number',
+        type: 'number',
         uiType: 'slider',
         value: 0.7,
         min: 0,
@@ -34,7 +34,7 @@ const makeUpscaleModule = (): Invocation => {
     outputs: {
       image: {
         label: 'Output image',
-        dataType: 'image',
+        type: 'image',
       },
     },
   };

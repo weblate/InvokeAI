@@ -59,7 +59,7 @@ class ShowImageInvocation(BaseInvocation):
     type: Literal['show_image']
 
     # Inputs
-    image: ImageField = Field(default=None, description="The image to show")
+    image: ImageField = Field(default=None, description="The image to show", ui={"requires_connection": True})
 
     class Outputs(BaseImageOutput):
         ...

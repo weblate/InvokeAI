@@ -16,8 +16,6 @@ from .api.routers import invocation
 from .api.dependencies import ApiDependencies
 from ..args import Args
 
-origins = []
-
 # Create the app
 # TODO: create this all in a method so configuration/etc. can be passed in?
 app = FastAPI(
@@ -35,7 +33,7 @@ app.add_middleware(
 
 # Add CORS
 # TODO: use configuration for this
-origins = ['http://localhost:5174']
+origins = ['http://localhost:5173']
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

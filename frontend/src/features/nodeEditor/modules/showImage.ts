@@ -10,14 +10,14 @@ const makeShowImageModule = (): Invocation => {
       image: {
         label: 'Image',
         uiType: 'image',
-        dataType: 'image',
+        type: 'image',
         labelPosition: 'top',
         requiresConnection: true,
       },
     },
     outputs: {
       image: {
-        dataType: 'image',
+        type: 'image',
         label: 'Image pass-through',
         nextTo: 'image',
       },

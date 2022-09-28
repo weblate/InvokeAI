@@ -18,7 +18,7 @@ export declare type UIType =
   | 'slider'
   | 'select'
   | 'toggle'
-  | 'numberInput'
+  | 'number_input'
   | 'image';
 
 export declare type DataType =
@@ -45,7 +45,23 @@ export declare type ImageField = BaseField & {
   ui_type: 'image';
 };
 
-export declare type SliderField = BaseField & {
+// export declare type SliderField = BaseField & {
+//   type: 'integer' | 'number';
+//   value?: number;
+//   minimum?: number;
+//   maximum?: number;
+//   multiple_of?: number;
+//   exclusive_minimum?: number;
+//   exclusive_maximum?: number;
+//   ui_type: 'slider';
+//   ui: {
+//     with_number_input?: boolean;
+//     number_input_min?: number;
+//     number_input_max?: number;
+//   };
+// };
+
+export declare type NumberField = BaseField & {
   type: 'integer' | 'number';
   value?: number;
   minimum?: number;
@@ -53,24 +69,14 @@ export declare type SliderField = BaseField & {
   multiple_of?: number;
   exclusive_minimum?: number;
   exclusive_maximum?: number;
-  ui_type: 'slider';
+  ui_type: 'number_input' | 'slider';
   ui: {
+    with_slider?: boolean;
     with_number_input?: boolean;
     number_input_min?: number;
     number_input_max?: number;
-  };
-};
-
-export declare type NumberInputField = BaseField & {
-  type: 'integer' | 'number';
-  value?: number;
-  min: number;
-  max: number;
-  step: number;
-  exclusive_minimum?: boolean;
-  exclusive_maximum?: boolean;
-  ui_type: 'number_input';
-  ui: {
+    slider_min?: number;
+    slider_max?: number;
     with_randomize_button?: boolean;
     with_randomize_icon_button?: boolean;
     with_steppers?: boolean;
@@ -104,9 +110,9 @@ export declare type ToggleField = BaseField & {
 
 export declare type Field =
   | ImageField
-  | NumberInputField
+  | NumberField
   | SelectField
-  | SliderField
+  // | SliderField
   | TextareaField
   | TextField
   | ToggleField;

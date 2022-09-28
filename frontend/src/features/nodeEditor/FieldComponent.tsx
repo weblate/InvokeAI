@@ -1,7 +1,8 @@
 import ImageFieldComponent from './components/ImageFieldComponent';
+// import SliderFieldComponent from './components/NumberFieldComponent';
 import NumberFieldComponent from './components/NumberFieldComponent';
 import SelectFieldComponent from './components/SelectFieldComponent';
-import SliderFieldComponent from './components/SliderFieldComponent';
+// import SliderFieldComponent from './components/SliderFieldComponent';
 import TextareaFieldComponent from './components/TextareaFieldComponent';
 import TextFieldComponent from './components/TextFieldComponent';
 import ToggleFieldComponent from './components/ToggleFieldComponent';
@@ -18,9 +19,9 @@ const FieldComponent = ({
   moduleId,
   fieldId,
 }: FieldComponentProps) => {
-  const { uiType } = field;
+  const { ui_type } = field;
 
-  switch (uiType) {
+  switch (ui_type) {
     case 'text':
       return (
         <TextFieldComponent
@@ -45,15 +46,8 @@ const FieldComponent = ({
           fieldId={fieldId}
         />
       );
+    case 'number_input':
     case 'slider':
-      return (
-        <SliderFieldComponent
-          moduleId={moduleId}
-          field={field}
-          fieldId={fieldId}
-        />
-      );
-    case 'numberInput':
       return (
         <NumberFieldComponent
           moduleId={moduleId}

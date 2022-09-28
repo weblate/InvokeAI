@@ -17,20 +17,20 @@ const makeGenerateModule = (): Invocation => {
       prompt: {
         label: 'Prompt',
         uiType: 'text',
-        dataType: 'string',
+        type: 'string',
         requiresConnection: true,
       },
       image: {
         label: 'Initial image',
         uiType: 'image',
-        dataType: 'image',
+        type: 'image',
         requiresConnection: true,
         optional: true,
       },
       strength: {
         label: 'Initial image strength',
         uiType: 'slider',
-        dataType: 'number',
+        type: 'number',
         min: 0,
         max: 1,
         value: 0.75,
@@ -41,14 +41,14 @@ const makeGenerateModule = (): Invocation => {
       sampler_name: {
         label: 'Sampler',
         uiType: 'select',
-        dataType: 'string',
+        type: 'string',
         value: 'k_lms',
         options: SAMPLERS,
       },
       seed: {
         label: 'Seed',
         uiType: 'numberInput',
-        dataType: 'number',
+        type: 'number',
         min: NUMPY_RAND_MIN,
         max: NUMPY_RAND_MAX,
         step: 1,
@@ -58,7 +58,7 @@ const makeGenerateModule = (): Invocation => {
       steps: {
         label: 'Steps',
         uiType: 'slider',
-        dataType: 'number',
+        type: 'number',
         value: 32,
         min: 1,
         max: 200,
@@ -69,7 +69,7 @@ const makeGenerateModule = (): Invocation => {
       cfg_scale: {
         label: 'CFG Scale',
         uiType: 'slider',
-        dataType: 'number',
+        type: 'number',
         value: 7.5,
         min: 0,
         max: 10,
@@ -80,28 +80,28 @@ const makeGenerateModule = (): Invocation => {
       width: {
         label: 'Width',
         uiType: 'select',
-        dataType: 'number',
+        type: 'number',
         value: 512,
         options: WIDTHS,
       },
       height: {
         label: 'Height',
         uiType: 'select',
-        dataType: 'number',
+        type: 'number',
         value: 512,
         options: HEIGHTS,
       },
       seamless: {
         label: 'Seamless',
         uiType: 'toggle',
-        dataType: 'boolean',
+        type: 'boolean',
         value: false,
       },
     },
     outputs: {
       image: {
         label: 'Output image',
-        dataType: 'image',
+        type: 'image',
       },
     },
   };

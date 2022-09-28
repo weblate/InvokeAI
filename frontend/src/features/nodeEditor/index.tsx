@@ -27,6 +27,7 @@ import {
 } from './invokerSlice';
 import prepareState from './prepareState';
 import _ from 'lodash';
+import { Invocation } from './types';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
@@ -35,7 +36,7 @@ const nodeTypes = {
 };
 
 function Flow() {
-  const { nodes, edges } = useAppSelector(
+  const { nodes, edges, schemaGeneratedInvocations } = useAppSelector(
     (state: RootState) => state.invoker
   );
 
@@ -80,8 +81,9 @@ function Flow() {
   );
 
   const handleClickAddModule = useCallback(
-    (moduleType: string) => {
-      dispatch(addModule({ moduleType, uuid: uuidv4() }));
+    (invocation: Omit<Invocation, 'moduleId'>) => {
+      const i: Invocation = { ...invocation, moduleId: uuidv4() };
+      dispatch(addModule({ uuid: uuidv4(), invocation: i }));
     },
     [dispatch]
   );
@@ -130,11 +132,24 @@ function Flow() {
       });
   }, [flow]);
 
-
   return (
     <Flex gap={2} width={'100%'} height={'100%'} direction={'column'}>
       <Flex gap={2} alignItems={'center'}>
-        <Button onClick={() => handleClickAddModule('simplePrompt')}>
+        {schemaGeneratedInvocations &&
+          _.map(schemaGeneratedInvocations, (invocation, name) => {
+            return (
+              <Button
+                key={name}
+                onClick={() => {
+                  const i: Invocation = { ...invocation, moduleId: uuidv4() };
+                  dispatch(addModule({ uuid: uuidv4(), invocation: i }));
+                }}
+              >
+                {invocation.moduleLabel.replace('Invocation', '')}
+              </Button>
+            );
+          })}
+        {/*<Button onClick={() => handleClickAddModule('simplePrompt')}>
           Simple Prompt
         </Button>
         <Button onClick={() => handleClickAddModule('generate')}>
@@ -146,12 +161,12 @@ function Flow() {
         </Button>
         <Button onClick={() => handleClickAddModule('loadImage')}>
           Load Image
-        </Button>
+        </Button>*/}
         <Legend />
         <Button onClick={handleClickProcess}>Process</Button>
       </Flex>
       <Flex>
-        <Box height={'calc(100vh - 100px)'} width={'66vw'}>
+        <Box height={'calc(100vh - 100px)'} width={'100vw'}>
           <ReactFlow
             nodes={nodes}
             edges={edges}
@@ -166,7 +181,7 @@ function Flow() {
             fitView
           />
         </Box>
-        <Box height={'calc(100vh - 100px)'} width={'34vw'} overflowY={'scroll'}>
+        <Box zIndex={-99} position={'absolute'} top={0} left={0}>
           <Logger />
         </Box>
       </Flex>

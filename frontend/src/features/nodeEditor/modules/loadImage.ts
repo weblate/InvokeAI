@@ -10,7 +10,7 @@ const makeLoadImageModule = (): Invocation => {
       image: {
         label: 'Image',
         uiType: 'image',
-        dataType: 'image',
+        type: 'image',
         value: 'outputs/test.png',
         labelPosition: 'top',
       },
@@ -18,7 +18,7 @@ const makeLoadImageModule = (): Invocation => {
     outputs: {
       image: {
         label: 'Output image',
-        dataType: 'image',
+        type: 'image',
         nextTo: 'image',
       },
     },

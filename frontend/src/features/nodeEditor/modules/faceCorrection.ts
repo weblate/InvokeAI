@@ -10,13 +10,13 @@ const makeFaceCorrectionModule = (): Invocation => {
       image: {
         label: 'Input image',
         uiType: 'image',
-        dataType: 'image',
+        type: 'image',
         value: '',
         requiresConnection: true,
       },
       strength: {
         label: 'Strength',
-        dataType: 'number',
+        type: 'number',
         uiType: 'slider',
         value: 0.7,
         min: 0,
@@ -28,7 +28,7 @@ const makeFaceCorrectionModule = (): Invocation => {
     outputs: {
       image: {
         label: 'Output image',
-        dataType: 'image',
+        type: 'image',
       },
     },
   };

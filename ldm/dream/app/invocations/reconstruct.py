@@ -10,7 +10,7 @@ class RestoreFaceInvocation(BaseInvocation):
     type: Literal["restore_face"]
 
     # Inputs
-    image: Union[ImageField,None] = Field(description="The input image")
+    image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the restoration")
 
     class Outputs(BaseImageOutput):

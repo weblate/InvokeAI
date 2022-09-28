@@ -17,16 +17,16 @@ class TextToImageInvocation(BaseInvocation):
 
     # Inputs
     # TODO: consider making prompt optional to enable providing prompt through a link
-    prompt: Optional[str]     = Field(description="The prompt to generate an image from")
-    seed: int                 = Field(default=0, ge=0, le=4294967295, description="The seed to use (0 for a random seed)")
-    steps: int                = Field(default=10, gt=0, le=1000, description="The number of steps to use to generate the image")
-    width: int                = Field(default=512, gt=0, le=4096, multiple_of=64, description="The width of the resulting image")
-    height: int               = Field(default=512, gt=0, le=4096, multiple_of=64, description="The height of the resulting image")
-    cfg_scale: float          = Field(default=7.5, gt=0, le=20, description="The Classifier-Free Guidance, higher values may result in a result closer to the prompt")
+    prompt: Optional[str]     = Field(description="The prompt to generate an image from", ui={"requires_connection": True})
+    seed: int                 = Field(default=0, ge=0, le=4294967295, description="The seed to use (0 for a random seed)", ui={"type":"number_input", "with_randomize_icon_button": True})
+    steps: int                = Field(default=10, gt=0, description="The number of steps to use to generate the image", ui={"type": "slider", "slider_max": 100, "with_number_input": True})
+    width: int                = Field(default=512, gt=0, le=4096, multiple_of=64, description="The width of the resulting image", ui={"type": "slider", "slider_max": 1024, "with_number_input": True})
+    height: int               = Field(default=512, gt=0, le=4096, multiple_of=64, description="The height of the resulting image", ui={"type": "slider", "slider_max": 1024, "with_number_input": True})
+    cfg_scale: float          = Field(default=7.5, gt=0, le=20, description="The Classifier-Free Guidance, higher values may result in a result closer to the prompt", ui={"with_number_input": True})
     sampler_name: SAMPLER_NAME_VALUES = Field(default="k_lms", description="The sampler to use")
     seamless: bool            = Field(default=False, description="Whether or not to generate an image that can tile without seams")
-    model: str                = Field(default='', description="The model to use (currently ignored)")
-    progress_images: bool     = Field(default=False, description="Whether or not to produce progress images during generation")
+    model: str                = Field(default='', description="The model to use (currently ignored)", ui={"in_settings_panel": True})
+    progress_images: bool     = Field(default=False, description="Whether or not to produce progress images during generation", ui={"in_settings_panel": True})
 
     class Outputs(BaseImageOutput):
         ...
@@ -65,7 +65,7 @@ class ImageToImageInvocation(TextToImageInvocation):
     type: Literal["img2img"]
 
     # Inputs
-    image: Union[ImageField,None] = Field(description="The input image")
+    image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the original image")
     fit: bool                     = Field(default=True, description="Whether or not the result should be fit to the aspect ratio of the input image")
 
