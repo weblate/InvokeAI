@@ -7,7 +7,7 @@ from typing import Literal, Union, get_args, get_origin, get_type_hints
 from pydantic import BaseModel
 from pydantic.fields import Field
 from .services.image_storage import DiskImageStorage
-from .services.context_manager import DiskContextManager
+from .services.context_manager import MemoryContextManager
 from .services.invocation_queue import MemoryInvocationQueue
 from .invocations.baseinvocation import BaseInvocation
 from .services.invocation_context import InvocationFieldLink
@@ -106,16 +106,13 @@ def invoke_cli():
 
     invoker_services = InvokerServices(
         queue           = MemoryInvocationQueue(),
-        context_manager = DiskContextManager(output_folder)
+        context_manager = MemoryContextManager()
     )
 
     invoker = Invoker(services, invoker_services)
     context = invoker.create_context()
     
     parser = get_invocation_parser()
-
-    # Uncomment to print out previous contexts at startup
-    # print(invoker_services.context_manager.list())
 
     while (True):
         try:
@@ -147,10 +144,7 @@ def invoke_cli():
                 links = []
                 if len(context.history) > 0 or current_id != start_id:
                     from_id = -1 if current_id == start_id else str(current_id - 1)
-                    links.append(InvocationFieldLink(
-                        from_node_id=from_id,
-                        from_field = "*",
-                        to_field = "*"))
+                    links.append(InvocationFieldLink(from_id, "*", "*"))
 
                 new_invocations.append((command.invocation, links))
 

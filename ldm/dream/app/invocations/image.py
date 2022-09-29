@@ -2,6 +2,8 @@
 
 from typing import Literal, Optional
 from pydantic import Field, BaseModel
+from pydantic.dataclasses import dataclass
+from PIL import Image
 from .baseinvocation import BaseInvocation, BaseInvocationOutput
 from ..services.invocation_services import InvocationServices
 
@@ -11,17 +13,15 @@ class ImageField(BaseModel):
     uri: Optional[str] = Field(default=None, description="The relative path to the image")
 
 
-class ImageOutput(BaseInvocationOutput):
+class BaseImageOutput(BaseInvocationOutput):
     """Base class for invocations that output an image"""
-    type: Literal['image'] = 'image'
-
     image: ImageField = Field(default=None, description="The output image")
 
 
 # TODO: this isn't really necessary anymore
 class LoadImageInvocation(BaseInvocation):
     """Load an image from a filename and provide it as output."""
-    type: Literal['load_image'] = 'load_image'
+    type: Literal['load_image']
 
     # Inputs
     uri: str = Field(description="The URI from which to load the image")
@@ -29,15 +29,18 @@ class LoadImageInvocation(BaseInvocation):
     # UI hints for Invocation
     ui: dict = {"label": 'Load Image'}
 
-    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
-        return ImageOutput(
-            image = ImageField(uri = self.uri)
+    class Outputs(BaseImageOutput):
+        ...
+
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
+        return LoadImageInvocation.Outputs.construct(
+            image = ImageField.construct(self.uri)
         )
 
 
 class ShowImageInvocation(BaseInvocation):
     """Displays a provided image, and passes it forward in the pipeline."""
-    type: Literal['show_image'] = 'show_image'
+    type: Literal['show_image']
 
     # Inputs
     image: ImageField = Field(default=None, description="The image to show", ui={"requires_connection": True})
@@ -45,13 +48,16 @@ class ShowImageInvocation(BaseInvocation):
     # UI hints for Invocation
     ui: dict = {"label": 'Show Image'}
 
-    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
+    class Outputs(BaseImageOutput):
+        ...
+
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
         image = services.images.get(self.image.uri)
         if image:
             image.show()
 
         # TODO: how to handle failure?
 
-        return ImageOutput(
-            image = ImageField(uri = self.image.uri)
+        return ShowImageInvocation.Outputs.construct(
+            image = ImageField.construct(self.image.uri)
         )

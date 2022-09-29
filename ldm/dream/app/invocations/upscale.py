@@ -3,14 +3,14 @@
 from datetime import datetime, timezone
 from typing import Literal, Union
 from pydantic import Field
-from .image import ImageField, ImageOutput
+from .image import BaseImageOutput, ImageField
 from .baseinvocation import BaseInvocation
 from ..services.invocation_services import InvocationServices
 
 
 class UpscaleInvocation(BaseInvocation):
     """Upscales an image."""
-    type: Literal['upscale'] = 'upscale'
+    type: Literal["upscale"]
 
     # Inputs
     image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
@@ -20,7 +20,10 @@ class UpscaleInvocation(BaseInvocation):
     # UI hints for Invocation
     ui: dict = {"label": 'Upscale'}
 
-    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput: 
+    class Outputs(BaseImageOutput):
+        ...
+
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs: 
         results = services.generate.upscale_and_reconstruct(
             image_list     = [[self.image.get(), 0]],
             upscale        = (self.level, self.strength),
@@ -33,6 +36,6 @@ class UpscaleInvocation(BaseInvocation):
         # TODO: can this return multiple results?
         uri = f'results/{context_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
         services.images.save(uri, results[0][0])
-        return ImageOutput(
-            image = ImageField(uri = uri)
+        return UpscaleInvocation.Outputs.construct(
+            image = ImageField.construct(uri = uri)
         )

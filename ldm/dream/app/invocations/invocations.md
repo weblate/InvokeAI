@@ -11,21 +11,24 @@ An invocation looks like this:
 ```py
 class UpscaleInvocation(BaseInvocation):
     """Generates an image using text2img."""
-    type: Literal['upscale'] = 'upscale'
+    type: Literal["upscale"]
 
     # Inputs
     image: Union[ImageField,None] = Field(description="The input image")
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength")
     level: UpscaleLevel           = Field(default=2, description="The upscale level")
 
-    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput: 
+    class Outputs(BaseImageOutput):
+        ...
+
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs: 
         result_image = services.generate.upscale(
             image    = self.image.get(),
             level    = self.level
             strength = self.strength
         )
 
-        return ImageOutput.construct(
+        return UpscaleInvocation.Outputs.construct(
             image = ImageField.from_image(result_image)
         )
 ```
@@ -60,16 +63,25 @@ The special type `ImageField` is also used here. All images are passed as `Image
 
 Finally, note that for all linking, the `type` of the linked fields must match. If the `name` also matches, then the field can be **automatically linked** to a previous invocation by name and matching.
 
+### Outputs
+```py
+    class Outputs(BaseImageOutput):
+        ...
+```
+This class must be present on all invocations, and describes the outputs of the invocation. Here, `BaseImageOutput` is used, which is the recommended base output class for all invocations that output a single image.
+
+Outputs follow the same format as inputs, so they can be validated against input fields when linking, as well as providing metadata to the CLI and API.
+
 ### Invoke Function
 ```py
-    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput: 
+    def invoke(self, services: InvocationServices, context_id: str) -> Outputs: 
         result_image = context.services.generate.upscale(
             image    = self.image.get(),
             level    = self.level
             strength = self.strength
         )
 
-        return ImageOutput.construct(
+        return UpscaleInvocation.Outputs.construct(
             image = ImageField.from_image(result_image)
         )
 ```
