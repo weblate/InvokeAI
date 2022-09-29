@@ -12,7 +12,9 @@ import Loading from '../Loading';
 import { useAppDispatch } from './store';
 import { requestAllImages, requestSystemConfig } from './socketio/actions';
 import Flow from '../features/nodeEditor';
-import { ReactFlowProvider } from 'react-flow-renderer';
+import { ReactFlowProvider } from 'reactflow';
+// or if you just want basic styles
+import 'reactflow/dist/base.css';
 
 const App = () => {
   const dispatch = useAppDispatch();

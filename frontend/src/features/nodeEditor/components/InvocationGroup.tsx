@@ -1,5 +1,5 @@
 import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
-import { NodeProps } from 'react-flow-renderer';
+import { NodeProps } from 'reactflow';
 
 const InvocationGroup = (props: NodeProps<any>) => {
   const {

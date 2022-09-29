@@ -1,6 +1,7 @@
 # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
 import asyncio
+from inspect import signature
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
@@ -12,7 +13,7 @@ from pydantic.schema import schema
 import uvicorn
 from .invocations import *
 from .invocations.baseinvocation import BaseInvocation
-from .api.routers import invocation
+from .api.routers import invocation, contexts
 from .api.dependencies import ApiDependencies
 from ..args import Args
 
@@ -55,9 +56,15 @@ async def startup_event():
         event_handler_id = event_handler_id)
 
 # Include all routers
+# TODO: REMOVE
+# app.include_router(
+#     invocation.invocation_router,
+#     prefix = '/api')
+
 app.include_router(
-    invocation.invocation_router,
-    prefix = '/api')
+    contexts.context_router,
+    prefix = '/api'
+)
 
 # Build a custom OpenAPI to include all outputs
 # TODO: can outputs be included on metadata of invocation schemas somehow?
@@ -72,25 +79,32 @@ def custom_openapi():
     )
 
     # Add all outputs
-    for invoker in BaseInvocation.get_invocations():
-        invoker_name = invoker.__name__
-        name = f'{invoker_name}Outputs'
-        output_schema = schema([invoker.Outputs], ref_prefix="#/components/schemas/")['definitions']['Outputs']
-        output_schema["title"] = name
-        openapi_schema["components"]["schemas"][name] = output_schema
+    all_invocations = BaseInvocation.get_invocations()
+    output_types = set()
+    output_type_titles = dict()
+    for invoker in all_invocations:
+        output_type = signature(invoker.invoke).return_annotation
+        output_types.add(output_type)
 
-        # Add a reference to the outputs to additionalProperties of the invoker schema
+    output_schemas = schema(output_types, ref_prefix="#/components/schemas/")
+    for schema_key, output_schema in output_schemas['definitions'].items():
+        openapi_schema["components"]["schemas"][schema_key] = output_schema
+
+        # TODO: note that we assume the schema_key here is the TYPE.__name__
+        # This could break in some cases, figure out a better way to do it
+        output_type_titles[schema_key] = output_schema['title']
+
+    # Add a reference to the output type to additionalProperties of the invoker schema
+    for invoker in all_invocations:
+        invoker_name = invoker.__name__
+        output_type = signature(invoker.invoke).return_annotation
+        output_type_title = output_type_titles[output_type.__name__]
         invoker_schema = openapi_schema["components"]["schemas"][invoker_name]
-        outputs_ref = { '$ref': f'#/components/schemas/{name}' }
-        if 'additionalProperties' in invoker_schema:
-            invoker_schema['additionalProperties']['outputs'] = outputs_ref
-        else:
-            invoker_additional_properties = {
-                'outputs': {
-                    '$ref': f'#/components/schemas/{name}'
-                }
-            }
-            invoker_schema['additionalProperties'] = invoker_additional_properties
+        outputs_ref = { '$ref': f'#/components/schemas/{output_type_title}' }
+        if 'additionalProperties' not in invoker_schema:
+            invoker_schema['additionalProperties'] = {}
+
+        invoker_schema['additionalProperties']['outputs'] = outputs_ref
     
     app.openapi_schema = openapi_schema
     return app.openapi_schema

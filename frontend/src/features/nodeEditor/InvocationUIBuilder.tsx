@@ -1,7 +1,7 @@
 import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
-import { Connection, NodeProps, useReactFlow } from 'react-flow-renderer';
+import { Connection, NodeProps, useReactFlow } from 'reactflow';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import InvocationField from './components/InvocationField';
 import InvocationFieldLabel from './components/InvocationFieldLabel';

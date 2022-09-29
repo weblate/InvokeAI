@@ -10,7 +10,7 @@ import {
   Node,
   NodeChange,
   updateEdge,
-} from 'react-flow-renderer';
+} from 'reactflow';
 import _ from 'lodash';
 import SwaggerParser from 'swagger-parser';
 import { Invocation } from './types';
@@ -64,6 +64,7 @@ export const invokerSlice = createSlice({
             {
               ...connection,
               className: `invoke-ai__edge invoke-ai__edge_${sourceDataType}`,
+              type: 'custom',
             },
             state.edges
           );

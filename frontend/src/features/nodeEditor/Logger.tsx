@@ -1,5 +1,5 @@
 import { Box } from '@chakra-ui/react';
-import { useEdges, useNodes } from 'react-flow-renderer';
+import { useEdges, useNodes } from 'reactflow';
 import prepareState from './prepareState';
 
 const Logger = () => {

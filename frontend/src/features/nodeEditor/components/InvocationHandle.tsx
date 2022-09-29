@@ -1,5 +1,5 @@
 import { Tooltip } from '@chakra-ui/react';
-import { Connection, Handle, Position } from 'react-flow-renderer';
+import { Connection, Handle, Position } from 'reactflow';
 import { DataType } from '../types';
 
 type InvocationHandleProps = {

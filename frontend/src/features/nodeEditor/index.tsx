@@ -11,7 +11,7 @@ import ReactFlow, {
   NodeChange,
   useKeyPress,
   useReactFlow,
-} from 'react-flow-renderer';
+} from 'reactflow';
 import { v4 as uuidv4 } from 'uuid';
 import { RootState, useAppDispatch, useAppSelector } from '../../app/store';
 import Legend from './Legend';
@@ -30,12 +30,17 @@ import _ from 'lodash';
 import { Invocation } from './types';
 import InvocationUIBuilder from './InvocationUIBuilder';
 import InvocationGroup from './components/InvocationGroup';
+import CustomEdge from './components/Edge';
 
 // we define the nodeTypes outside of the component to prevent re-renderings
 // you could also use useMemo inside the component
 const nodeTypes = {
   invocation: InvocationUIBuilder,
   invocationGroup: InvocationGroup,
+};
+
+const edgeTypes = {
+  custom: CustomEdge,
 };
 
 function Flow() {
@@ -202,9 +207,9 @@ function Flow() {
             onEdgeUpdate={handleOnEdgeUpdate}
             onConnect={handleOnConnect}
             nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onEdgeUpdateStart={handleOnEdgeUpdateStart}
             onEdgeUpdateEnd={handleOnEdgeUpdateEnd}
-            defaultZoom={2}
             fitView
           />
         </Box>

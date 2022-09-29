@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Edge, Node } from 'react-flow-renderer';
+import { Edge, Node } from 'reactflow';
 
 const prepareState = (nodes: Node[], edges: Edge[]) => {
   const formattedNodes = nodes.map((node: Node) => {
