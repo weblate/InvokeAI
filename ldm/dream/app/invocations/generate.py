@@ -5,7 +5,7 @@ from enum import Enum
 from typing import Any, Literal, Optional, Union
 import numpy as np
 from pydantic import Field
-from .image import BaseImageOutput, ImageField
+from .image import ImageField, ImageOutput
 from .baseinvocation import BaseInvocation
 from ..services.invocation_services import InvocationServices
 
@@ -15,7 +15,7 @@ SAMPLER_NAME_VALUES = Literal["ddim","plms","k_lms","k_dpm_2","k_dpm_2_a","k_eul
 # Text to image
 class TextToImageInvocation(BaseInvocation):
     """Generates an image using text2img."""
-    type: Literal['txt2img']
+    type: Literal['txt2img'] = 'txt2img'
 
     # Inputs
     # TODO: consider making prompt optional to enable providing prompt through a link
@@ -33,9 +33,6 @@ class TextToImageInvocation(BaseInvocation):
     # UI hints for Invocation
     ui: dict                  = {"label": 'Text to Image'}
 
-    class Outputs(BaseImageOutput):
-        ...
-
     def dispatch_progress(self, services: InvocationServices, sample: Any, step: int) -> None:
         services.events.dispatch('progress', {
             #'context_id': self.get_context_id(), # TODO: figure out how to do this
@@ -45,7 +42,7 @@ class TextToImageInvocation(BaseInvocation):
             'percent': float(step) / float(self.steps)
         })
 
-    def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
+    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
         results = services.generate.prompt2image(
             prompt = self.prompt,
             step_callback = lambda sample, step: self.dispatch_progress(services, sample, step),
@@ -59,17 +56,13 @@ class TextToImageInvocation(BaseInvocation):
         # TODO: can this return multiple results? Should it?
         uri = f'results/{context_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
         services.images.save(uri, results[0][0])
-        return TextToImageInvocation.Outputs.construct(
-            image = ImageField.construct(uri = uri)
+        return ImageOutput(
+            image = ImageField(uri = uri)
         )
-
-
-
-
 
 class ImageToImageInvocation(TextToImageInvocation):
     """Generates an image using img2img."""
-    type: Literal["img2img"]
+    type: Literal['img2img'] = 'img2img'
 
     # Inputs
     image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
@@ -79,10 +72,7 @@ class ImageToImageInvocation(TextToImageInvocation):
     # UI hints for Invocation
     ui: dict                      = {"label": 'Image to Image'}
 
-    class Outputs(BaseImageOutput):
-        ...
-
-    def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
+    def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
         results = services.generate.prompt2image(
             prompt   = self.prompt,
             init_img = self.image.get(),
@@ -96,6 +86,6 @@ class ImageToImageInvocation(TextToImageInvocation):
         # TODO: can this return multiple results? Should it?
         uri = f'results/{context_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
         services.images.save(uri, results[0][0])
-        return ImageToImageInvocation.Outputs.construct(
-            image = ImageField.construct(uri = uri)
+        return ImageOutput(
+            image = ImageField(uri = uri)
         )
