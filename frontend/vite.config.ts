@@ -66,9 +66,23 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/outputs': {
-          target: 'http://localhost:9090/outputs',
+          target: 'http://127.0.0.1:9090/outputs',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/outputs/, ''),
+        },
+        // Proxy socket.io to the flask-socketio server
+        '/socket.io': {
+          target: 'ws://127.0.0.1:9090',
+          ws: true,
+        },
+        // Proxy api
+        '/openapi.json': {
+          target: 'http://127.0.0.1:9090/openapi.json',
+          rewrite: (path) => path.replace(/^\/openapi.json/, ''),
+        },
+        '/api/v1/contexts': {
+          target: 'http://127.0.0.1:9090/api/v1/contexts',
+          rewrite: (path) => path.replace(/^\/api\/v1\/contexts/, ''),
         },
       },
     },

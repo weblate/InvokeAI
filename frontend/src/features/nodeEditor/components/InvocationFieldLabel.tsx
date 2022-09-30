@@ -1,11 +1,15 @@
 import {
+  Box,
   Flex,
   FormControl,
   FormLabel,
+  Icon,
   SystemProps,
   Text,
+  Tooltip,
 } from '@chakra-ui/react';
 import { ReactNode } from 'react';
+import { FaQuestionCircle } from 'react-icons/fa';
 import { Field } from '../types';
 
 type InvocationFieldLabelProps = {
@@ -35,7 +39,11 @@ const InvocationFieldLabel = ({
   children,
   isDisabled = false,
 }: InvocationFieldLabelProps) => {
-  const { label, ui: {label_position} } = field;
+  const {
+    label,
+    description,
+    ui: { label_position },
+  } = field;
 
   return (
     <FormControl isDisabled={isDisabled}>
@@ -48,9 +56,16 @@ const InvocationFieldLabel = ({
             direction={label_position ? directions[label_position] : 'row'}
             textAlign={'left'}
           >
-            <Text fontSize={'sm'} whiteSpace="nowrap">
-              {label}
-            </Text>
+            <Flex gap={2} alignItems={'center'}>
+              <Tooltip label={description}>
+                <Flex alignItems={'center'}>
+                  <Icon as={FaQuestionCircle} />
+                </Flex>
+              </Tooltip>
+              <Text fontSize={'sm'} whiteSpace="nowrap">
+                {label}
+              </Text>
+            </Flex>
             {children}
           </Flex>
         </FormLabel>

@@ -30,8 +30,12 @@ class TextToImageInvocation(BaseInvocation):
     model: str                = Field(default='', description="The model to use (currently ignored)", ui={"in_settings_panel": True})
     progress_images: bool     = Field(default=False, description="Whether or not to produce progress images during generation", ui={"in_settings_panel": True})
 
-    # UI hints for Invocation
-    ui: dict                  = {"label": 'Text to Image'}
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Text to Image'
+            }
+        }
 
     def dispatch_progress(self, services: InvocationServices, sample: Any, step: int) -> None:
         services.events.dispatch('progress', {
@@ -69,8 +73,12 @@ class ImageToImageInvocation(TextToImageInvocation):
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the original image")
     fit: bool                     = Field(default=True, description="Whether or not the result should be fit to the aspect ratio of the input image")
 
-    # UI hints for Invocation
-    ui: dict                      = {"label": 'Image to Image'}
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Text to Image'
+            }
+        }
 
     def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
         results = services.generate.prompt2image(

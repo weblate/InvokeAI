@@ -13,9 +13,13 @@ class RestoreFaceInvocation(BaseInvocation):
     # Inputs
     image: Union[ImageField,None] = Field(description="The input image", ui={"requires_connection": True})
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the restoration")
-    # UI hints for Invocation
-    ui: dict = {"label": 'Face Correction'}
 
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Face Correction'
+            }
+        }
 
     def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput: 
         results = services.generate.upscale_and_reconstruct(

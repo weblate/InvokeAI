@@ -1,25 +1,41 @@
-# # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
+# Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
-# from typing import Literal
-# from pydantic import Field
-# from .baseinvocation import BaseInvocation, BaseInvocationOutput
-# from ..services.invocation_services import InvocationServices
+from typing import Literal
+from pydantic import Field
+from .baseinvocation import BaseInvocation, BaseInvocationOutput
+from ..services.invocation_services import InvocationServices
 
 
-# class SimplePromptInvocation(BaseInvocation):
-#     """Provides a plain text prompt."""
-#     type: Literal["simple_prompt"]
+class SimplePromptInvocationOutput(BaseInvocationOutput):
+    """Output used by SimplePromptInvocation"""
 
-#     # Inputs
-#     prompt: str = Field(default="", description="The prompt", ui={"type": "textarea", "label_position": "top"})
+    type: Literal["simple_prompt_output"] = "simple_prompt_output"
 
-#     # UI hints for Invocation
-#     ui: dict = {"label": 'Simple Prompt'}
+    # Outputs
+    prompt: str = Field(description="The prompt to use", ui={"next_to": "prompt"})
 
-#     class Outputs(BaseInvocationOutput):
-#         prompt: str = Field(ui={"next_to": "prompt"})
 
-#     def invoke(self, services: InvocationServices, context_id: str) -> Outputs:
-#         return SimplePromptInvocation.Outputs.construct(
-#             prompt = self.prompt
-#         )
+class SimplePromptInvocation(BaseInvocation):
+    """Provides a plain text prompt."""
+
+    type: Literal["simple_prompt"] = "simple_prompt"
+
+    # Inputs
+    prompt: str = Field(
+        default="",
+        description="The prompt",
+        ui={"type": "textarea", "label_position": "top"},
+    )
+
+    class Config:
+        schema_extra = {
+            "ui": {
+                # The label to use in the UI for this invocation.
+                "label": "Simple Prompt"
+            }
+        }
+
+    def invoke(
+        self, services: InvocationServices, context_id: str
+    ) -> SimplePromptInvocationOutput:
+        return SimplePromptInvocation.Outputs.construct(prompt=self.prompt)

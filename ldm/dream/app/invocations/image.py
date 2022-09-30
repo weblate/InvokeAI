@@ -26,8 +26,12 @@ class LoadImageInvocation(BaseInvocation):
     # Inputs
     uri: str = Field(description="The URI from which to load the image")
     
-    # UI hints for Invocation
-    ui: dict = {"label": 'Load Image'}
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Load Image'
+            }
+        }
 
     def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
         return ImageOutput(
@@ -42,8 +46,12 @@ class ShowImageInvocation(BaseInvocation):
     # Inputs
     image: ImageField = Field(default=None, description="The image to show", ui={"requires_connection": True})
 
-    # UI hints for Invocation
-    ui: dict = {"label": 'Show Image'}
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Show Image'
+            }
+        }
 
     def invoke(self, services: InvocationServices, context_id: str) -> ImageOutput:
         image = services.images.get(self.image.uri)

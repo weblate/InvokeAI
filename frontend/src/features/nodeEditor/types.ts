@@ -31,6 +31,7 @@ export declare type DataType =
 export declare type BaseField = {
   label: string;
   value: string | number | boolean;
+  description: string;
   ui: {
     label_position?: 'top' | 'right' | 'bottom' | 'left';
     optional?: boolean;
@@ -44,22 +45,6 @@ export declare type ImageField = BaseField & {
   value?: string;
   ui_type: 'image';
 };
-
-// export declare type SliderField = BaseField & {
-//   type: 'integer' | 'number';
-//   value?: number;
-//   minimum?: number;
-//   maximum?: number;
-//   multiple_of?: number;
-//   exclusive_minimum?: number;
-//   exclusive_maximum?: number;
-//   ui_type: 'slider';
-//   ui: {
-//     with_number_input?: boolean;
-//     number_input_min?: number;
-//     number_input_max?: number;
-//   };
-// };
 
 export declare type NumberField = BaseField & {
   type: 'integer' | 'number';
@@ -80,6 +65,10 @@ export declare type NumberField = BaseField & {
     with_randomize_button?: boolean;
     with_randomize_icon_button?: boolean;
     with_steppers?: boolean;
+    with_number_display?: boolean;
+    with_slider_marks?: boolean | number[];
+    with_filled_track?: boolean;
+    unit?: string;
   };
 };
 
@@ -112,7 +101,6 @@ export declare type Field =
   | ImageField
   | NumberField
   | SelectField
-  // | SliderField
   | TextareaField
   | TextField
   | ToggleField;
@@ -131,4 +119,25 @@ export declare type Invocation = {
   moduleLabel: string;
   fields: Record<string, Field>;
   outputs?: Record<string, Output>;
+};
+
+export declare type InvocationNode = {
+  id: string;
+  type: string;
+};
+
+export declare type InvocationLink = {
+  from_node: {
+    id: string;
+    field: string;
+  };
+  to_node: {
+    id: string;
+    field: string;
+  };
+};
+
+export declare type InvocationGraph = {
+  nodes: InvocationNode[];
+  links: InvocationLink[];
 };

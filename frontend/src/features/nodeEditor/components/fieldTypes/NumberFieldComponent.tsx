@@ -1,12 +1,19 @@
 import {
   IconButton,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
+  NumberInputStepper,
   Slider,
   SliderFilledTrack,
+  SliderMark,
   SliderThumb,
   SliderTrack,
+  Text,
+  Tooltip,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import { FaRandom } from 'react-icons/fa';
 import { NUMPY_RAND_MAX } from '../../../../app/constants';
 import { useAppDispatch } from '../../../../app/store';
@@ -20,12 +27,46 @@ type NumberFieldComponentProps = {
   fieldId: string;
 };
 
+const labelStyles = {
+  mt: '1.5',
+  ml: '-2.5',
+  fontSize: 'xs',
+};
+
+const makeSliderMarks = (
+  with_slider_marks?: boolean | number[],
+  min?: number,
+  max?: number
+) => {
+  if (with_slider_marks !== undefined) {
+    if (typeof with_slider_marks === 'boolean') {
+      if (min !== undefined && max !== undefined) {
+        return (
+          <>
+            <SliderMark value={min} {...labelStyles}>{min}</SliderMark>
+            <SliderMark value={max} {...labelStyles}>{max}</SliderMark>
+          </>
+        );
+      }
+    } else {
+      return (
+        <>
+          {with_slider_marks.map((v, i) => (
+            <SliderMark key={i} value={v} {...labelStyles}>{v}</SliderMark>
+          ))}
+        </>
+      );
+    }
+  }
+};
+
 const NumberFieldComponent = ({
   moduleId,
   field,
   fieldId,
 }: NumberFieldComponentProps) => {
   const dispatch = useAppDispatch();
+  const [showTooltip, setShowTooltip] = useState<boolean>(false);
 
   const {
     value,
@@ -51,6 +92,9 @@ const NumberFieldComponent = ({
       with_randomize_button,
       with_randomize_icon_button,
       with_steppers,
+      with_number_display,
+      with_slider_marks,
+      unit,
     },
   } = field;
 
@@ -153,11 +197,16 @@ const NumberFieldComponent = ({
           onChange={handleOnChangeSlider}
           size={'sm'}
           focusThumbOnChange={false}
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+          ml={1}
+          mr={1}
         >
-          <SliderTrack>
-            <SliderFilledTrack />
-          </SliderTrack>
-          <SliderThumb />
+          {makeSliderMarks(with_slider_marks, min, max)}
+          <SliderTrack />
+          <Tooltip hasArrow placement="top" isOpen={showTooltip} label={`${value}${unit ? unit : ''}`}>
+            <SliderThumb />
+          </Tooltip>
         </Slider>
       )}
       {(with_number_input || ui_type === 'number_input') && (
@@ -174,6 +223,12 @@ const NumberFieldComponent = ({
           }
         >
           <NumberInputField paddingInlineStart={2} paddingInlineEnd={2} />
+          {with_steppers && (
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          )}
         </NumberInput>
       )}
       {with_randomize_icon_button && (
@@ -185,6 +240,7 @@ const NumberFieldComponent = ({
           onClick={handleOnClickRandomize}
         />
       )}
+      {with_number_display && <Text>{value}</Text>}
     </>
   );
 };

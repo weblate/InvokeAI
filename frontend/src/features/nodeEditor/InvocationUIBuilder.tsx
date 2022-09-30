@@ -1,8 +1,16 @@
-import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Icon,
+  IconButton,
+  Spacer,
+  Tooltip,
+} from '@chakra-ui/react';
 import _ from 'lodash';
 import { useCallback, useState } from 'react';
 import { Connection, NodeProps, useReactFlow } from 'reactflow';
-import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
+import { FaChevronDown, FaChevronUp, FaQuestionCircle } from 'react-icons/fa';
 import InvocationField from './components/InvocationField';
 import InvocationFieldLabel from './components/InvocationFieldLabel';
 import InvocationHandle from './components/InvocationHandle';
@@ -123,9 +131,9 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
               )
             : true);
           return (
-            <>
+            <Box key={id}>
               {!requires_connection && isExpanded && (
-                <Box key={id} position={'relative'} width={'100%'}>
+                <Box position={'relative'} width={'100%'}>
                   <InvocationFieldLabel field={field} isDisabled={isDisabled}>
                     <InvocationField
                       field={field}
@@ -137,11 +145,7 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
               )}
 
               {requires_connection && (
-                <InvocationHandleLabel
-                  key={id}
-                  label={label}
-                  handleType={'target'}
-                >
+                <InvocationHandleLabel label={label} handleType={'target'}>
                   <InvocationHandle
                     handleType={'target'}
                     id={id}
@@ -151,7 +155,7 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
                   />
                 </InvocationHandleLabel>
               )}
-            </>
+            </Box>
           );
         })}
         {_.map(outputs, (output, key) => {

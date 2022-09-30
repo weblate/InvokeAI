@@ -19,6 +19,7 @@ import Logger from './Logger';
 import {
   addModule,
   getSchema,
+  listContexts,
   onConnect,
   onEdgesChange,
   onEdgeUpdate,
@@ -152,6 +153,7 @@ function Flow() {
 
   useEffect(() => {
     dispatch(getSchema());
+    dispatch(listContexts({ page: 0, per_page: 10 }));
   }, [dispatch]);
 
   const handleClickProcess = useCallback(() => {

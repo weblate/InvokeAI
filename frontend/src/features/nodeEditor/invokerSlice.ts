@@ -13,22 +13,23 @@ import {
 } from 'reactflow';
 import _ from 'lodash';
 import SwaggerParser from 'swagger-parser';
-import { Invocation } from './types';
+import { Invocation, InvocationGraph } from './types';
 import parseSchema from './parseSchema';
+import { Configuration, ContextsApi } from '../../openapi-generator';
 
 export type InvokerState = {
   nodes: Node[];
   edges: Edge[];
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
   schema?: any;
   error?: string;
   schemaGeneratedInvocations?: Record<string, Omit<Invocation, 'moduleId'>>;
+  contexts: string[];
 };
 
 const initialState: InvokerState = {
   nodes: [],
   edges: [],
-  status: 'idle',
+  contexts: [],
 };
 
 export const invokerSlice = createSlice({
@@ -64,7 +65,6 @@ export const invokerSlice = createSlice({
             {
               ...connection,
               className: `invoke-ai__edge invoke-ai__edge_${sourceDataType}`,
-              type: 'custom',
             },
             state.edges
           );
@@ -109,11 +109,10 @@ export const invokerSlice = createSlice({
   },
   extraReducers(builder) {
     builder
-      .addCase(getSchema.pending, (state, action) => {
-        state.status = 'loading';
+      .addCase(getSchema.pending, (state) => {
+        // TODO: add some kind of API status indicator
       })
       .addCase(getSchema.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         const schema = action.payload;
 
         console.log('OpenAPI schema:', schema);
@@ -128,20 +127,106 @@ export const invokerSlice = createSlice({
         state.schemaGeneratedInvocations = invocations;
       })
       .addCase(getSchema.rejected, (state, action) => {
-        state.status = 'failed';
+        state.error = action.error.message;
+      })
+      .addCase(listContexts.fulfilled, (state, action) => {
+        state.contexts = action.payload;
+      })
+      .addCase(listContexts.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(createContext.fulfilled, (state, action) => {
+        const context = action.payload;
+        state.contexts.push(context.id);
+      })
+      .addCase(createContext.rejected, (state, action) => {
         state.error = action.error.message;
       });
   },
 });
 
+const contextsApiConfiguartion = new Configuration({
+  basePath: new URL(window.location.href).origin,
+});
+
+const contextsApi = new ContextsApi(contextsApiConfiguartion);
+
+const res = await contextsApi.listContextsApiV1ContextsGet()
+
+const origin = new URL(window.location.href).origin;
+const api = `${origin}/api/v1/contexts/`;
+
 // Grabs the API schema so we can build a UI from it
 export const getSchema = createAsyncThunk('invoker/getSchema', async () => {
-  const api = await SwaggerParser.dereference(
-    'http://0.0.0.0:9090/openapi.json'
-  );
+  const schema = await SwaggerParser.dereference(`${origin}/openapi.json`);
 
-  return api;
+  return schema;
 });
+
+export const listContexts = createAsyncThunk(
+  'invoker/listContexts',
+  async ({ page, per_page }: { page?: number; per_page?: number }) => {
+    const query = `?page=${page}&per_page=${per_page}`;
+    const response = await fetch(api.concat(query), { method: 'GET' });
+    const contexts = await response.json();
+    return contexts;
+  }
+);
+
+export const createContext = createAsyncThunk(
+  'invoker/createContext',
+  async (invocationGraph?: InvocationGraph) => {
+    const init: RequestInit = { method: 'POST' };
+    if (invocationGraph) {
+      init.headers = { 'Content-Type': 'application/json' };
+      init.body = JSON.stringify(invocationGraph);
+    }
+    const response = await fetch(api, init);
+    const context = await response.json();
+    return context;
+  }
+);
+
+export const getContext = createAsyncThunk(
+  'invoker/getContext',
+  async (id: string) => {
+    const response = await fetch(api.concat(id), { method: 'GET' });
+    const context = await response.json();
+    return context;
+  }
+);
+
+export const appendInvocationToContext = createAsyncThunk(
+  'invoker/appendInvocationToContext',
+  async ({
+    id,
+    invocationGraph,
+  }: {
+    id: string;
+    invocationGraph: InvocationGraph;
+  }) => {
+    const init: RequestInit = { method: 'POST' };
+    if (invocationGraph) {
+      init.headers = { 'Content-Type': 'application/json' };
+      init.body = JSON.stringify(invocationGraph);
+    }
+    const response = await fetch(api.concat(id, '/invocations'), init);
+    const context = await response.json();
+    return context;
+  }
+);
+
+export const invokeContext = createAsyncThunk(
+  'invoker/invokeContext',
+  async ({ id, all }: { id: string; all?: boolean }) => {
+    const response = await fetch(
+      api.concat(id, '/invoke', all ? '?all=true' : ''),
+      { method: 'PUT' }
+    );
+    const contexts = await response.json();
+    return contexts;
+  }
+);
 
 export const {
   onNodesChange,

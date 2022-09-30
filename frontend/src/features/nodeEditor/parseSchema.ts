@@ -19,7 +19,7 @@ const parseSchema = (schema: any): Record<string, Invocation> => {
       if (id.match(/Invocation$/)) {
         schemas[id] = {
           moduleType: schema.properties.type.enum[0],
-          moduleLabel: schema?.properties?.ui?.default?.label || id,
+          moduleLabel: schema?.ui?.label || id,
           fields: _.reduce(
             schema.properties,
             (fields: Record<string, any>, property, id) => {
@@ -107,6 +107,7 @@ const parseSchema = (schema: any): Record<string, Invocation> => {
                   value: property.default,
                   label: ui?.label || title,
                   type: t,
+                  description: property.description,
                   ui_type,
                   ui: { ...ui },
                   ...additional,
@@ -119,19 +120,21 @@ const parseSchema = (schema: any): Record<string, Invocation> => {
           outputs: _.reduce(
             schema.additionalProperties.outputs.properties,
             (outputs: Record<string, any>, property, id) => {
-              let t = property.type;
-              if (
-                'allOf' in property &&
-                property.allOf[0].title === 'ImageField'
-              ) {
-                t = 'image';
-              }
+              if (!['type'].includes(id)) {
+                let t = property.type;
+                if (
+                  'allOf' in property &&
+                  property.allOf[0].title === 'ImageField'
+                ) {
+                  t = 'image';
+                }
 
-              outputs[id] = {
-                label: property.title,
-                type: t,
-                ui: { ...property.ui },
-              };
+                outputs[id] = {
+                  label: property.title,
+                  type: t,
+                  ui: { ...property.ui },
+                };
+              }
               return outputs;
             },
             {}
