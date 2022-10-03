@@ -36,6 +36,6 @@ class SimplePromptInvocation(BaseInvocation):
         }
 
     def invoke(
-        self, services: InvocationServices, context_id: str
+        self, services: InvocationServices, session_id: str
     ) -> SimplePromptInvocationOutput:
-        return SimplePromptInvocation.Outputs.construct(prompt=self.prompt)
+        return SimplePromptInvocationOutput(prompt=self.prompt)

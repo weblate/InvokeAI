@@ -15,38 +15,38 @@
 
 import * as runtime from '../runtime';
 import type {
-  BodyAppendInvocationApiV1SessionsSessionIdInvocationsPost,
+  BodyAppendInvocation,
   HTTPValidationError,
   InvocationGraph,
 } from '../models';
 import {
-    BodyAppendInvocationApiV1SessionsSessionIdInvocationsPostFromJSON,
-    BodyAppendInvocationApiV1SessionsSessionIdInvocationsPostToJSON,
+    BodyAppendInvocationFromJSON,
+    BodyAppendInvocationToJSON,
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
     InvocationGraphFromJSON,
     InvocationGraphToJSON,
 } from '../models';
 
-export interface AppendInvocationApiV1SessionsSessionIdInvocationsPostRequest {
+export interface AppendInvocationRequest {
     sessionId: string;
-    bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost: BodyAppendInvocationApiV1SessionsSessionIdInvocationsPost;
+    bodyAppendInvocation: BodyAppendInvocation;
 }
 
-export interface CreateSessionApiV1SessionsPostRequest {
+export interface CreateSessionRequest {
     invocationGraph?: InvocationGraph;
 }
 
-export interface GetSessionApiV1SessionsSessionIdGetRequest {
+export interface GetSessionRequest {
     sessionId: string;
 }
 
-export interface InvokeSessionApiV1SessionsSessionIdInvokePutRequest {
+export interface InvokeSessionRequest {
     sessionId: string;
     all?: boolean;
 }
 
-export interface ListSessionsApiV1SessionsGetRequest {
+export interface ListSessionsRequest {
     page?: number;
     perPage?: number;
 }
@@ -59,13 +59,13 @@ export class SessionsApi extends runtime.BaseAPI {
     /**
      * Append Invocation
      */
-    async appendInvocationApiV1SessionsSessionIdInvocationsPostRaw(requestParameters: AppendInvocationApiV1SessionsSessionIdInvocationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async appendInvocationRaw(requestParameters: AppendInvocationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling appendInvocationApiV1SessionsSessionIdInvocationsPost.');
+            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling appendInvocation.');
         }
 
-        if (requestParameters.bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost === null || requestParameters.bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost === undefined) {
-            throw new runtime.RequiredError('bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost','Required parameter requestParameters.bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost was null or undefined when calling appendInvocationApiV1SessionsSessionIdInvocationsPost.');
+        if (requestParameters.bodyAppendInvocation === null || requestParameters.bodyAppendInvocation === undefined) {
+            throw new runtime.RequiredError('bodyAppendInvocation','Required parameter requestParameters.bodyAppendInvocation was null or undefined when calling appendInvocation.');
         }
 
         const queryParameters: any = {};
@@ -79,7 +79,7 @@ export class SessionsApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: BodyAppendInvocationApiV1SessionsSessionIdInvocationsPostToJSON(requestParameters.bodyAppendInvocationApiV1SessionsSessionIdInvocationsPost),
+            body: BodyAppendInvocationToJSON(requestParameters.bodyAppendInvocation),
         }, initOverrides);
 
         return new runtime.TextApiResponse(response) as any;
@@ -88,8 +88,8 @@ export class SessionsApi extends runtime.BaseAPI {
     /**
      * Append Invocation
      */
-    async appendInvocationApiV1SessionsSessionIdInvocationsPost(requestParameters: AppendInvocationApiV1SessionsSessionIdInvocationsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.appendInvocationApiV1SessionsSessionIdInvocationsPostRaw(requestParameters, initOverrides);
+    async appendInvocation(requestParameters: AppendInvocationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.appendInvocationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -97,7 +97,7 @@ export class SessionsApi extends runtime.BaseAPI {
      * Creates a new sessions, optionally initializing it with an invocation graph
      * Create Session
      */
-    async createSessionApiV1SessionsPostRaw(requestParameters: CreateSessionApiV1SessionsPostRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async createSessionRaw(requestParameters: CreateSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -119,8 +119,8 @@ export class SessionsApi extends runtime.BaseAPI {
      * Creates a new sessions, optionally initializing it with an invocation graph
      * Create Session
      */
-    async createSessionApiV1SessionsPost(requestParameters: CreateSessionApiV1SessionsPostRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.createSessionApiV1SessionsPostRaw(requestParameters, initOverrides);
+    async createSession(requestParameters: CreateSessionRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.createSessionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -128,9 +128,9 @@ export class SessionsApi extends runtime.BaseAPI {
      * Gets a single session
      * Get Session
      */
-    async getSessionApiV1SessionsSessionIdGetRaw(requestParameters: GetSessionApiV1SessionsSessionIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async getSessionRaw(requestParameters: GetSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling getSessionApiV1SessionsSessionIdGet.');
+            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling getSession.');
         }
 
         const queryParameters: any = {};
@@ -151,8 +151,8 @@ export class SessionsApi extends runtime.BaseAPI {
      * Gets a single session
      * Get Session
      */
-    async getSessionApiV1SessionsSessionIdGet(requestParameters: GetSessionApiV1SessionsSessionIdGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.getSessionApiV1SessionsSessionIdGetRaw(requestParameters, initOverrides);
+    async getSession(requestParameters: GetSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.getSessionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -160,9 +160,9 @@ export class SessionsApi extends runtime.BaseAPI {
      * Invokes the session
      * Invoke Session
      */
-    async invokeSessionApiV1SessionsSessionIdInvokePutRaw(requestParameters: InvokeSessionApiV1SessionsSessionIdInvokePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async invokeSessionRaw(requestParameters: InvokeSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters.sessionId === null || requestParameters.sessionId === undefined) {
-            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling invokeSessionApiV1SessionsSessionIdInvokePut.');
+            throw new runtime.RequiredError('sessionId','Required parameter requestParameters.sessionId was null or undefined when calling invokeSession.');
         }
 
         const queryParameters: any = {};
@@ -187,8 +187,8 @@ export class SessionsApi extends runtime.BaseAPI {
      * Invokes the session
      * Invoke Session
      */
-    async invokeSessionApiV1SessionsSessionIdInvokePut(requestParameters: InvokeSessionApiV1SessionsSessionIdInvokePutRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.invokeSessionApiV1SessionsSessionIdInvokePutRaw(requestParameters, initOverrides);
+    async invokeSession(requestParameters: InvokeSessionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.invokeSessionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -196,7 +196,7 @@ export class SessionsApi extends runtime.BaseAPI {
      * Gets a paged list of sessions ids
      * List Sessions
      */
-    async listSessionsApiV1SessionsGetRaw(requestParameters: ListSessionsApiV1SessionsGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async listSessionsRaw(requestParameters: ListSessionsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         const queryParameters: any = {};
 
         if (requestParameters.page !== undefined) {
@@ -223,8 +223,8 @@ export class SessionsApi extends runtime.BaseAPI {
      * Gets a paged list of sessions ids
      * List Sessions
      */
-    async listSessionsApiV1SessionsGet(requestParameters: ListSessionsApiV1SessionsGetRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.listSessionsApiV1SessionsGetRaw(requestParameters, initOverrides);
+    async listSessions(requestParameters: ListSessionsRequest = {}, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.listSessionsRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

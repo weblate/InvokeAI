@@ -69,8 +69,17 @@ export const store = configureStore({
     getDefaultMiddleware({
       // redux-persist sometimes needs to temporarily put a function in redux state, need to disable this check
       serializableCheck: false,
-    }).concat(socketioMiddleware()),
+    })
 });
+// // Continue with store setup
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       // redux-persist sometimes needs to temporarily put a function in redux state, need to disable this check
+//       serializableCheck: false,
+//     }).concat(socketioMiddleware()),
+// });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

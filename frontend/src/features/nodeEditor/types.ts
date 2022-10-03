@@ -138,6 +138,34 @@ export declare type InvocationLink = {
 };
 
 export declare type InvocationGraph = {
-  nodes: InvocationNode[];
-  links: InvocationLink[];
+  nodes?: Array<InvocationNode | undefined>;
+  links?: Array<InvocationLink | undefined>;
 };
+
+export interface AppendInvocationRequest {
+  sessionId: string;
+  invocationGraph: InvocationGraph;
+}
+
+export interface CreateSessionRequest {
+  invocationGraph?: InvocationGraph;
+}
+
+export interface GetSessionRequest {
+  sessionId: string;
+}
+
+export interface InvokeSessionRequest {
+  sessionId: string;
+  all?: boolean;
+}
+
+export interface ListSessionsRequest {
+  page?: number;
+  perPage?: number;
+}
+
+export interface GetImageRequest {
+  imageType: 'results' | 'intermediates';
+  imageName: string;
+}

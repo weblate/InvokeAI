@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import {
   addEdge,
@@ -12,10 +12,10 @@ import {
   updateEdge,
 } from 'reactflow';
 import _ from 'lodash';
-import SwaggerParser from 'swagger-parser';
-import { Invocation, InvocationGraph } from './types';
+import { Invocation } from './types';
 import parseSchema from './parseSchema';
-import { Configuration, ContextsApi, SessionsApi } from '../../openapi-generator';
+import {} from '../../openapi-generator';
+import { createSession, getSchema, invokeSession } from './api/api';
 
 export type InvokerState = {
   nodes: Node[];
@@ -23,13 +23,14 @@ export type InvokerState = {
   schema?: any;
   error?: string;
   schemaGeneratedInvocations?: Record<string, Omit<Invocation, 'moduleId'>>;
-  contexts: string[];
+  sessions: string[];
+  sessionId?: string;
 };
 
 const initialState: InvokerState = {
   nodes: [],
   edges: [],
-  contexts: [],
+  sessions: [],
 };
 
 export const invokerSlice = createSlice({
@@ -129,105 +130,25 @@ export const invokerSlice = createSlice({
       .addCase(getSchema.rejected, (state, action) => {
         state.error = action.error.message;
       })
-      .addCase(listContexts.fulfilled, (state, action) => {
-        state.contexts = action.payload;
+      .addCase(createSession.fulfilled, (state, action) => {
+        const { id } = action.payload;
+        state.sessionId = id;
       })
-      .addCase(listContexts.rejected, (state, action) => {
-        state.error = action.error.message;
-      })
-      .addCase(createContext.fulfilled, (state, action) => {
-        const context = action.payload;
-        state.contexts.push(context.id);
-      })
-      .addCase(createContext.rejected, (state, action) => {
-        state.error = action.error.message;
-      });
+    // .addCase(listContexts.fulfilled, (state, action) => {
+    //   state.contexts = action.payload;
+    // })
+    // .addCase(listContexts.rejected, (state, action) => {
+    //   state.error = action.error.message;
+    // })
+    // .addCase(createContext.fulfilled, (state, action) => {
+    //   const context = action.payload;
+    //   state.contexts.push(context.id);
+    // })
+    // .addCase(createContext.rejected, (state, action) => {
+    //   state.error = action.error.message;
+    // });
   },
 });
-
-const sessionsApiConfiguration = new Configuration({
-  basePath: new URL(window.location.href).origin,
-});
-
-const sessionsApi = new SessionsApi(sessionsApiConfiguration)
-
-
-const res = await sessionsApi.listSessionsApiV1SessionsGet()
-
-const origin = new URL(window.location.href).origin;
-const api = `${origin}/api/v1/contexts/`;
-
-// Grabs the API schema so we can build a UI from it
-export const getSchema = createAsyncThunk('invoker/getSchema', async () => {
-  const schema = await SwaggerParser.dereference(`${origin}/openapi.json`);
-
-  return schema;
-});
-
-export const listContexts = createAsyncThunk(
-  'invoker/listContexts',
-  async ({ page, per_page }: { page?: number; per_page?: number }) => {
-    const query = `?page=${page}&per_page=${per_page}`;
-    const response = await fetch(api.concat(query), { method: 'GET' });
-    const contexts = await response.json();
-    return contexts;
-  }
-);
-
-export const createContext = createAsyncThunk(
-  'invoker/createContext',
-  async (invocationGraph?: InvocationGraph) => {
-    const init: RequestInit = { method: 'POST' };
-    if (invocationGraph) {
-      init.headers = { 'Content-Type': 'application/json' };
-      init.body = JSON.stringify(invocationGraph);
-    }
-    const response = await fetch(api, init);
-    const context = await response.json();
-    return context;
-  }
-);
-
-export const getContext = createAsyncThunk(
-  'invoker/getContext',
-  async (id: string) => {
-    const response = await fetch(api.concat(id), { method: 'GET' });
-    const context = await response.json();
-    return context;
-  }
-);
-
-export const appendInvocationToContext = createAsyncThunk(
-  'invoker/appendInvocationToContext',
-  async ({
-    id,
-    invocationGraph,
-  }: {
-    id: string;
-    invocationGraph: InvocationGraph;
-  }) => {
-    const init: RequestInit = { method: 'POST' };
-    if (invocationGraph) {
-      init.headers = { 'Content-Type': 'application/json' };
-      init.body = JSON.stringify(invocationGraph);
-    }
-    const response = await fetch(api.concat(id, '/invocations'), init);
-    const context = await response.json();
-    return context;
-  }
-);
-
-export const invokeContext = createAsyncThunk(
-  'invoker/invokeContext',
-  async ({ id, all }: { id: string; all?: boolean }) => {
-    const response = await fetch(
-      api.concat(id, '/invoke', all ? '?all=true' : ''),
-      { method: 'PUT' }
-    );
-    const contexts = await response.json();
-    return contexts;
-  }
-);
 
 export const {
   onNodesChange,

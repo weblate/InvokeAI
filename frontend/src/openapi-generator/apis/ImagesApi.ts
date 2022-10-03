@@ -25,7 +25,7 @@ import {
     ImageTypeToJSON,
 } from '../models';
 
-export interface GetImageApiV1ImagesImageTypeImageNameGetRequest {
+export interface GetImageRequest {
     imageType: ImageType;
     imageName: string;
 }
@@ -39,13 +39,13 @@ export class ImagesApi extends runtime.BaseAPI {
      * Gets a result
      * Get Image
      */
-    async getImageApiV1ImagesImageTypeImageNameGetRaw(requestParameters: GetImageApiV1ImagesImageTypeImageNameGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
+    async getImageRaw(requestParameters: GetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<any>> {
         if (requestParameters.imageType === null || requestParameters.imageType === undefined) {
-            throw new runtime.RequiredError('imageType','Required parameter requestParameters.imageType was null or undefined when calling getImageApiV1ImagesImageTypeImageNameGet.');
+            throw new runtime.RequiredError('imageType','Required parameter requestParameters.imageType was null or undefined when calling getImage.');
         }
 
         if (requestParameters.imageName === null || requestParameters.imageName === undefined) {
-            throw new runtime.RequiredError('imageName','Required parameter requestParameters.imageName was null or undefined when calling getImageApiV1ImagesImageTypeImageNameGet.');
+            throw new runtime.RequiredError('imageName','Required parameter requestParameters.imageName was null or undefined when calling getImage.');
         }
 
         const queryParameters: any = {};
@@ -66,8 +66,8 @@ export class ImagesApi extends runtime.BaseAPI {
      * Gets a result
      * Get Image
      */
-    async getImageApiV1ImagesImageTypeImageNameGet(requestParameters: GetImageApiV1ImagesImageTypeImageNameGetRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
-        const response = await this.getImageApiV1ImagesImageTypeImageNameGetRaw(requestParameters, initOverrides);
+    async getImage(requestParameters: GetImageRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<any> {
+        const response = await this.getImageRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export * from './BodyAppendInvocationApiV1SessionsSessionIdInvocationsPost';
+export * from './BodyAppendInvocation';
 export * from './ExampleInvocation';
 export * from './ExampleInvocationOutput';
 export * from './FromNode';

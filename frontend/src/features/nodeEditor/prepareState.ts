@@ -3,21 +3,21 @@ import { Edge, Node } from 'reactflow';
 
 const prepareState = (nodes: Node[], edges: Edge[]) => {
   const formattedNodes = nodes.map((node: Node) => {
-    let nodeType = '';
-    if (node.data.moduleType === 'generate') {
-      if (
-        edges.find(
-          (edge: Edge) =>
-            edge.target === node.id && edge.targetHandle === 'image'
-        )
-      ) {
-        nodeType = 'img2img';
-      } else {
-        nodeType = 'txt2img';
-      }
-    } else {
-      nodeType = node.data.moduleType;
-    }
+    let nodeType: string;
+    // if (node.data.moduleType === 'generate') {
+    //   if (
+    //     edges.find(
+    //       (edge: Edge) =>
+    //         edge.target === node.id && edge.targetHandle === 'image'
+    //     )
+    //   ) {
+    //     nodeType = 'img2img';
+    //   } else {
+    //     nodeType = 'txt2img';
+    //   }
+    // } else {
+    //   nodeType = node.data.moduleType;
+    // }
 
     const formattedFields = _.reduce(
       node.data.fields,
@@ -34,22 +34,24 @@ const prepareState = (nodes: Node[], edges: Edge[]) => {
 
     return {
       id: node.id,
-      type: nodeType,
+      type: node.data.moduleType,
       ...formattedFields,
     };
   });
 
   const formattedEdges = edges.map((edge: Edge) => {
-    return {
-      from_node: {
-        id: edge.source,
-        field: edge.sourceHandle,
-      },
-      to_node: {
-        id: edge.target,
-        field: edge.targetHandle,
-      },
-    };
+    if (edge.sourceHandle && edge.targetHandle) {
+      return {
+        from_node: {
+          id: edge.source,
+          field: edge.sourceHandle,
+        },
+        to_node: {
+          id: edge.target,
+          field: edge.targetHandle,
+        },
+      };
+    }
   });
 
   return {

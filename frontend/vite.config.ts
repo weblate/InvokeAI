@@ -75,14 +75,23 @@ export default defineConfig(({ mode }) => {
           target: 'ws://127.0.0.1:9090',
           ws: true,
         },
+        // Proxy socket.io to the flask-socketio server
+        '/ws/socket.io': {
+          target: 'ws://127.0.0.1:9090',
+          ws: true,
+        },
         // Proxy api
         '/openapi.json': {
           target: 'http://127.0.0.1:9090/openapi.json',
           rewrite: (path) => path.replace(/^\/openapi.json/, ''),
         },
-        '/api/v1/contexts': {
-          target: 'http://127.0.0.1:9090/api/v1/contexts',
-          rewrite: (path) => path.replace(/^\/api\/v1\/contexts/, ''),
+        '/api/v1/sessions': {
+          target: 'http://127.0.0.1:9090/api/v1/sessions',
+          rewrite: (path) => path.replace(/^\/api\/v1\/sessions/, ''),
+        },
+        '/api/v1/images': {
+          target: 'http://127.0.0.1:9090/api/v1/images',
+          rewrite: (path) => path.replace(/^\/api\/v1\/images/, ''),
         },
       },
     },
