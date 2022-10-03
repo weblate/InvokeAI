@@ -1,17 +1,16 @@
-import { Textarea } from '@chakra-ui/react';
-import {
-  ChangeEvent,
-  KeyboardEvent,
-} from 'react';
+import { InputProps, Textarea, TextareaProps } from '@chakra-ui/react';
+import { ChangeEvent, KeyboardEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { generateImage } from '../../app/socketio/actions';
 import { RootState } from '../../app/store';
 import { setPrompt } from '../options/optionsSlice';
 
+type PromptInputProps = TextareaProps;
+
 /**
  * Prompt input text area.
  */
-const PromptInput = () => {
+const PromptInput = ({ ...rest }) => {
   const { prompt } = useAppSelector((state: RootState) => state.options);
   const dispatch = useAppDispatch();
 
@@ -21,12 +20,13 @@ const PromptInput = () => {
   const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === 'Enter' && e.shiftKey === false) {
       e.preventDefault();
-      dispatch(generateImage())
+      dispatch(generateImage());
     }
   };
 
   return (
     <Textarea
+      {...rest}
       id="prompt"
       name="prompt"
       resize="none"

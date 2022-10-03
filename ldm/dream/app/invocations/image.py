@@ -29,6 +29,13 @@ class LoadImageInvocation(BaseInvocation):
     image_type: ImageType = Field(description="The type of the image")
     image_name: str = Field(description="The name of the image")
 
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Load Image'
+            }
+        }
+
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         return ImageOutput(
             image = ImageField(image_type = self.image_type, image_name = self.image_name)
@@ -41,6 +48,13 @@ class ShowImageInvocation(BaseInvocation):
 
     # Inputs
     image: ImageField = Field(default=None, description="The image to show")
+
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Show Image'
+            }
+        }
 
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         image = services.images.get(self.image.image_type, self.image.image_name)
