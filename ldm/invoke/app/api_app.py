@@ -14,7 +14,7 @@ import uvicorn
 from .api.sockets import SocketIO
 from .invocations import *
 from .invocations.baseinvocation import BaseInvocation
-from .api.routers import results, sessions
+from .api.routers import images, sessions
 from .api.dependencies import ApiDependencies
 from ..args import Args
 
@@ -78,7 +78,7 @@ app.include_router(
 )
 
 app.include_router(
-    results.images_router,
+    images.images_router,
     prefix = '/api'
 )
 
