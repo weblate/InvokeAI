@@ -1,7 +1,9 @@
 # Copyright (c) 2022 Kyle Schouviller (https://github.com/kyle0654)
 
+from datetime import datetime, timezone
 from typing import Literal, Optional
 from pydantic import Field, BaseModel
+from PIL import Image, ImageOps
 from .baseinvocation import BaseInvocation, BaseInvocationOutput
 from ..services.image_storage import ImageType
 from ..services.invocation_services import InvocationServices
@@ -18,6 +20,13 @@ class ImageOutput(BaseInvocationOutput):
     type: Literal['image'] = 'image'
 
     image: ImageField = Field(default=None, description="The output image")
+
+
+class MaskOutput(BaseInvocationOutput):
+    """Base class for invocations that output a mask"""
+    type: Literal['mask'] = 'mask'
+
+    mask: ImageField = Field(default=None, description="The output mask")
 
 
 # TODO: this isn't really necessary anymore
@@ -51,4 +60,83 @@ class ShowImageInvocation(BaseInvocation):
 
         return ImageOutput(
             image = ImageField(image_type = self.image.image_type, image_name = self.image.image_name)
+        )
+
+
+class CropImageInvocation(BaseInvocation):
+    """Crops an image to a specified box. The box can be outside of the image."""
+    type: Literal['crop'] = 'crop'
+
+    # Inputs
+    image: ImageField = Field(default=None, description="The image to crop")
+    x: int      = Field(default=0, description="The left x coordinate of the crop rectangle")
+    y: int      = Field(default=0, description="The top y coordinate of the crop rectangle")
+    width: int  = Field(default=512, gt=0, description="The width of the crop rectangle")
+    height: int = Field(default=512, gt=0, description="The height of the crop rectangle")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        image_crop = Image.new(mode = 'RGBA', size = (self.width, self.height), color = (0, 0, 0, 0))
+        image_crop.paste(image, (-self.x, -self.y))
+
+        image_type = ImageType.INTERMEDIATE
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, image_crop)
+        return ImageOutput(
+            image = ImageField(image_type = image_type, image_name = image_name)
+        )
+
+
+class PasteImageInvocation(BaseInvocation):
+    """Pastes an image into another image."""
+    type: Literal['paste'] = 'paste'
+
+    # Inputs
+    base_image: ImageField = Field(default=None, description="The base image")
+    image: ImageField = Field(default=None, description="The image to paste")
+    x: int      = Field(default=0, description="The left x coordinate at which to paste the image")
+    y: int      = Field(default=0, description="The top y coordinate at which to paste the image")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        base_image = services.images.get(self.base_image.image_type, self.base_image.image_name)
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        min_x = min(0, self.x)
+        min_y = min(0, self.y)
+        max_x = max(base_image.width, image.width + self.x)
+        max_y = max(base_image.height, image.height + self.y)
+
+        new_image = Image.new(mode = 'RGBA', size = (max_x - min_x, max_y - min_y), color = (0, 0, 0, 0))
+        new_image.paste(base_image, (abs(min_x), abs(min_y)))
+        new_image.paste(image, (max(0, self.x), max(0, self.y)))
+
+        image_type = ImageType.RESULT
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, new_image)
+        return ImageOutput(
+            image = ImageField(image_type = image_type, image_name = image_name)
+        )
+
+
+class MaskFromAlphaInvocation(BaseInvocation):
+    """Extracts the alpha channel of an image as a mask."""
+    type: Literal['tomask'] = 'tomask'
+
+    # Inputs
+    image: ImageField = Field(default=None, description="The image to create the mask from")
+    invert: bool = Field(default=False, description="Whether or not to invert the mask")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> MaskOutput:
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        image_mask = image.split()[-1]
+        if self.invert:
+            image_mask = ImageOps.invert(image_mask)
+
+        image_type = ImageType.INTERMEDIATE
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, image_mask)
+        return MaskOutput(
+            mask = ImageField(image_type = image_type, image_name = image_name)
         )

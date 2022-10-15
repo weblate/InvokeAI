@@ -64,14 +64,19 @@ class ImageToImageInvocation(TextToImageInvocation):
 
     # Inputs
     image: Union[ImageField,None] = Field(description="The input image")
+    mask: Union[ImageField,None]  = Field(description="The mask")
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the original image")
     fit: bool                     = Field(default=True, description="Whether or not the result should be fit to the aspect ratio of the input image")
 
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        image = None if self.image is None else services.images.get(self.image.image_type, self.image.image_name)
+        mask  = None if self.mask is None else services.images.get(self.mask.image_type, self.mask.image_name)
+
         results = services.generate.prompt2image(
-            prompt   = self.prompt,
-            init_img = self.image.get(),
-            **self.dict(exclude = {'prompt','image'}) # Shorthand for passing all of the parameters above manually
+            prompt    = self.prompt,
+            init_img  = image,
+            init_mask = mask,
+            **self.dict(exclude = {'prompt','image','mask'}) # Shorthand for passing all of the parameters above manually
         )
 
         # TODO: send events on progress

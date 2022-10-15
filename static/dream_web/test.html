@@ -25,9 +25,12 @@
         });
 
         function log(event, data) {
-            document.getElementById("output").innerHTML += `${event} => ${JSON.stringify(data)}<br/>`;
+            document.getElementById("output").innerHTML += `<span>${event} => ${JSON.stringify(data)}</span><br/>`;
             if (data.result?.image?.image_type) {
                 document.getElementById("output").innerHTML += `<img src="/api/v1/images/${data.result.image.image_type}/${data.result.image.image_name}" />`;
+            }
+            if (data.result?.mask?.image_type) {
+                document.getElementById("output").innerHTML += `<img src="/api/v1/images/${data.result.mask.image_type}/${data.result.mask.image_name}" />`;
             }
             console.log(`${event} => ${JSON.stringify(data)}`);
         }
@@ -44,7 +47,24 @@
         });
 
         function dostuff() {
-            var defaultGraph = {"nodes": [{"id": "1","type": "txt2img","prompt": "A photo of a cat eating sushi"},{"id": "2","type": "show_image"}],"links": [{"from_node": {"id": "1","field": "image"},"to_node": {"id": "2","field": "image"}}]};
+            var defaultGraph = {"nodes": [
+                {"id": "1", "type": "txt2img", "prompt": "A photo of a cat eating sushi"},
+                {"id": "2", "type": "crop", "x": -256, "y": 128, "width": 512, "height": 512},
+                {"id": "3", "type": "tomask"},
+                {"id": "4", "type": "cv_inpaint"},
+                {"id": "5", "type": "img2img", "prompt": "A photo of a cat eating sushi", "strength": 0.1},
+                {"id": "6", "type": "paste", "x": -256, "y": 128},
+            ],
+            "links": [
+                {"from_node": {"id": "1","field": "image"},"to_node": {"id": "2","field": "image"}},
+                {"from_node": {"id": "2","field": "image"},"to_node": {"id": "3","field": "image"}},
+                {"from_node": {"id": "2","field": "image"},"to_node": {"id": "4","field": "image"}},
+                {"from_node": {"id": "3","field": "mask"},"to_node": {"id": "4","field": "mask"}},
+                {"from_node": {"id": "4","field": "image"},"to_node": {"id": "5","field": "image"}},
+                {"from_node": {"id": "3","field": "mask"},"to_node": {"id": "5","field": "mask"}},
+                {"from_node": {"id": "1","field": "image"},"to_node": {"id": "6","field": "base_image"}},
+                {"from_node": {"id": "5","field": "image"},"to_node": {"id": "6","field": "image"}}
+            ]};
             fetch('/api/v1/sessions/', {
                 method: 'POST',
                 headers: new Headers({'content-type': 'application/json'}),
