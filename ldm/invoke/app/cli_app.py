@@ -38,6 +38,7 @@ def get_invocation_parser() -> argparse.ArgumentParser:
     subparsers = parser.add_subparsers(dest='type')
     invocation_parsers = dict()
 
+    # Create subparsers for each invocation
     invocations = BaseInvocation.get_all_subclasses()
     for invocation in invocations:
         hints = get_type_hints(invocation)
@@ -45,7 +46,14 @@ def get_invocation_parser() -> argparse.ArgumentParser:
         command_parser = subparsers.add_parser(cmd_name, help=invocation.__doc__)
         invocation_parsers[cmd_name] = command_parser
 
+        # Add linking capability
+        command_parser.add_argument('--link', '-l', action='append', nargs=3,
+            help="A link in the format 'dest_field source_node source_field'. source_node can be relative to history (e.g. -1)")
 
+        command_parser.add_argument('--link_node', '-ln', action='append',
+            help="A link from all fields in the specified node. Node can be relative to history (e.g. -1)")
+
+        # Convert all fields to arguments
         fields = invocation.__fields__
         for name, field in fields.items():
             if name in ['id', 'type']:
@@ -176,6 +184,23 @@ def invoke_cli():
                         from_node_id=from_id,
                         from_field = "*",
                         to_field = "*"))
+                
+                # Parse provided links
+                if 'link_node' in args and args['link_node']:
+                    for link in args['link_node']:
+                        links.append(InvocationFieldLink(
+                            from_node_id = link,
+                            from_field = "*",
+                            to_field = "*"
+                        ))
+                
+                if 'link' in args and args['link']:
+                    for link in args['link']:
+                        links.append(InvocationFieldLink(
+                            from_field = link[0],
+                            from_node_id = link[1],
+                            to_field = link[2]
+                        ))
 
                 new_invocations.append((command.invocation, links))
 
