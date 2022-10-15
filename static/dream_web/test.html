@@ -97,10 +97,10 @@
         });
 
         function dostuff() {
-            let prompt = "cyberpunk city, year 2077 raining, neon lights, night, realism. beautiful lighting, highly detailed digital art, trending on artstation.";
-            let strength = 0.99;
-            let sampler = 'keuler';
-            let steps = 20;
+            let prompt = "cyberpunk city skyline from high in the air, raining, neon lights, night, beautiful lighting, highly detailed digital art, trending on artstation";
+            let strength = 0.8;
+            let sampler = 'keuler_a';
+            let steps = 50;
 
 
             var id = 1;
@@ -110,9 +110,10 @@
 
             nodes = [initialNode];
             links = [];
+            expandSize = 128;
             for (var i = 0; i < 6; ++i) {
                 var startid = id - 1;
-                var offset = (i < 3) ? -256 : ((1 + i) * 256);
+                var offset = (i < 3) ? -expandSize : (3 * expandSize) + ((i - 3 + 1) * expandSize);
                 nodes.push({"id": id.toString(), "type": "crop", "x": offset, "y": 0, "width": 512, "height": 512});
                 id++;
                 nodes.push({"id": id.toString(), "type": "tomask"});
