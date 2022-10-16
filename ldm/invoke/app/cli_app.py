@@ -3,7 +3,7 @@
 import argparse
 import shlex
 import os
-from typing import Literal, Union, get_args, get_origin, get_type_hints
+from typing import Any, Dict, Literal, Union, get_args, get_origin, get_type_hints
 from pydantic import BaseModel
 from pydantic.fields import Field
 
@@ -43,6 +43,14 @@ def get_invocation_parser() -> argparse.ArgumentParser:
     # Add history parser
     history_parser = subparsers.add_parser('history', help="Shows the invocation history")
     history_parser.add_argument('count', nargs='?', default=5, type=int, help="The number of history entries to show")
+
+    # Add default parser
+    default_parser = subparsers.add_parser('default', help="Define a default value for all inputs with a specified name")
+    default_parser.add_argument('input', type=str, help="The input field")
+    default_parser.add_argument('value', help="The default value")
+    
+    default_parser = subparsers.add_parser('reset_default', help="Resets a default value")
+    default_parser.add_argument('input', type=str, help="The input field")
 
     # Create subparsers for each invocation
     invocations = BaseInvocation.get_all_subclasses()
@@ -182,6 +190,9 @@ def invoke_cli():
     # Uncomment to print out previous sessions at startup
     # print(invoker_services.session_manager.list())
 
+    # Defaults storage
+    defaults: Dict[str, Any] = dict()
+
     while True:
         try:
             cmd_input = input("> ")
@@ -216,6 +227,22 @@ def invoke_cli():
                         outputs = ', '.join(output_names)
                         print(f'{entry_id}: {get_invocation_command(entry.invocation)} => {outputs}')
                     continue
+
+                if args['type'] == 'reset_default':
+                    if args['input'] in defaults:
+                        del defaults[args['input']]
+                    continue
+
+                if args['type'] == 'default':
+                    field = args['input']
+                    field_value = args['value']
+                    defaults[field] = field_value
+                    continue
+
+                # Override defaults
+                for field_name,field_default in defaults.items():
+                    if field_name in args:
+                        args[field_name] = field_default
 
                 # Parse invocation
                 args['id'] = current_id
