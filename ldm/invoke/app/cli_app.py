@@ -6,6 +6,8 @@ import os
 from typing import Literal, Union, get_args, get_origin, get_type_hints
 from pydantic import BaseModel
 from pydantic.fields import Field
+
+from ldm.invoke.app.invocations.image import ImageField
 from .services.image_storage import DiskImageStorage
 from .services.session_manager import DiskSessionManager
 from .services.invocation_queue import MemoryInvocationQueue
@@ -37,6 +39,10 @@ def get_invocation_parser() -> argparse.ArgumentParser:
 
     subparsers = parser.add_subparsers(dest='type')
     invocation_parsers = dict()
+
+    # Add history parser
+    history_parser = subparsers.add_parser('history', help="Shows the invocation history")
+    history_parser.add_argument('count', nargs='?', default=5, type=int, help="The number of history entries to show")
 
     # Create subparsers for each invocation
     invocations = BaseInvocation.get_all_subclasses()
@@ -85,6 +91,32 @@ def get_invocation_parser() -> argparse.ArgumentParser:
                 )
 
     return parser
+
+
+def get_invocation_command(invocation) -> str:
+    fields = invocation.__fields__.items()
+    type_hints = get_type_hints(type(invocation))
+    command = [invocation.type]
+    for name,field in fields:
+        if name in ['id', 'type']:
+            continue
+
+        # TODO: add links
+
+        # Skip image fields when serializing command
+        type_hint = type_hints.get(name) or None
+        if type_hint is ImageField or ImageField in get_args(type_hint):
+            continue
+
+        field_value = getattr(invocation, name)
+        field_default = field.default
+        if field_value != field_default:
+            if type_hint is str or str in get_args(type_hint):
+                command.append(f'--{name} "{field_value}"')
+            else:
+                command.append(f'--{name} {field_value}')
+        
+    return ' '.join(command)
 
 
 def invoke_cli():
@@ -173,6 +205,19 @@ def invoke_cli():
             for cmd in cmds:
                 # Parse args to create invocation
                 args = vars(parser.parse_args(shlex.split(cmd.strip())))
+
+                # Check for special commands
+                if args['type'] == 'history':
+                    history_count = args['count'] or 5
+                    for i in range(min(history_count, len(session.history))):
+                        entry_id = session.history[-1 - i]
+                        entry = session.invocation_results[entry_id]
+                        output_names = set(entry.outputs.__fields__.keys()).difference(set(['type']))
+                        outputs = ', '.join(output_names)
+                        print(f'{entry_id}: {get_invocation_command(entry.invocation)} => {outputs}')
+                    continue
+
+                # Parse invocation
                 args['id'] = current_id
                 command = Command(invocation = args)
 
