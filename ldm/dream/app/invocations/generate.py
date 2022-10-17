@@ -83,6 +83,13 @@ class ImageToImageInvocation(TextToImageInvocation):
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the original image")
     fit: bool                     = Field(default=True, description="Whether or not the result should be fit to the aspect ratio of the input image")
 
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Image to Image'
+            }
+        }
+
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         results = services.generate.prompt2image(
             prompt   = self.prompt,
