@@ -12,7 +12,7 @@ from ..services.image_storage import ImageType
 from ..services.invocation_services import InvocationServices
 
 
-class MaskFromAlphaInvocation(BaseInvocation):
+class CvInpaintInvocation(BaseInvocation):
     """Simple inpaint using opencv."""
     type: Literal['cv_inpaint'] = 'cv_inpaint'
 

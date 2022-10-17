@@ -97,42 +97,63 @@
         });
 
         function dostuff() {
-            let prompt = "cyberpunk city skyline from high in the air, raining, neon lights, night, beautiful lighting, highly detailed digital art, trending on artstation";
-            let strength = 0.8;
+            let prompt = "hyper detailed 4k cryengine 3D render of a violent desert storm by Marc Simonetti and Andreas Rocha, trending on artstation, soft atmospheric lighting, volumetric lighting, cinematic still, golden hour, crepuscular rays, smooth [grainy]";
+            let strength = 0.95;
             let sampler = 'keuler_a';
             let steps = 50;
+            let seed = 8653;
+            let inpaint_replace = 1.0;
 
-
+            // Start building nodes
             var id = 1;
-
-            var initialNode = {"id": id.toString(), "type": "txt2img", "prompt": prompt, "sampler": sampler, "steps": steps};
+            var initialNode = {"id": id.toString(), "type": "txt2img", "prompt": prompt, "sampler": sampler, "steps": steps, "seed": seed};
             id++;
 
             nodes = [initialNode];
             links = [];
             expandSize = 128;
             for (var i = 0; i < 6; ++i) {
+                var i_seed = (seed == -1) ? -1 : seed + i + 1;
                 var startid = id - 1;
                 var offset = (i < 3) ? -expandSize : (3 * expandSize) + ((i - 3 + 1) * expandSize);
                 nodes.push({"id": id.toString(), "type": "crop", "x": offset, "y": 0, "width": 512, "height": 512});
+                let id_gen = id;
+                links.push({"from_node": {"id": startid.toString(), "field": "image"},"to_node": {"id": id_gen.toString(),"field": "image"}});
                 id++;
+                
                 nodes.push({"id": id.toString(), "type": "tomask"});
-                id++;
-                nodes.push({"id": id.toString(), "type": "cv_inpaint"});
-                id++;
-                nodes.push({"id": id.toString(), "type": "img2img", "prompt": prompt, "strength": strength, "sampler": sampler, "steps": steps});
-                id++;
-                nodes.push({"id": id.toString(), "type": "paste", "x": offset, "y": 0});
+                let id_mask = id;
+                links.push({"from_node": {"id": id_gen.toString(), "field": "image"},"to_node": {"id": id_mask.toString(),"field": "image"}});
                 id++;
 
-                links.push({"from_node": {"id": (startid+0).toString(), "field": "image"},"to_node": {"id": (startid+1).toString(),"field": "image"}});
-                links.push({"from_node": {"id": (startid+1).toString(), "field": "image"},"to_node": {"id": (startid+2).toString(),"field": "image"}});
-                links.push({"from_node": {"id": (startid+1).toString(), "field": "image"},"to_node": {"id": (startid+3).toString(),"field": "image"}});
-                links.push({"from_node": {"id": (startid+2).toString(), "field": "mask"},"to_node": {"id": (startid+3).toString(),"field": "mask"}});
-                links.push({"from_node": {"id": (startid+3).toString(), "field": "image"},"to_node": {"id": (startid+4).toString(),"field": "image"}});
-                links.push({"from_node": {"id": (startid+2).toString(), "field": "mask"},"to_node": {"id": (startid+4).toString(),"field": "mask"}});
-                links.push({"from_node": {"id": (startid+0).toString(), "field": "image"},"to_node": {"id": (startid+5).toString(),"field": "base_image"}});
-                links.push({"from_node": {"id": (startid+4).toString(), "field": "image"},"to_node": {"id": (startid+5).toString(),"field": "image"}});
+                nodes.push({"id": id.toString(), "type": "blur", "radius": 32});
+                let id_mask_blur = id;
+                links.push({"from_node": {"id": id_mask.toString(), "field": "mask"},"to_node": {"id": id_mask_blur.toString(),"field": "image"}});
+                id++
+
+                nodes.push({"id": id.toString(), "type": "ilerp", "min": 128, "max": 255});
+                let id_ilerp = id;
+                links.push({"from_node": {"id": id_mask_blur.toString(), "field": "image"},"to_node": {"id": id_ilerp.toString(),"field": "image"}});
+                id++
+
+                nodes.push({"id": id.toString(), "type": "cv_inpaint"});
+                let id_cv_inpaint = id;
+                links.push({"from_node": {"id": id_gen.toString(), "field": "image"},"to_node": {"id": id_cv_inpaint.toString(),"field": "image"}});
+                links.push({"from_node": {"id": id_mask.toString(), "field": "mask"},"to_node": {"id": id_cv_inpaint.toString(),"field": "mask"}});
+                id++;
+
+                nodes.push({"id": id.toString(), "type": "img2img", "prompt": prompt, "strength": strength, "sampler": sampler, "steps": steps, "seed": i_seed, "color_match": true, "inpaint_replace": inpaint_replace});
+                let id_i2i = id;
+                links.push({"from_node": {"id": id_cv_inpaint.toString(), "field": "image"},"to_node": {"id": id_i2i.toString(),"field": "image"}});
+                links.push({"from_node": {"id": id_ilerp.toString(), "field": "image"},"to_node": {"id": id_i2i.toString(),"field": "mask"}});
+                id++;
+
+                nodes.push({"id": id.toString(), "type": "paste", "x": offset, "y": 0});
+                let id_paste = id;
+                links.push({"from_node": {"id": startid.toString(), "field": "image"},"to_node": {"id": id_paste.toString(),"field": "base_image"}});
+                links.push({"from_node": {"id": id_i2i.toString(), "field": "image"},"to_node": {"id": id_paste.toString(),"field": "image"}});
+                links.push({"from_node": {"id": id_ilerp.toString(), "field": "image"},"to_node": {"id": id_paste.toString(),"field": "mask"}});
+                id++;
             }
 
             var graph = {

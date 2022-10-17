@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 from typing import Any, Literal, Optional, Union
 import numpy as np
 from pydantic import Field
-
+from PIL import Image
+from skimage.exposure.histogram_matching import match_histograms
 from .image import ImageField, ImageOutput
 from .baseinvocation import BaseInvocation
 from ..services.image_storage import ImageType
@@ -67,6 +68,8 @@ class ImageToImageInvocation(TextToImageInvocation):
     mask: Union[ImageField,None]  = Field(description="The mask")
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength of the original image")
     fit: bool                     = Field(default=True, description="Whether or not the result should be fit to the aspect ratio of the input image")
+    inpaint_replace: float        = Field(default=0.0, ge=0.0, le=1.0, description="The amount by which to replace masked areas with latent noise")
+    color_match: bool             = Field(default=False, description="Whether or not to color-match the original image after inpainting")
 
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         image = None if self.image is None else services.images.get(self.image.image_type, self.image.image_name)
@@ -79,6 +82,16 @@ class ImageToImageInvocation(TextToImageInvocation):
             **self.dict(exclude = {'prompt','image','mask'}) # Shorthand for passing all of the parameters above manually
         )
 
+        result_image = results[0][0]
+
+        # Match colors to source image if requested
+        # NOTE: this ignores the mask
+        if self.color_match:
+            np_init_image = np.asarray(image)
+            np_result_image = np.asarray(result_image)
+            matched = match_histograms(np_result_image, np_init_image, channel_axis=-1)
+            result_image = Image.fromarray(matched)
+
         # TODO: send events on progress
 
         # Results are image and seed, unwrap for now and ignore the seed
@@ -86,7 +99,7 @@ class ImageToImageInvocation(TextToImageInvocation):
         # TODO: can this return multiple results? Should it?
         image_type = ImageType.RESULT
         image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
-        services.images.save(image_type, image_name, results[0][0])
+        services.images.save(image_type, image_name, result_image)
         return ImageOutput(
             image = ImageField(image_type = image_type, image_name = image_name)
         )

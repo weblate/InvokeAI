@@ -2,8 +2,9 @@
 
 from datetime import datetime, timezone
 from typing import Literal, Optional
+import numpy
 from pydantic import Field, BaseModel
-from PIL import Image, ImageOps
+from PIL import Image, ImageOps, ImageFilter
 from .baseinvocation import BaseInvocation, BaseInvocationOutput
 from ..services.image_storage import ImageType
 from ..services.invocation_services import InvocationServices
@@ -93,14 +94,17 @@ class PasteImageInvocation(BaseInvocation):
     type: Literal['paste'] = 'paste'
 
     # Inputs
-    base_image: ImageField = Field(default=None, description="The base image")
-    image: ImageField = Field(default=None, description="The image to paste")
-    x: int      = Field(default=0, description="The left x coordinate at which to paste the image")
-    y: int      = Field(default=0, description="The top y coordinate at which to paste the image")
+    base_image: ImageField     = Field(default=None, description="The base image")
+    image: ImageField          = Field(default=None, description="The image to paste")
+    mask: Optional[ImageField] = Field(default=None, description="The mask to use when pasting")
+    x: int                     = Field(default=0, description="The left x coordinate at which to paste the image")
+    y: int                     = Field(default=0, description="The top y coordinate at which to paste the image")
 
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         base_image = services.images.get(self.base_image.image_type, self.base_image.image_name)
         image = services.images.get(self.image.image_type, self.image.image_name)
+        mask = None if self.mask is None else ImageOps.invert(services.images.get(self.mask.image_type, self.mask.image_name))
+        # TODO: probably shouldn't invert mask here... should user be required to do it?
 
         min_x = min(0, self.x)
         min_y = min(0, self.y)
@@ -109,7 +113,7 @@ class PasteImageInvocation(BaseInvocation):
 
         new_image = Image.new(mode = 'RGBA', size = (max_x - min_x, max_y - min_y), color = (0, 0, 0, 0))
         new_image.paste(base_image, (abs(min_x), abs(min_y)))
-        new_image.paste(image, (max(0, self.x), max(0, self.y)))
+        new_image.paste(image, (max(0, self.x), max(0, self.y)), mask = mask)
 
         image_type = ImageType.RESULT
         image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
@@ -139,4 +143,77 @@ class MaskFromAlphaInvocation(BaseInvocation):
         services.images.save(image_type, image_name, image_mask)
         return MaskOutput(
             mask = ImageField(image_type = image_type, image_name = image_name)
+        )
+
+
+class BlurInvocation(BaseInvocation):
+    """Blurs an image"""
+    type: Literal['blur'] = 'blur'
+
+    # Inputs
+    image: ImageField = Field(default=None, description="The image to blur")
+    radius: float     = Field(default=8.0, ge=0, description="The blur radius")
+    blur_type: Literal['gaussian', 'box'] = Field(default='gaussian', description="The type of blur")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        blur = ImageFilter.GaussianBlur(self.radius) if self.blur_type == 'gaussian' else ImageFilter.BoxBlur(self.radius)
+        blur_image = image.filter(blur)
+
+        image_type = ImageType.INTERMEDIATE
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, blur_image)
+        return ImageOutput(
+            image = ImageField(image_type = image_type, image_name = image_name)
+        )
+
+
+class LerpInvocation(BaseInvocation):
+    """Linear interpolation of all pixels of an image"""
+    type: Literal['lerp'] = 'lerp'
+
+    # Inputs
+    image: ImageField = Field(default=None, description="The image to lerp")
+    min: int = Field(default=0, ge=0, le=255, description="The minimum output value")
+    max: int = Field(default=255, ge=0, le=255, description="The maximum output value")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        image_arr = numpy.asarray(image, dtype=numpy.float32) / 255
+        image_arr = image_arr * (self.max - self.min) + self.max
+
+        lerp_image = Image.fromarray(numpy.uint8(image_arr))
+
+        image_type = ImageType.INTERMEDIATE
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, lerp_image)
+        return ImageOutput(
+            image = ImageField(image_type = image_type, image_name = image_name)
+        )
+
+
+class InverseLerpInvocation(BaseInvocation):
+    """Inverse linear interpolation of all pixels of an image"""
+    type: Literal['ilerp'] = 'ilerp'
+
+    # Inputs
+    image: ImageField = Field(default=None, description="The image to lerp")
+    min: int = Field(default=0, ge=0, le=255, description="The minimum input value")
+    max: int = Field(default=255, ge=0, le=255, description="The maximum input value")
+
+    def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
+        image = services.images.get(self.image.image_type, self.image.image_name)
+
+        image_arr = numpy.asarray(image, dtype=numpy.float32)
+        image_arr = numpy.minimum(numpy.maximum(image_arr - self.min, 0) / float(self.max - self.min), 1) * 255
+
+        ilerp_image = Image.fromarray(numpy.uint8(image_arr))
+
+        image_type = ImageType.INTERMEDIATE
+        image_name = f'{session_id}_{self.id}_{str(int(datetime.now(timezone.utc).timestamp()))}.png'
+        services.images.save(image_type, image_name, ilerp_image)
+        return ImageOutput(
+            image = ImageField(image_type = image_type, image_name = image_name)
         )
