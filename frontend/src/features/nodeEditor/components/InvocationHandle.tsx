@@ -1,4 +1,5 @@
 import { Tooltip } from '@chakra-ui/react';
+import { CSSProperties } from 'react';
 import { Connection, Handle, Position } from 'reactflow';
 import { DataType } from '../types';
 
@@ -8,6 +9,9 @@ type InvocationHandleProps = {
   label?: string;
   type: DataType;
   isValidConnection: (connection: Connection) => boolean;
+  nextTo?: string;
+  moduleId: string;
+  style: CSSProperties;
 };
 
 const InvocationHandle = ({
@@ -16,9 +20,12 @@ const InvocationHandle = ({
   label,
   type,
   isValidConnection,
+  nextTo,
+  moduleId,
+  style,
 }: InvocationHandleProps) => {
   const position = handleType === 'source' ? Position.Right : Position.Left;
-
+  console.log(`${moduleId}-${nextTo}`)
   return (
     <Tooltip label={label}>
       <Handle
@@ -27,6 +34,7 @@ const InvocationHandle = ({
         id={id}
         className={`handle ${handleType} datatype-${type}`}
         isValidConnection={isValidConnection}
+        style={style}
       />
     </Tooltip>
   );

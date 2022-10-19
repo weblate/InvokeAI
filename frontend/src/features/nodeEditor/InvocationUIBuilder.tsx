@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, IconButton, Spacer } from '@chakra-ui/react';
 import _ from 'lodash';
-import { useCallback, useState } from 'react';
+import { CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import { Connection, NodeProps, useReactFlow } from 'reactflow';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import InvocationField from './components/InvocationField';
@@ -8,6 +8,9 @@ import InvocationFieldLabel from './components/InvocationFieldLabel';
 import InvocationHandle from './components/InvocationHandle';
 import InvocationHandleLabel from './components/InvocationHandleLabel';
 import { Invocation } from './types';
+import useDynamicRefs from 'use-dynamic-refs';
+
+type FieldRefObject = Record<string, HTMLDivElement | null>;
 
 function InvocationUIBuilder(props: NodeProps<Invocation>) {
   const { id: moduleId, data, selected } = props;
@@ -15,6 +18,18 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
 
   const flow = useReactFlow();
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
+  const fieldRefs = useRef<FieldRefObject>({});
+
+  // useEffect(() => {
+  //   fieldRefs.current = _.reduce(
+  //     fields,
+  //     (acc: FieldRefObject, field, id) => {
+  //       acc[id] = null;
+  //       return acc;
+  //     },
+  //     {}
+  //   );
+  // }, [fields]);
 
   // Check if an in-progress connection is valid
   const isValidConnection = useCallback(
@@ -121,7 +136,7 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
               )
             : true);
           return (
-            <Box key={id}>
+            <div key={id} ref={(el) => (fieldRefs.current[id] = el)}>
               {!requires_connection && isExpanded && (
                 <Box position={'relative'} width={'100%'}>
                   <InvocationFieldLabel field={field} isDisabled={isDisabled}>
@@ -142,14 +157,23 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
                     type={type}
                     label={label}
                     isValidConnection={isValidConnection}
+                    moduleId={moduleId}
                   />
                 </InvocationHandleLabel>
               )}
-            </Box>
+            </div>
           );
         })}
         {_.map(outputs, (output, key) => {
-          const { type, label } = output;
+          const {
+            type,
+            label,
+            ui: { next_to },
+          } = output;
+          const style: CSSProperties = {};
+          if (next_to) {
+            style.top = fieldRefs.current[next_to]?.clientHeight;
+          }
           return (
             <InvocationHandleLabel
               key={key}
@@ -162,6 +186,9 @@ function InvocationUIBuilder(props: NodeProps<Invocation>) {
                 type={type}
                 label={label}
                 isValidConnection={isValidConnection}
+                nextTo={next_to}
+                moduleId={moduleId}
+                style={style}
               />
             </InvocationHandleLabel>
           );

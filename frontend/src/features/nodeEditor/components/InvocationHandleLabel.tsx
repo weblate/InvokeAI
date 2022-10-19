@@ -13,17 +13,19 @@ const InvocationHandleLabel = ({
   handleType,
 }: InvocationHandleLabelProps) => {
   return (
-    <Flex
-      width={'100%'}
-      justifyContent={handleType === 'source' ? 'flex-end' : 'flex-start'}
-      pl={handleType === 'source' ? undefined : 3.5}
-      position={'relative'}
-    >
-      <Text fontWeight={'light'} fontSize={'sm'}>
-        {label}
-      </Text>
+    <>
+      <Flex
+        width={'100%'}
+        justifyContent={handleType === 'source' ? 'flex-end' : 'flex-start'}
+        pl={handleType === 'source' ? undefined : 3.5}
+        position={'relative'}
+      >
+        <Text fontWeight={'light'} fontSize={'sm'}>
+          {label}
+        </Text>
+      </Flex>
       {children}
-    </Flex>
+    </>
   );
 };
 
