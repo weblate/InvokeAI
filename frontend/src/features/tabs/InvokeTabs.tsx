@@ -15,6 +15,7 @@ import PostprocessingIcon from '../../common/icons/PostprocessingIcon';
 import TextToImageIcon from '../../common/icons/TextToImageIcon';
 import { setActiveTab } from '../options/optionsSlice';
 import ImageToImage from './ImageToImage/ImageToImage';
+import Nodes from './Nodes/Nodes';
 import TextToImage from './TextToImage/TextToImage';
 
 export const tab_dict = {
@@ -40,7 +41,7 @@ export const tab_dict = {
   },
   nodes: {
     title: <NodesIcon fill={'black'} boxSize={'2.5rem'} />,
-    panel: <NodesWIP />,
+    panel: <Nodes />,
     tooltip: 'Nodes',
   },
   postprocess: {

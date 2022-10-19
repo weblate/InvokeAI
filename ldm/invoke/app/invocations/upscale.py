@@ -18,6 +18,13 @@ class UpscaleInvocation(BaseInvocation):
     strength: float               = Field(default=0.75, gt=0, le=1, description="The strength")
     level: Literal[2,4]           = Field(default=2, description = "The upscale level")
 
+    class Config:
+        schema_extra = {
+            'ui': {
+                'label': 'Upscale'
+            }
+        }
+
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         image = services.images.get(self.image.image_type, self.image.image_name)
         results = services.generate.upscale_and_reconstruct(

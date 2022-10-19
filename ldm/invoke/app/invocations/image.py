@@ -50,7 +50,7 @@ class ShowImageInvocation(BaseInvocation):
     type: Literal['show_image'] = 'show_image'
 
     # Inputs
-    image: ImageField = Field(default=None, description="The image to show")
+    image: ImageField = Field(default=None, description="The image to show", ui={'requires_connection': True})
 
     def invoke(self, services: InvocationServices, session_id: str) -> ImageOutput:
         image = services.images.get(self.image.image_type, self.image.image_name)

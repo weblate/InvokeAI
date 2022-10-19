@@ -7,8 +7,8 @@ import storage from 'redux-persist/lib/storage'; // defaults to localStorage for
 
 import optionsReducer from '../features/options/optionsSlice';
 import galleryReducer from '../features/gallery/gallerySlice';
-
 import systemReducer from '../features/system/systemSlice';
+import invokerReducer from '../features/nodeEditor/invokerSlice';
 import { socketioMiddleware } from './socketio/middleware';
 
 /**
@@ -32,7 +32,7 @@ import { socketioMiddleware } from './socketio/middleware';
 const rootPersistConfig = {
   key: 'root',
   storage,
-  blacklist: ['gallery', 'system'],
+  blacklist: ['gallery', 'system', 'invoker'],
 };
 
 const systemPersistConfig = {
@@ -57,6 +57,7 @@ const reducers = combineReducers({
   options: optionsReducer,
   gallery: galleryReducer,
   system: persistReducer(systemPersistConfig, systemReducer),
+  invoker: invokerReducer
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, reducers);
@@ -68,8 +69,17 @@ export const store = configureStore({
     getDefaultMiddleware({
       // redux-persist sometimes needs to temporarily put a function in redux state, need to disable this check
       serializableCheck: false,
-    }).concat(socketioMiddleware()),
+    })
 });
+// // Continue with store setup
+// export const store = configureStore({
+//   reducer: persistedReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware({
+//       // redux-persist sometimes needs to temporarily put a function in redux state, need to disable this check
+//       serializableCheck: false,
+//     }).concat(socketioMiddleware()),
+// });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

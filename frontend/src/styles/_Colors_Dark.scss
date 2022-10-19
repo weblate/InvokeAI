@@ -95,4 +95,19 @@
 
   // Gallery
   --gallery-resizeable-color: rgb(36, 38, 48);
+
+  // Nodes
+  --datatype-string: rgb(89, 168, 201);
+  --datatype-image: rgb(90, 202, 114);
+  --datatype-integer: rgb(201, 188, 89);
+  --datatype-number: rgb(201, 89, 174);
+  --datatype-boolean: rgb(201, 122, 89);
+
+  --node-background-color: var(--background-color);
+
+  --node-border-color: var(--tab-hover-color);
+  --node-border-color-selected: var(--tab-list-bg);
+
+  --node-header-background-color: var(--tab-hover-color);
+  --node-header-text-color-selected: var(--tab-list-bg);
 }

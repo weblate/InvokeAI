@@ -1,0 +1,86 @@
+@use '../../../styles/Mixins/' as *;
+
+$node-handle-size: 1.5rem;
+$node-handle-width: calc($node-handle-size / 2);
+$node-handle-height: $node-handle-size;
+$node-handle-right: calc(-1 * $node-handle-size + 0.3rem);
+$node-handle-left: -0.55rem;
+
+.nodes-panel {
+  height: $app-content-height;
+  width: $app-nodes-width;
+}
+
+.nodes-workarea {
+  height: 100%;
+}
+
+.datatype-string {
+  background: var(--datatype-string);
+  path {
+    stroke: var(--datatype-string);
+  }
+}
+
+.datatype-image {
+  background: var(--datatype-image);
+  path {
+    stroke: var(--datatype-image);
+  }
+}
+
+.datatype-integer {
+  background: var(--datatype-integer);
+  path {
+    stroke: var(--datatype-integer);
+  }
+}
+
+.datatype-number {
+  background: var(--datatype-number);
+  path {
+    stroke: var(--datatype-number);
+  }
+}
+
+.datatype-boolean {
+  background: var(--datatype-boolean);
+  path {
+    stroke: var(--datatype-boolean);
+  }
+}
+
+.handle {
+  width: $node-handle-width;
+  height: $node-handle-height;
+  border: none;
+  border-radius: 0 $node-handle-size $node-handle-size 0;
+
+  &.source {
+    right: $node-handle-right;
+  }
+
+  &.target {
+    left: $node-handle-left;
+  }
+}
+
+.node {
+  background: var(--node-background-color);
+  border-color: var(--node-border-color);
+  &.selected {
+    border-color: var(--node-border-color-selected);
+  }
+}
+
+.node-header {
+  background: var(--node-header-background-color);
+}
+
+.react-flow__handle-connecting {
+  background: var(--status-bad-color) !important;
+}
+
+.react-flow__handle-valid {
+  background: var(--status-good-color) !important;
+}

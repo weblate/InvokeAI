@@ -1,29 +1,97 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import eslint from 'vite-plugin-eslint';
+import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
+import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill';
+import rollupNodePolyFill from 'rollup-plugin-node-polyfills';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const common = {
-    plugins: [react(), eslint()],
+    resolve: {
+      alias: {
+        // This Rollup aliases are extracted from @esbuild-plugins/node-modules-polyfill,
+        // see https://github.com/remorses/esbuild-plugins/blob/master/node-modules-polyfill/src/polyfills.ts
+        // process and buffer are excluded because already managed
+        // by node-globals-polyfill
+        util: 'rollup-plugin-node-polyfills/polyfills/util',
+        sys: 'util',
+        events: 'rollup-plugin-node-polyfills/polyfills/events',
+        stream: 'rollup-plugin-node-polyfills/polyfills/stream',
+        path: 'rollup-plugin-node-polyfills/polyfills/path',
+        querystring: 'rollup-plugin-node-polyfills/polyfills/qs',
+        punycode: 'rollup-plugin-node-polyfills/polyfills/punycode',
+        url: 'rollup-plugin-node-polyfills/polyfills/url',
+        string_decoder: 'rollup-plugin-node-polyfills/polyfills/string-decoder',
+        http: 'rollup-plugin-node-polyfills/polyfills/http',
+        https: 'rollup-plugin-node-polyfills/polyfills/http',
+        os: 'rollup-plugin-node-polyfills/polyfills/os',
+        assert: 'rollup-plugin-node-polyfills/polyfills/assert',
+        constants: 'rollup-plugin-node-polyfills/polyfills/constants',
+        _stream_duplex:
+          'rollup-plugin-node-polyfills/polyfills/readable-stream/duplex',
+        _stream_passthrough:
+          'rollup-plugin-node-polyfills/polyfills/readable-stream/passthrough',
+        _stream_readable:
+          'rollup-plugin-node-polyfills/polyfills/readable-stream/readable',
+        _stream_writable:
+          'rollup-plugin-node-polyfills/polyfills/readable-stream/writable',
+        _stream_transform:
+          'rollup-plugin-node-polyfills/polyfills/readable-stream/transform',
+        timers: 'rollup-plugin-node-polyfills/polyfills/timers',
+        console: 'rollup-plugin-node-polyfills/polyfills/console',
+        vm: 'rollup-plugin-node-polyfills/polyfills/vm',
+        zlib: 'rollup-plugin-node-polyfills/polyfills/zlib',
+        tty: 'rollup-plugin-node-polyfills/polyfills/tty',
+        domain: 'rollup-plugin-node-polyfills/polyfills/domain',
+      },
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        // Node.js global to browser globalThis
+        define: {
+          global: 'globalThis',
+        },
+        // Enable esbuild polyfill plugins
+        plugins: [
+          NodeGlobalsPolyfillPlugin({
+            process: true,
+            buffer: true,
+          }),
+          NodeModulesPolyfillPlugin(),
+        ],
+      },
+    },
+    plugins: [react(), eslint(), rollupNodePolyFill()],
     server: {
-      // Proxy HTTP requests to the flask server
       proxy: {
         '/outputs': {
           target: 'http://127.0.0.1:9090/outputs',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/outputs/, ''),
         },
-        '/flaskwebgui-keep-server-alive': {
-          target: 'http://127.0.0.1:9090/flaskwebgui-keep-server-alive',
-          changeOrigin: true,
-          rewrite: (path) =>
-            path.replace(/^\/flaskwebgui-keep-server-alive/, ''),
-        },
         // Proxy socket.io to the flask-socketio server
         '/socket.io': {
           target: 'ws://127.0.0.1:9090',
           ws: true,
+        },
+        // Proxy socket.io to the flask-socketio server
+        '/ws/socket.io': {
+          target: 'ws://127.0.0.1:9090',
+          ws: true,
+        },
+        // Proxy api
+        '/openapi.json': {
+          target: 'http://127.0.0.1:9090/openapi.json',
+          rewrite: (path) => path.replace(/^\/openapi.json/, ''),
+        },
+        '/api/v1/sessions': {
+          target: 'http://127.0.0.1:9090/api/v1/sessions',
+          rewrite: (path) => path.replace(/^\/api\/v1\/sessions/, ''),
+        },
+        '/api/v1/images': {
+          target: 'http://127.0.0.1:9090/api/v1/images',
+          rewrite: (path) => path.replace(/^\/api\/v1\/images/, ''),
         },
       },
     },

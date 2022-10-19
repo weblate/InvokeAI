@@ -1,26 +1,72 @@
 import { extendTheme } from '@chakra-ui/react';
 import type { StyleFunctionProps } from '@chakra-ui/styled-system';
 
+/**
+ * Chakra compiles the theme here to CSS.
+ *
+ * Custom classes can be added as keys, use the CSS selector
+ * as the object key.
+ */
+
+// Color mode
+const initialColorMode = 'dark';
+const useSystemColorMode = false; // always start in dark mode
+
+// Tooltip text color was weird for some reason, fixing it here
+const tooltipTextColor = {
+  dark: 'gray.800',
+  light: 'gray.100',
+};
+
+// Accordion styling
+const accordionButtonFontWeight = 'bold';
+const accordionButtonHoverBgColor = {
+  dark: 'rgba(255,255,255,0.05)',
+  light: 'rgba(0,0,0,0.05)',
+};
+
+// FormLabel styling
+const formLabelFontWeight = 'light';
+
+// Gallery HoverableImage icon buttons
+const hoverableImageIconButton = {
+  background: {
+    dark: 'blackAlpha.700',
+    light: 'whiteAlpha.800',
+  },
+  color: {
+    dark: 'whiteAlpha.700',
+    light: 'blackAlpha.700',
+  },
+  hover: {
+    background: {
+      dark: 'blackAlpha.800',
+      light: 'whiteAlpha.800',
+    },
+    color: {
+      dark: 'whiteAlpha.900',
+      light: 'blackAlpha.900',
+    },
+  },
+};
+
 export const theme = extendTheme({
   config: {
-    initialColorMode: 'dark',
-    useSystemColorMode: false,
+    initialColorMode,
+    useSystemColorMode,
   },
   components: {
     Tooltip: {
       baseStyle: (props: StyleFunctionProps) => ({
-        textColor: props.colorMode === 'dark' ? 'gray.800' : 'gray.100',
+        textColor: tooltipTextColor[props.colorMode],
       }),
     },
     Accordion: {
       baseStyle: (props: StyleFunctionProps) => ({
         button: {
-          fontWeight: 'bold',
+          fontWeight: accordionButtonFontWeight,
           _hover: {
-            bgColor:
-              props.colorMode === 'dark'
-                ? 'rgba(255,255,255,0.05)'
-                : 'rgba(0,0,0,0.05)',
+            bgColor: accordionButtonHoverBgColor[props.colorMode],
           },
         },
         panel: {
@@ -30,22 +76,22 @@ export const theme = extendTheme({
     },
     FormLabel: {
       baseStyle: {
-        fontWeight: 'light',
+        fontWeight: formLabelFontWeight,
       },
     },
     Button: {
       variants: {
-        imageHoverIconButton: (props: StyleFunctionProps) => ({
-          bg: props.colorMode === 'dark' ? 'blackAlpha.700' : 'whiteAlpha.800',
-          color:
-            props.colorMode === 'dark' ? 'whiteAlpha.700' : 'blackAlpha.700',
-          _hover: {
-            bg:
-              props.colorMode === 'dark' ? 'blackAlpha.800' : 'whiteAlpha.800',
-            color:
-              props.colorMode === 'dark' ? 'whiteAlpha.900' : 'blackAlpha.900',
-          },
-        }),
+        imageHoverIconButton: (props: StyleFunctionProps) => {
+          const { colorMode } = props;
+          return {
+            bg: hoverableImageIconButton.background[colorMode],
+            color: hoverableImageIconButton.color[colorMode],
+            _hover: {
+              bg: hoverableImageIconButton.hover.background[colorMode],
+              color: hoverableImageIconButton.hover.color[colorMode],
+            },
+          };
+        },
       },
     },
   },
