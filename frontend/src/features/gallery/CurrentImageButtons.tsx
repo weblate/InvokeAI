@@ -101,10 +101,6 @@ const CurrentImageButtons = () => {
     currentImage,
   } = useAppSelector(systemSelector);
 
-  const { onCopy } = useClipboard(
-    currentImage ? window.location.toString() + currentImage.url : ''
-  );
-
   const toast = useToast();
 
   const handleClickUseAsInitialImage = () => {
@@ -114,13 +110,18 @@ const CurrentImageButtons = () => {
   };
 
   const handleCopyImageLink = () => {
-    onCopy();
-    toast({
-      title: 'Image Link Copied',
-      status: 'success',
-      duration: 2500,
-      isClosable: true,
-    });
+    navigator.clipboard
+      .writeText(
+        currentImage ? window.location.toString() + currentImage.url : ''
+      )
+      .then(() => {
+        toast({
+          title: 'Image Link Copied',
+          status: 'success',
+          duration: 2500,
+          isClosable: true,
+        });
+      });
   };
 
   useHotkeys(
