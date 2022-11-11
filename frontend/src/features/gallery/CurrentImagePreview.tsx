@@ -78,13 +78,23 @@ export default function CurrentImagePreview() {
     dispatch(selectNextImage());
   };
 
+  const imageDimensions = isIntermediate
+    ? { width: imageToDisplay?.width, height: imageToDisplay?.height }
+    : {};
+
+  console.log(
+    'isIntermediate: ',
+    Boolean(isIntermediate),
+    'imageToDisplay:',
+    imageToDisplay
+  );
+
   return (
     <div className={'current-image-preview'}>
       {imageToDisplay && (
         <Image
           src={imageToDisplay.url}
-          width={isIntermediate ? imageToDisplay.width : undefined}
-          height={isIntermediate ? imageToDisplay.height : undefined}
+          {...imageDimensions}
         />
       )}
       {!shouldShowImageDetails && (
