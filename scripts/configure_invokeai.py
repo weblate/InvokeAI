@@ -568,7 +568,8 @@ def select_root(yes_to_all:bool=False):
     completer.set_default_dir(default)
     completer.complete_extensions(())
     completer.set_line(default)
-    return input(f"Select a directory in which to install InvokeAI's models and configuration files [{default}]: ")
+    selected_directory = input(f"Select a directory in which to install InvokeAI's models and configuration files [{default}]: ")
+    return selected_directory or default
 
 #-------------------------------------
 def select_outputs(root:str,yes_to_all:bool=False):
@@ -578,7 +579,8 @@ def select_outputs(root:str,yes_to_all:bool=False):
     completer.set_default_dir(os.path.expanduser('~'))
     completer.complete_extensions(())
     completer.set_line(default)
-    return input('Select the default directory for image outputs [{default}]: ')
+    selected_directory = input(f'Select the default directory for image outputs [{default}]: ')
+    return selected_directory or default
 
 #-------------------------------------
 def initialize_rootdir(root:str,yes_to_all:bool=False):
