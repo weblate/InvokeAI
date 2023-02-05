@@ -1,293 +1,502 @@
 import { emptySplitApi as api } from './emptyApi';
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    updatePet: build.mutation<UpdatePetApiResponse, UpdatePetApiArg>({
-      query: (queryArg) => ({ url: `/pet`, method: 'PUT', body: queryArg.pet }),
-    }),
-    addPet: build.mutation<AddPetApiResponse, AddPetApiArg>({
+    listSessions: build.query<ListSessionsApiResponse, ListSessionsApiArg>({
       query: (queryArg) => ({
-        url: `/pet`,
-        method: 'POST',
-        body: queryArg.pet,
+        url: `/api/v1/sessions/`,
+        params: { page: queryArg.page, per_page: queryArg.perPage },
       }),
     }),
-    findPetsByStatus: build.query<
-      FindPetsByStatusApiResponse,
-      FindPetsByStatusApiArg
+    createSession: build.mutation<
+      CreateSessionApiResponse,
+      CreateSessionApiArg
     >({
       query: (queryArg) => ({
-        url: `/pet/findByStatus`,
-        params: { status: queryArg.status },
-      }),
-    }),
-    findPetsByTags: build.query<
-      FindPetsByTagsApiResponse,
-      FindPetsByTagsApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/pet/findByTags`,
-        params: { tags: queryArg.tags },
-      }),
-    }),
-    getPetById: build.query<GetPetByIdApiResponse, GetPetByIdApiArg>({
-      query: (queryArg) => ({ url: `/pet/${queryArg.petId}` }),
-    }),
-    updatePetWithForm: build.mutation<
-      UpdatePetWithFormApiResponse,
-      UpdatePetWithFormApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/pet/${queryArg.petId}`,
-        method: 'POST',
-        params: { name: queryArg.name, status: queryArg.status },
-      }),
-    }),
-    deletePet: build.mutation<DeletePetApiResponse, DeletePetApiArg>({
-      query: (queryArg) => ({
-        url: `/pet/${queryArg.petId}`,
-        method: 'DELETE',
-        headers: { api_key: queryArg.apiKey },
-      }),
-    }),
-    uploadFile: build.mutation<UploadFileApiResponse, UploadFileApiArg>({
-      query: (queryArg) => ({
-        url: `/pet/${queryArg.petId}/uploadImage`,
-        method: 'POST',
-        body: queryArg.body,
-        params: { additionalMetadata: queryArg.additionalMetadata },
-      }),
-    }),
-    getInventory: build.query<GetInventoryApiResponse, GetInventoryApiArg>({
-      query: () => ({ url: `/store/inventory` }),
-    }),
-    placeOrder: build.mutation<PlaceOrderApiResponse, PlaceOrderApiArg>({
-      query: (queryArg) => ({
-        url: `/store/order`,
-        method: 'POST',
-        body: queryArg.order,
-      }),
-    }),
-    getOrderById: build.query<GetOrderByIdApiResponse, GetOrderByIdApiArg>({
-      query: (queryArg) => ({ url: `/store/order/${queryArg.orderId}` }),
-    }),
-    deleteOrder: build.mutation<DeleteOrderApiResponse, DeleteOrderApiArg>({
-      query: (queryArg) => ({
-        url: `/store/order/${queryArg.orderId}`,
-        method: 'DELETE',
-      }),
-    }),
-    createUser: build.mutation<CreateUserApiResponse, CreateUserApiArg>({
-      query: (queryArg) => ({
-        url: `/user`,
-        method: 'POST',
-        body: queryArg.user,
-      }),
-    }),
-    createUsersWithListInput: build.mutation<
-      CreateUsersWithListInputApiResponse,
-      CreateUsersWithListInputApiArg
-    >({
-      query: (queryArg) => ({
-        url: `/user/createWithList`,
+        url: `/api/v1/sessions/`,
         method: 'POST',
         body: queryArg.body,
       }),
     }),
-    loginUser: build.query<LoginUserApiResponse, LoginUserApiArg>({
+    getSession: build.query<GetSessionApiResponse, GetSessionApiArg>({
+      query: (queryArg) => ({ url: `/api/v1/sessions/${queryArg.sessionId}` }),
+    }),
+    appendInvocation: build.mutation<
+      AppendInvocationApiResponse,
+      AppendInvocationApiArg
+    >({
       query: (queryArg) => ({
-        url: `/user/login`,
-        params: { username: queryArg.username, password: queryArg.password },
+        url: `/api/v1/sessions/${queryArg.sessionId}/invocations`,
+        method: 'POST',
+        body: queryArg.bodyAppendInvocation,
       }),
     }),
-    logoutUser: build.query<LogoutUserApiResponse, LogoutUserApiArg>({
-      query: () => ({ url: `/user/logout` }),
-    }),
-    getUserByName: build.query<GetUserByNameApiResponse, GetUserByNameApiArg>({
-      query: (queryArg) => ({ url: `/user/${queryArg.username}` }),
-    }),
-    updateUser: build.mutation<UpdateUserApiResponse, UpdateUserApiArg>({
+    invokeSession: build.mutation<
+      InvokeSessionApiResponse,
+      InvokeSessionApiArg
+    >({
       query: (queryArg) => ({
-        url: `/user/${queryArg.username}`,
+        url: `/api/v1/sessions/${queryArg.sessionId}/invoke`,
         method: 'PUT',
-        body: queryArg.user,
+        params: { all: queryArg.all },
       }),
     }),
-    deleteUser: build.mutation<DeleteUserApiResponse, DeleteUserApiArg>({
+    getImage: build.query<GetImageApiResponse, GetImageApiArg>({
       query: (queryArg) => ({
-        url: `/user/${queryArg.username}`,
-        method: 'DELETE',
+        url: `/api/v1/images/${queryArg.imageType}/${queryArg.imageName}`,
+      }),
+    }),
+    uploadImage: build.mutation<UploadImageApiResponse, UploadImageApiArg>({
+      query: (queryArg) => ({
+        url: `/api/v1/images/uploads/`,
+        method: 'POST',
+        body: queryArg.bodyUploadImage,
       }),
     }),
   }),
   overrideExisting: false,
 });
 export { injectedRtkApi as invokeApi };
-export type UpdatePetApiResponse = /** status 200 Successful operation */ Pet;
-export type UpdatePetApiArg = {
-  /** Update an existent pet in the store */
-  pet: Pet;
+export type ListSessionsApiResponse =
+  /** status 200 Successful Response */ PaginatedSession;
+export type ListSessionsApiArg = {
+  /** The page of results to get */
+  page?: number;
+  /** The number of results per page */
+  perPage?: number;
 };
-export type AddPetApiResponse = /** status 200 Successful operation */ Pet;
-export type AddPetApiArg = {
-  /** Create a new pet in the store */
-  pet: Pet;
+export type CreateSessionApiResponse =
+  /** status 200 Successful Response */ InvocationSession;
+export type CreateSessionApiArg = {
+  body: InvocationGraph;
 };
-export type FindPetsByStatusApiResponse =
-  /** status 200 successful operation */ Pet[];
-export type FindPetsByStatusApiArg = {
-  /** Status values that need to be considered for filter */
-  status?: 'available' | 'pending' | 'sold';
+export type GetSessionApiResponse =
+  /** status 200 Successful Response */ InvocationSession;
+export type GetSessionApiArg = {
+  /** The id of the session to get */
+  sessionId: string;
 };
-export type FindPetsByTagsApiResponse =
-  /** status 200 successful operation */ Pet[];
-export type FindPetsByTagsApiArg = {
-  /** Tags to filter by */
-  tags?: string[];
+export type AppendInvocationApiResponse =
+  /** status 200 Successful Response */ InvocationSession;
+export type AppendInvocationApiArg = {
+  /** The id of the sessions to invoke */
+  sessionId: string;
+  bodyAppendInvocation: BodyAppendInvocation;
 };
-export type GetPetByIdApiResponse = /** status 200 successful operation */ Pet;
-export type GetPetByIdApiArg = {
-  /** ID of pet to return */
-  petId: number;
+export type InvokeSessionApiResponse = /** status 200 Successful Response */
+  | any
+  | /** status 202 The invocation is queued */ undefined;
+export type InvokeSessionApiArg = {
+  /** The id of the session to invoke */
+  sessionId: string;
+  /** Whether or not to invoke all remaining invocations */
+  all?: boolean;
 };
-export type UpdatePetWithFormApiResponse = unknown;
-export type UpdatePetWithFormApiArg = {
-  /** ID of pet that needs to be updated */
-  petId: number;
-  /** Name of pet that needs to be updated */
-  name?: string;
-  /** Status of pet that needs to be updated */
-  status?: string;
+export type GetImageApiResponse = /** status 200 Successful Response */ any;
+export type GetImageApiArg = {
+  /** The type of image to get */
+  imageType: ImageType;
+  /** The name of the image to get */
+  imageName: string;
 };
-export type DeletePetApiResponse = unknown;
-export type DeletePetApiArg = {
-  apiKey?: string;
-  /** Pet id to delete */
-  petId: number;
+export type UploadImageApiResponse = /** status 200 Successful Response */
+  | any
+  | /** status 201 The image was uploaded successfully */ undefined;
+export type UploadImageApiArg = {
+  bodyUploadImage: BodyUploadImage;
 };
-export type UploadFileApiResponse =
-  /** status 200 successful operation */ ApiResponse;
-export type UploadFileApiArg = {
-  /** ID of pet to update */
-  petId: number;
-  /** Additional Metadata */
-  additionalMetadata?: string;
-  body: Blob;
+export type PaginatedSession = {
+  items: string[];
+  page: number;
+  pages: number;
+  per_page: number;
+  total: number;
 };
-export type GetInventoryApiResponse = /** status 200 successful operation */ {
-  [key: string]: number;
+export type ValidationError = {
+  loc: (string | number)[];
+  msg: string;
+  type: string;
 };
-export type GetInventoryApiArg = void;
-export type PlaceOrderApiResponse =
-  /** status 200 successful operation */ Order;
-export type PlaceOrderApiArg = {
-  order: Order;
+export type HttpValidationError = {
+  detail?: ValidationError[];
 };
-export type GetOrderByIdApiResponse =
-  /** status 200 successful operation */ Order;
-export type GetOrderByIdApiArg = {
-  /** ID of order that needs to be fetched */
-  orderId: number;
+export type ImageType = 'results' | 'intermediates' | 'uploads';
+export type LoadImageInvocation = {
+  id: string;
+  type?: 'load_image';
+  image_type: ImageType;
+  image_name: string;
+  [key: string]: any;
 };
-export type DeleteOrderApiResponse = unknown;
-export type DeleteOrderApiArg = {
-  /** ID of the order that needs to be deleted */
-  orderId: number;
+export type ImageField = {
+  image_type?: string;
+  image_name?: string;
 };
-export type CreateUserApiResponse = unknown;
-export type CreateUserApiArg = {
-  /** Created user object */
-  user: User;
+export type ShowImageInvocation = {
+  id: string;
+  type?: 'show_image';
+  image?: ImageField;
+  [key: string]: any;
 };
-export type CreateUsersWithListInputApiResponse =
-  /** status 200 Successful operation */ User;
-export type CreateUsersWithListInputApiArg = {
-  body: User[];
+export type CropImageInvocation = {
+  id: string;
+  type?: 'crop';
+  image?: ImageField;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  [key: string]: any;
 };
-export type LoginUserApiResponse =
-  /** status 200 successful operation */ string;
-export type LoginUserApiArg = {
-  /** The user name for login */
-  username?: string;
-  /** The password for login in clear text */
-  password?: string;
+export type PasteImageInvocation = {
+  id: string;
+  type?: 'paste';
+  base_image?: ImageField;
+  image?: ImageField;
+  mask?: ImageField;
+  x?: number;
+  y?: number;
+  [key: string]: any;
 };
-export type LogoutUserApiResponse = unknown;
-export type LogoutUserApiArg = void;
-export type GetUserByNameApiResponse =
-  /** status 200 successful operation */ User;
-export type GetUserByNameApiArg = {
-  /** The name that needs to be fetched. Use user1 for testing.  */
-  username: string;
+export type MaskFromAlphaInvocation = {
+  id: string;
+  type?: 'tomask';
+  image?: ImageField;
+  invert?: boolean;
+  [key: string]: any;
 };
-export type UpdateUserApiResponse = unknown;
-export type UpdateUserApiArg = {
-  /** name that need to be deleted */
-  username: string;
-  /** Update an existent user in the store */
-  user: User;
+export type BlurInvocation = {
+  id: string;
+  type?: 'blur';
+  image?: ImageField;
+  radius?: number;
+  blur_type?: 'gaussian' | 'box';
+  [key: string]: any;
 };
-export type DeleteUserApiResponse = unknown;
-export type DeleteUserApiArg = {
-  /** The name that needs to be deleted */
-  username: string;
+export type LerpInvocation = {
+  id: string;
+  type?: 'lerp';
+  image?: ImageField;
+  min?: number;
+  max?: number;
+  [key: string]: any;
 };
-export type Category = {
-  id?: number;
-  name?: string;
+export type InverseLerpInvocation = {
+  id: string;
+  type?: 'ilerp';
+  image?: ImageField;
+  min?: number;
+  max?: number;
+  [key: string]: any;
 };
-export type Tag = {
-  id?: number;
-  name?: string;
+export type TextToImageInvocation = {
+  id: string;
+  type?: 'txt2img';
+  prompt?: string;
+  seed?: number;
+  steps?: number;
+  width?: number;
+  height?: number;
+  cfg_scale?: number;
+  sampler_name?:
+    | 'ddim'
+    | 'plms'
+    | 'k_lms'
+    | 'k_dpm_2'
+    | 'k_dpm_2_a'
+    | 'k_euler'
+    | 'k_euler_a'
+    | 'k_heun';
+  seamless?: boolean;
+  model?: string;
+  progress_images?: boolean;
+  [key: string]: any;
 };
-export type Pet = {
-  id?: number;
-  name: string;
-  category?: Category;
-  photoUrls: string[];
-  tags?: Tag[];
-  status?: 'available' | 'pending' | 'sold';
+export type UpscaleInvocation = {
+  id: string;
+  type?: 'upscale';
+  image?: ImageField;
+  strength?: number;
+  level?: 2 | 4;
+  [key: string]: any;
 };
-export type ApiResponse = {
-  code?: number;
-  type?: string;
-  message?: string;
+export type CvInpaintInvocation = {
+  id: string;
+  type?: 'cv_inpaint';
+  image?: ImageField;
+  mask?: ImageField;
+  [key: string]: any;
 };
-export type Order = {
-  id?: number;
-  petId?: number;
-  quantity?: number;
-  shipDate?: string;
-  status?: 'placed' | 'approved' | 'delivered';
-  complete?: boolean;
+export type RestoreFaceInvocation = {
+  id: string;
+  type?: 'restore_face';
+  image?: ImageField;
+  strength?: number;
+  [key: string]: any;
 };
-export type User = {
-  id?: number;
-  username?: string;
-  firstName?: string;
-  lastName?: string;
-  email?: string;
-  password?: string;
-  phone?: string;
-  userStatus?: number;
+export type ImageToImageInvocation = {
+  id: string;
+  type?: 'img2img';
+  prompt?: string;
+  seed?: number;
+  steps?: number;
+  width?: number;
+  height?: number;
+  cfg_scale?: number;
+  sampler_name?:
+    | 'ddim'
+    | 'plms'
+    | 'k_lms'
+    | 'k_dpm_2'
+    | 'k_dpm_2_a'
+    | 'k_euler'
+    | 'k_euler_a'
+    | 'k_heun';
+  seamless?: boolean;
+  model?: string;
+  progress_images?: boolean;
+  image?: ImageField;
+  strength?: number;
+  fit?: boolean;
+  [key: string]: any;
+};
+export type InpaintInvocation = {
+  id: string;
+  type?: 'inpaint';
+  prompt?: string;
+  seed?: number;
+  steps?: number;
+  width?: number;
+  height?: number;
+  cfg_scale?: number;
+  sampler_name?:
+    | 'ddim'
+    | 'plms'
+    | 'k_lms'
+    | 'k_dpm_2'
+    | 'k_dpm_2_a'
+    | 'k_euler'
+    | 'k_euler_a'
+    | 'k_heun';
+  seamless?: boolean;
+  model?: string;
+  progress_images?: boolean;
+  image?: ImageField;
+  strength?: number;
+  fit?: boolean;
+  mask?: ImageField;
+  inpaint_replace?: number;
+  [key: string]: any;
+};
+export type InvocationFieldLink = {
+  from_node_id: string;
+  from_field: string;
+  to_field: string;
+};
+export type ImageOutput = {
+  type?: 'image';
+  image?: ImageField;
+};
+export type MaskOutput = {
+  type?: 'mask';
+  mask?: ImageField;
+};
+export type PromptOutput = {
+  type?: 'prompt';
+  prompt?: string;
+};
+export type InvocationHistoryEntry = {
+  invocation_id: string;
+  invocation:
+    | ({
+        type: 'load_image';
+      } & LoadImageInvocation)
+    | ({
+        type: 'show_image';
+      } & ShowImageInvocation)
+    | ({
+        type: 'crop';
+      } & CropImageInvocation)
+    | ({
+        type: 'paste';
+      } & PasteImageInvocation)
+    | ({
+        type: 'tomask';
+      } & MaskFromAlphaInvocation)
+    | ({
+        type: 'blur';
+      } & BlurInvocation)
+    | ({
+        type: 'lerp';
+      } & LerpInvocation)
+    | ({
+        type: 'ilerp';
+      } & InverseLerpInvocation)
+    | ({
+        type: 'txt2img';
+      } & TextToImageInvocation)
+    | ({
+        type: 'upscale';
+      } & UpscaleInvocation)
+    | ({
+        type: 'cv_inpaint';
+      } & CvInpaintInvocation)
+    | ({
+        type: 'restore_face';
+      } & RestoreFaceInvocation)
+    | ({
+        type: 'img2img';
+      } & ImageToImageInvocation)
+    | ({
+        type: 'inpaint';
+      } & InpaintInvocation);
+  outputs:
+    | ({
+        type: 'image';
+      } & ImageOutput)
+    | ({
+        type: 'mask';
+      } & MaskOutput)
+    | ({
+        type: 'prompt';
+      } & PromptOutput);
+};
+export type InvocationSession = {
+  id: string;
+  invocations: {
+    [key: string]:
+      | ({
+          type: 'load_image';
+        } & LoadImageInvocation)
+      | ({
+          type: 'show_image';
+        } & ShowImageInvocation)
+      | ({
+          type: 'crop';
+        } & CropImageInvocation)
+      | ({
+          type: 'paste';
+        } & PasteImageInvocation)
+      | ({
+          type: 'tomask';
+        } & MaskFromAlphaInvocation)
+      | ({
+          type: 'blur';
+        } & BlurInvocation)
+      | ({
+          type: 'lerp';
+        } & LerpInvocation)
+      | ({
+          type: 'ilerp';
+        } & InverseLerpInvocation)
+      | ({
+          type: 'txt2img';
+        } & TextToImageInvocation)
+      | ({
+          type: 'upscale';
+        } & UpscaleInvocation)
+      | ({
+          type: 'cv_inpaint';
+        } & CvInpaintInvocation)
+      | ({
+          type: 'restore_face';
+        } & RestoreFaceInvocation)
+      | ({
+          type: 'img2img';
+        } & ImageToImageInvocation)
+      | ({
+          type: 'inpaint';
+        } & InpaintInvocation);
+  };
+  links: {
+    [key: string]: InvocationFieldLink[];
+  };
+  invocation_results: {
+    [key: string]: InvocationHistoryEntry;
+  };
+  history: string[];
+};
+export type Node = {
+  id: string;
+  field: string;
+};
+export type Link = {
+  from_node: Node;
+  to_node: Node;
+};
+export type InvocationGraph = {
+  nodes: (
+    | ({
+        type: 'load_image';
+      } & LoadImageInvocation)
+    | ({
+        type: 'show_image';
+      } & ShowImageInvocation)
+    | ({
+        type: 'crop';
+      } & CropImageInvocation)
+    | ({
+        type: 'paste';
+      } & PasteImageInvocation)
+    | ({
+        type: 'tomask';
+      } & MaskFromAlphaInvocation)
+    | ({
+        type: 'blur';
+      } & BlurInvocation)
+    | ({
+        type: 'lerp';
+      } & LerpInvocation)
+    | ({
+        type: 'ilerp';
+      } & InverseLerpInvocation)
+    | ({
+        type: 'txt2img';
+      } & TextToImageInvocation)
+    | ({
+        type: 'upscale';
+      } & UpscaleInvocation)
+    | ({
+        type: 'cv_inpaint';
+      } & CvInpaintInvocation)
+    | ({
+        type: 'restore_face';
+      } & RestoreFaceInvocation)
+    | ({
+        type: 'img2img';
+      } & ImageToImageInvocation)
+    | ({
+        type: 'inpaint';
+      } & InpaintInvocation)
+  )[];
+  links: Link[];
+};
+export type BodyAppendInvocation = {
+  invocation:
+    | LoadImageInvocation
+    | ShowImageInvocation
+    | CropImageInvocation
+    | PasteImageInvocation
+    | MaskFromAlphaInvocation
+    | BlurInvocation
+    | LerpInvocation
+    | InverseLerpInvocation
+    | TextToImageInvocation
+    | UpscaleInvocation
+    | CvInpaintInvocation
+    | RestoreFaceInvocation
+    | ImageToImageInvocation
+    | InpaintInvocation;
+  links?: InvocationFieldLink[];
+};
+export type BodyUploadImage = {
+  file: Blob;
 };
 export const {
-  useUpdatePetMutation,
-  useAddPetMutation,
-  useFindPetsByStatusQuery,
-  useFindPetsByTagsQuery,
-  useGetPetByIdQuery,
-  useUpdatePetWithFormMutation,
-  useDeletePetMutation,
-  useUploadFileMutation,
-  useGetInventoryQuery,
-  usePlaceOrderMutation,
-  useGetOrderByIdQuery,
-  useDeleteOrderMutation,
-  useCreateUserMutation,
-  useCreateUsersWithListInputMutation,
-  useLoginUserQuery,
-  useLogoutUserQuery,
-  useGetUserByNameQuery,
-  useUpdateUserMutation,
-  useDeleteUserMutation,
+  useListSessionsQuery,
+  useCreateSessionMutation,
+  useGetSessionQuery,
+  useAppendInvocationMutation,
+  useInvokeSessionMutation,
+  useGetImageQuery,
+  useUploadImageMutation,
 } = injectedRtkApi;

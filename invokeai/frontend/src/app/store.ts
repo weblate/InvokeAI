@@ -76,7 +76,12 @@ const rootPersistConfig = getPersistConfig({
   key: 'root',
   storage,
   rootReducer,
-  blacklist: [...canvasBlacklist, ...systemBlacklist, ...galleryBlacklist],
+  blacklist: [
+    ...canvasBlacklist,
+    ...systemBlacklist,
+    ...galleryBlacklist,
+    'api',
+  ],
   debounce: 300,
 });
 
