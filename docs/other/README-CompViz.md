@@ -6,7 +6,7 @@ title: CompViz-Readme
 
 _Stable Diffusion was made possible thanks to a collaboration with
 [Stability AI](https://stability.ai/) and [Runway](https://runwayml.com/) and
-builds upon our previous work:_
+builds upon our previous work:_asd
 
 [**High-Resolution Image Synthesis with Latent Diffusion Models**](https://ommer-lab.com/research/latent-diffusion-models/)<br/>
 [Robin Rombach](https://github.com/rromb)\*,
