@@ -12,6 +12,7 @@ on:
       - 'synchronize'
     paths-ignore:
       - 'invokeai/frontend/**'
+      - 'docs/**'
   workflow_dispatch:
 
 concurrency:
