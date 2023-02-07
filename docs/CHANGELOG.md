@@ -7,7 +7,7 @@ title: Changelog
 ## v2.3.0 <small>(15 January 2023)</small>	
 
 **Transition to diffusers
-
+ 
 Version 2.3 provides support for both the traditional `.ckpt` weight
 checkpoint files as well as the HuggingFace `diffusers` format. This
 introduces several changes you should know about.
