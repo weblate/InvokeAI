@@ -4,15 +4,16 @@
   "version": "0.0.1",
   "scripts": {
     "prepare": "cd ../../ && husky install invokeai/frontend/.husky",
-    "dev": "vite dev",
-    "build": "tsc && vite build",
+    "dev": "yarn run gen-api && yarn run vite dev",
+    "build": "yarn run gen-api && yarn run tsc && vite build",
     "preview": "vite preview",
     "madge": "madge --circular src/main.tsx",
     "lint": "eslint --fix .",
     "lint-staged": "lint-staged",
     "prettier": "prettier *.{json,js,ts,html} src/**/*.{ts,tsx,scss} --write .",
     "fmt": "npm run prettier -- --write",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "gen-api": "openapi -i http://127.0.0.1:9090/openapi.json -o src/services/openapi"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.10",
@@ -72,6 +73,8 @@
     "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
     "madge": "^5.0.1",
+    "openapi-typescript": "^6.1.0",
+    "openapi-typescript-codegen": "^0.23.0",
     "patch-package": "^6.5.0",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.8.3",
