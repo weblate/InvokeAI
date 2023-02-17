@@ -1,0 +1,13 @@
+{
+  "models": "Modeller",
+  "displayInProgress": "Visa framstegsbilder",
+  "saveSteps": "Spara bilder varje n steg",
+  "confirmOnDelete": "Bekräfta vid borttagning",
+  "displayHelpIcons": "Visa hjälp-ikoner",
+  "useCanvasBeta": "Använd Canvas Beta Layout",
+  "enableImageDebugging": "Aktivera bildfelsökning",
+  "resetWebUI": "Reset Web UI",
+  "resetWebUIDesc1": "Återställning av webbgränssnittet återställer bara webbläsarens lokala cache för dina bilder och ihågkomna inställningar. Det tar inte bort några bilder från disken.",
+  "resetWebUIDesc2": "Om bilder inte dyker upp i galleriet eller något annat inte fungerar, försök att återställa innan du skickar in ett problem på GitHub.",
+  "resetComplete": "Webbgränssnitt har återställts. Uppdatera sidan för att ladda om."
+}

@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "prompt": "Toto je rychlé pole. Výzva obsahuje generační objekty a stylistické výrazy. Také můžete přidat váhu (význam tokenu) ve výzvě, ale CLI příkazy a parametry nebudou fungovat.",
+    "gallery": "Galerie zobrazuje generace z výstupních složek tak, jak jsou vytvořeny. Nastavení jsou uložena v souborech a jsou přístupná v kontextu menu.",
+    "other": "Tyto možnosti umožní alternativní režim zpracování pro Invoke. \"Bezproblémové naklápění\" vytvoří opakující se vzory výstupu. 'Vysoké rozlišení' je generace ve dvou krocích s img2img: použijte toto nastavení, když chcete větší a soudržnější obrázek bez artefaktů. Trvá to obvykle txt2img.",
+    "seed": "Hodnota seedu ovlivňuje počáteční šum, ze kterého je obrázek vytvořen. Můžete použít již existující seed z předchozích obrázků. 'Hlukový práh' se používá ke zmírnění artefaktů při vysokých hodnotách CFG (vyzkoušejte rozsah 0-10), a Perlin přidat Perlin šum během generace: obě slouží k přidání variace vašich výstupů.",
+    "variations": "Vyzkoušejte variantu s hodnotou mezi 0,1 a 1.0 pro změnu výsledku daného seedu. Zajímavé varianty osiva jsou mezi 0,1 a 0.3.",
+    "upscale": "Použijte ESRGAN k rozšíření obrázku ihned po generaci.",
+    "faceCorrection": "Korekce obličeje s GFPGAN nebo Codeformer: algoritmus detekuje plochy obrazu a opravuje jakékoliv vady. Vysoká hodnota změní obrázek více, což povede k atraktivnějším tvářům. Codeformer s vyšší věrnost zachovává původní obrázek na úkor silnější korekce obličeje.",
+    "imageToImage": "Obrázek k obrázku načítá jakýkoliv obrázek, který se pak používá k vygenerování nového spolu s výzvou. Čím vyšší hodnota, tím více se výsledný obrázek změní. Hodnoty od 0.0 do 1.0 jsou možné, doporučený rozsah je .25-.75",
+    "boundingBox": "Odpojovací pole je stejné jako nastavení šířky a výšky pro text na obrázek nebo obrázek obrázku. Zpracovává se pouze oblast v rámečku.",
+    "seamCorrection": "Ovládá manipulaci s viditelnými šneky, které se vyskytují mezi vygenerovanými obrázky na plátně.",
+    "infillAndScaling": "Spravovat metody infiltrování (používané na zakrytých nebo vymazaných plochách plátna) a škálování (užitečné pro velikost malého ohraničovacího okna)."
+  }
+}

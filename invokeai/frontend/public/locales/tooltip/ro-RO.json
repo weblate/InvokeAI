@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "prompt": "Acesta este câmpul prompt. Prompt include generarea de obiecte şi termeni stylistici. Puteți adăuga greutate (importanță token) și în prompt dar comenzile și parametrii CLI nu vor funcționa.",
+    "gallery": "Galerie afișează generațiile din dosarul ieșiri pe măsură ce acestea sunt create. Setările sunt stocate în fișiere și accesate de meniul contextual.",
+    "other": "Aceste opțiuni vor permite utilizarea unor moduri alternative de procesare pentru Invoke. 'Înclinare continuă' va crea modele repetate în output. 'Rezoluția mare' generează în doi pași cu img2img: folosește această setare când vrei o imagine mai mare și mai coerentă fără artefacte. Va dura mai mult decât de obicei txt2img.",
+    "seed": "Valoarea seed-ului afectează zgomotul inițial de la care este formatată imaginea. Puteți utiliza seed-urile deja existente din imaginile anterioare. „Pragul de zgomot” este utilizat pentru a atenua artefactele la valori CFG ridicate (încercaţi intervalul 0-10); și Perlin pentru a adăuga zgomot Perlin în timpul generării: ambele servesc la adăugarea de variații la ieșirile dvs.",
+    "variations": "Încercaţi o variaţie cu o valoare între 0,1 şi 1.0 pentru a modifica rezultatul pentru o anumită sămânţă. Variaţiile interesante ale seminţelor sunt cuprinse între 0,1 şi 0,3.",
+    "upscale": "Folosiți ESRGAN pentru a mări imaginea imediat după generație.",
+    "faceCorrection": "Corecție față cu GFPGAN sau Codeformer: algoritmul detectează fețe în imagine și corectează orice defecte. Valoarea ridicată va schimba imaginea mai mult, rezultând chipuri mai atractive. Codul cu o fidelitate mai mare păstrează imaginea originală în detrimentul unei corecții față mai puternice.",
+    "imageToImage": "Imaginea pentru Imagine încarcă orice imagine ca inițială, care este apoi folosită pentru a genera una nouă împreună cu instrucțiunea. Cu cât valoarea este mai mare, cu atât imaginea rezultatului se va schimba. Valorile de la 0.0 la 1.0 sunt posibile, cu atât intervalul recomandat este .25-.75",
+    "boundingBox": "Caseta de încadrare este identică cu setările de lățime și înălțime pentru text în imagine sau imagine în imagine. Doar zona din cutie va fi procesată.",
+    "seamCorrection": "Controlează modul de manipulare a mărilor vizibile care apar între imaginile generate pe planșă.",
+    "infillAndScaling": "Gestionați metodele de infiltrare (utilizate în zonele mascate sau șterse ale pânzilor) și scalare (folositoare pentru mărimile mici ale cutiei)."
+  }
+}

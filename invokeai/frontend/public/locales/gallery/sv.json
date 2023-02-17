@@ -1,0 +1,16 @@
+{
+  "generations": "Generationer",
+  "showGenerations": "Visa generationer",
+  "uploads": "Uppladdningar",
+  "showUploads": "Visa uppladdningar",
+  "galleryImageSize": "Bildens storlek",
+  "galleryImageResetSize": "Återställ storlek",
+  "gallerySettings": "Galleri Inställningar",
+  "maintainAspectRatio": "Upprätthålla bildförhållandet",
+  "autoSwitchNewImages": "Växla automatiskt till nya bilder",
+  "singleColumnLayout": "En kolumn Layout",
+  "pinGallery": "Fäst galleri",
+  "allImagesLoaded": "Alla bilder laddade",
+  "loadMore": "Ladda mer",
+  "noImagesInGallery": "Inga bilder i galleriet"
+}

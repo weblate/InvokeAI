@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "prompt": "Tämä on nopea kenttä. Prompt sisältää sukupolven objekteja ja tyylillisiä termejä. Voit lisätä painoa (token importance) myös kehotteeseen, mutta CLI-komennot ja -parametrit eivät toimi.",
+    "gallery": "Galleria näyttää sukupolvet lähtökansiosta kun ne on luotu. Asetukset tallennetaan tiedostoihin ja niitä käytetään kontekstivalikossa.",
+    "other": "Nämä vaihtoehdot mahdollistavat vaihtoehtoiset prosessointitilat Invokelle. 'Saumaton laatoitus' luo toistossa toistuvia kuvioita. 'Korkea resoluutio' on sukupolvi kahdessa vaiheessa img2img: käytä tätä asetusta, kun haluat suuremman ja johdonmukaisemman kuvan ilman esineitä. Se kestää kauemmin, että tavanomainen txt2img.",
+    "seed": "Siemenarvo vaikuttaa alkumeluun, josta kuva muodostuu. Voit käyttää jo olemassa olevia siemeniä edellisistä kuvista. 'Melun kynnysarvoa' käytetään lieventämään esineitä korkeilla CFG-arvoilla (kokeile 0-10 aluetta), ja Perlin lisätä Perlin melua aikana sukupolveen: molemmat palvella lisätä vaihtelu tuotokset.",
+    "variations": "Kokeile vaihtelua, jonka arvo on 0,1 ja 1,0 välillä tietyn siemenen tuloksen muuttamiseksi. Mielenkiintoisia vaihteluita siemenet ovat välillä 0,1 ja 0.3.",
+    "upscale": "Käytä ESRGANia suurentaaksesi kuvan heti luomisen jälkeen.",
+    "faceCorrection": "Face korjaus GFPGAN tai Codeformer: algoritmi tunnistaa kasvot kuvassa ja korjaa mahdolliset virheet. Korkea arvo muuttaa kuvan enemmän, mikä lisää houkuttelevia kasvoja. Koodinkone, jolla on korkeampi uskollisuus säilyttää alkuperäisen kuvan kustannuksella vahvempi kasvojen korjaus.",
+    "imageToImage": "Kuva kuvalle lataa minkä tahansa kuvan alkuperäisenä, minkä jälkeen sitä käytetään uuden kuvan luomiseen kehotuksen mukana. Mitä suurempi arvo on, sitä enemmän tuloskuva muuttuu. Arvot 0.0 - 1.0 ovat mahdollisia, suositeltu alue on 0,25-.75",
+    "boundingBox": "Rajaava laatikko on sama kuin kuvan tai kuvan leveys ja korkeus -asetukset. Ainoastaan laatikossa oleva alue voidaan käsitellä.",
+    "seamCorrection": "Hallitsee näkyvien saumojen käsittelyä, jotka tapahtuvat kankaalle luotujen kuvien välillä.",
+    "infillAndScaling": "Hallitse täydennysrakentamisen menetelmiä (käytetään naamioitu tai poistettu alueet kankaalle) ja skaalaus (hyödyllinen pieni bounding laatikon kokoja)."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "prompt": "Detta är det snabba fältet. Prompt innehåller generationsobjekt och stilistiska termer. Du kan lägga till vikt (token betydelse) i prompten också, men CLI-kommandon och parametrar fungerar inte.",
+    "gallery": "Galleri visar generationer från utgångsmappen som de skapas. Inställningar lagras i filer och åtföljs av sammanhangsmenyn.",
+    "other": "Dessa alternativ kommer att aktivera alternativa bearbetningslägen för Invoke. 'Seamless tiling' kommer att skapa upprepande mönster i utgången. \"Hög upplösning\" är generation i två steg med img2img: använd denna inställning när du vill ha en större och mer sammanhållen bild utan artefakter. Det kommer att ta längre tid att vanliga txt2img.",
+    "seed": "Frövärdet påverkar det ursprungliga buller från vilket bilden bildas. Du kan använda de redan existerande frön från tidigare bilder. \"Buller Threshold\" används för att mildra artefakter med höga CFG-värden (prova intervallet 0-10), och Perlin för att lägga till Perlin buller under generationen: båda tjänar till att lägga till variation till dina utgångar.",
+    "variations": "Prova en variation med ett värde mellan 0,1 och 1,0 för att ändra resultatet för ett givet frö. Intressanta variationer av utsädet är mellan 0,1 och 0,3.",
+    "upscale": "Använd ESRGAN för att förstora bilden omedelbart efter generation.",
+    "faceCorrection": "Ansiktskorrigering med GFPGAN eller Codeformer: algoritmen upptäcker ansikten i bilden och korrigerar eventuella defekter. Hög värde kommer att förändra bilden mer, vilket resulterar i mer attraktiva ansikten. Codeformer med en högre trohet bevarar den ursprungliga bilden på bekostnad av starkare ansiktskorrigering.",
+    "imageToImage": "Image to Image laddar en bild som initial, som sedan används för att generera en ny tillsammans med prompten. Ju högre värde, desto mer kommer resultatbilden att ändras. Värden från 0,0 till 1,0 är möjliga, det rekommenderade intervallet är 0,25-0,75",
+    "boundingBox": "Gränslådan är densamma som bredden och höjden inställningar för text till bild eller bild till bild. Endast området i rutan kommer att behandlas.",
+    "seamCorrection": "Kontrollerar hanteringen av synliga sömmar som uppstår mellan genererade bilder på duken.",
+    "infillAndScaling": "Hantera utfyllnad metoder (används på maskerade eller raderade områden av duken) och skalning (användbart för små begränsande boxstorlekar)."
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "models": "Vzory",
+  "displayInProgress": "Zobrazit obrázky v průběhu",
+  "saveSteps": "Uložit obrázky každé n kroky",
+  "confirmOnDelete": "Potvrdit odstranění",
+  "displayHelpIcons": "Zobrazit ikony nápovědy",
+  "useCanvasBeta": "Použít beta rozložení plátna",
+  "enableImageDebugging": "Povolit ladění obrázků",
+  "resetWebUI": "Reset Web UI",
+  "resetWebUIDesc1": "Resetování webového rozhraní pouze obnoví místní mezipaměť vašich obrázků a zapamatuje si nastavení. Neodstraňuje z disku žádné obrázky.",
+  "resetWebUIDesc2": "Pokud se obrázky nezobrazují v galerii nebo něco jiného nefunguje, zkuste prosím resetovat před odesláním problému na GitHub.",
+  "resetComplete": "Webové uživatelské rozhraní bylo resetováno. Obnovte stránku a obnovte ji."
+}

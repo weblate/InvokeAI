@@ -1,0 +1,16 @@
+{
+  "generations": "Generasjoner",
+  "showGenerations": "Vis generasjoner",
+  "uploads": "Opplastinger",
+  "showUploads": "Vis opplastinger",
+  "galleryImageSize": "Bilde størrelse",
+  "galleryImageResetSize": "Tilbakestill størrelse",
+  "gallerySettings": "Galleri Innstillinger",
+  "maintainAspectRatio": "Oppretthold størrelsesforhold",
+  "autoSwitchNewImages": "Bytt automatisk til nye bilder",
+  "singleColumnLayout": "Enkelt kolonneoppsett",
+  "pinGallery": "Fest galleri",
+  "allImagesLoaded": "Alle bilder lastet",
+  "loadMore": "Last inn mer",
+  "noImagesInGallery": "Ingen bilder i galleriet"
+}

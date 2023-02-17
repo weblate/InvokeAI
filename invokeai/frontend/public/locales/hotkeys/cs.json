@@ -1,0 +1,207 @@
+{
+  "keyboardShortcuts": "Zkratky klávesnice",
+  "appHotkeys": "Klávesové zkratky aplikace",
+  "generalHotkeys": "Obecné klávesové zkratky",
+  "galleryHotkeys": "Klávesové zkratky",
+  "unifiedCanvasHotkeys": "Jednotné klávesové zkratky plátna",
+  "invoke": {
+    "title": "Invoke",
+    "desc": "Generovat obrázek"
+  },
+  "cancel": {
+    "title": "Zrušit",
+    "desc": "Zrušit generování obrázku"
+  },
+  "focusPrompt": {
+    "title": "Zaměřit na výzvu",
+    "desc": "Zaměří se na okamžitou vstupní oblast"
+  },
+  "toggleOptions": {
+    "title": "Přepnout možnosti",
+    "desc": "Otevřít a zavřít panel možností"
+  },
+  "pinOptions": {
+    "title": "Připnout možnosti",
+    "desc": "Připnout panel možností"
+  },
+  "toggleViewer": {
+    "title": "Přepnout prohlížeč",
+    "desc": "Otevřít a zavřít prohlížeč obrázků"
+  },
+  "toggleGallery": {
+    "title": "Přepnout galerii",
+    "desc": "Otevřít a zavřít galerii"
+  },
+  "maximizeWorkSpace": {
+    "title": "Maximalizovat pracovní prostor",
+    "desc": "Zavřít panely a maximalizovat pracovní prostor"
+  },
+  "changeTabs": {
+    "title": "Změnit záložky",
+    "desc": "Přepnout na jiný pracovní prostor"
+  },
+  "consoleToggle": {
+    "title": "Přepínač konzole",
+    "desc": "Otevřít a zavřít konzoli"
+  },
+  "setPrompt": {
+    "title": "Nastavit výzvu",
+    "desc": "Použít výzvu k aktuálnímu obrázku"
+  },
+  "setSeed": {
+    "title": "Nastavit Seed",
+    "desc": "Použít Seed aktuálního obrázku"
+  },
+  "setParameters": {
+    "title": "Nastavit parametry",
+    "desc": "Použít všechny parametry aktuálního obrázku"
+  },
+  "restoreFaces": {
+    "title": "Obnovit tváře",
+    "desc": "Obnovit aktuální obrázek"
+  },
+  "upscale": {
+    "title": "Zvětšit",
+    "desc": "Zvětšit aktuální obrázek"
+  },
+  "showInfo": {
+    "title": "Zobrazit informace",
+    "desc": "Zobrazit metadata informace o aktuálním obrázku"
+  },
+  "sendToImageToImage": {
+    "title": "Odeslat na obrázek",
+    "desc": "Odeslat aktuální obrázek na obrázek"
+  },
+  "deleteImage": {
+    "title": "Odstranit obrázek",
+    "desc": "Odstranit aktuální obrázek"
+  },
+  "closePanels": {
+    "title": "Zavřít panely",
+    "desc": "Zavře otevřené panely"
+  },
+  "previousImage": {
+    "title": "Předchozí obrázek",
+    "desc": "Zobrazit předchozí obrázek v galerii"
+  },
+  "nextImage": {
+    "title": "Další obrázek",
+    "desc": "Zobrazit další obrázek v galerii"
+  },
+  "toggleGalleryPin": {
+    "title": "Zapnout/vypnout PIN galerie",
+    "desc": "Připnout a odpnout galerii do uživatelského rozhraní"
+  },
+  "increaseGalleryThumbSize": {
+    "title": "Zvýšit velikost obrázků galerie",
+    "desc": "Zvyšuje velikost náhledů galerie"
+  },
+  "decreaseGalleryThumbSize": {
+    "title": "Snížit velikost obrázků galerie",
+    "desc": "Sníží velikost miniatury galerie"
+  },
+  "selectBrush": {
+    "title": "Vybrat Brush",
+    "desc": "Vybere plátno kartáče"
+  },
+  "selectEraser": {
+    "title": "Vybrat Eraser",
+    "desc": "Vybere výmaz plátna"
+  },
+  "decreaseBrushSize": {
+    "title": "Snížit velikost štětce",
+    "desc": "Sníží velikost okraje plátna"
+  },
+  "increaseBrushSize": {
+    "title": "Zvětšit velikost štětce",
+    "desc": "Zvyšuje velikost plátna"
+  },
+  "decreaseBrushOpacity": {
+    "title": "Snížit průhlednost",
+    "desc": "Sníží průhlednost kartáče plátna"
+  },
+  "increaseBrushOpacity": {
+    "title": "Zvýšit průhlednost při oštěpování",
+    "desc": "Zvyšuje průhlednost kartáče plátna"
+  },
+  "moveTool": {
+    "title": "Přesunout nástroj",
+    "desc": "Umožňuje navigaci plátna"
+  },
+  "fillBoundingBox": {
+    "title": "Vyplnit rámeček",
+    "desc": "Vyplní ohraničovací rámeček barvou kartáčku"
+  },
+  "eraseBoundingBox": {
+    "title": "Vymazat ohraničení",
+    "desc": "Vymaže ohraničující oblast"
+  },
+  "colorPicker": {
+    "title": "Vybrat výběr barvy",
+    "desc": "Vybere výběr barev plátna"
+  },
+  "toggleSnap": {
+    "title": "Přepnout zachytávání",
+    "desc": "Přepnout zachytávání do mřížky"
+  },
+  "quickToggleMove": {
+    "title": "Rychlý pohyb",
+    "desc": "Dočasně přepíná režim přesunu"
+  },
+  "toggleLayer": {
+    "title": "Přepnout vrstvu",
+    "desc": "Přepíná výběr masky/základní vrstvy"
+  },
+  "clearMask": {
+    "title": "Vymazat masku",
+    "desc": "Vyčistit celou masku"
+  },
+  "hideMask": {
+    "title": "Skrýt maska",
+    "desc": "Skrýt a odkrýt masku"
+  },
+  "showHideBoundingBox": {
+    "title": "Zobrazit/skrýt ohraničení",
+    "desc": "Přepnout viditelnost ohraničeného pole"
+  },
+  "mergeVisible": {
+    "title": "Sloučit viditelné",
+    "desc": "Sloučit všechny viditelné vrstvy plátna"
+  },
+  "saveToGallery": {
+    "title": "Uložit do galerie",
+    "desc": "Uložit aktuální plátno do galerie"
+  },
+  "copyToClipboard": {
+    "title": "Kopírovat do schránky",
+    "desc": "Zkopírovat aktuální plátno do schránky"
+  },
+  "downloadImage": {
+    "title": "Stáhnout obrázek",
+    "desc": "Stáhnout aktuální plátno"
+  },
+  "undoStroke": {
+    "title": "Vrátit tah",
+    "desc": "Vrátit zpět štětcem"
+  },
+  "redoStroke": {
+    "title": "Opakovat tah",
+    "desc": "Opakovat štětce"
+  },
+  "resetView": {
+    "title": "Obnovit zobrazení",
+    "desc": "Obnovit zobrazení plátna"
+  },
+  "previousStagingImage": {
+    "title": "Předchozí přípravný obrázek",
+    "desc": "Předchozí obrázek oblasti pro přípravu"
+  },
+  "nextStagingImage": {
+    "title": "Další přípravný obrázek",
+    "desc": "Příští obrázek oblasti pro přípravu"
+  },
+  "acceptStagingImage": {
+    "title": "Přijmout pracovní obrázek",
+    "desc": "Přijmout obrázek aktuální oblasti"
+  }
+}

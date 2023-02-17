@@ -1,0 +1,207 @@
+{
+  "keyboardShortcuts": "Näppäimistön Pikakuvakkeet",
+  "appHotkeys": "Sovellusten Pikanäppäimet",
+  "generalHotkeys": "Yleiset Pikanäppäimet",
+  "galleryHotkeys": "Galleria Pikanäppäimet",
+  "unifiedCanvasHotkeys": "Yhdistetyt Canvas Pikanäppäimet",
+  "invoke": {
+    "title": "Invoke",
+    "desc": "Luo kuva"
+  },
+  "cancel": {
+    "title": "Peruuta",
+    "desc": "Peruuta kuvan luonti"
+  },
+  "focusPrompt": {
+    "title": "Kohdista Pika",
+    "desc": "Kohdista nopea syöttöalue"
+  },
+  "toggleOptions": {
+    "title": "Vaihda Valintoja",
+    "desc": "Avaa ja sulje valintapaneeli"
+  },
+  "pinOptions": {
+    "title": "PIN-asetukset",
+    "desc": "Kiinnitä asetuspaneeli"
+  },
+  "toggleViewer": {
+    "title": "Vaihda Katselimen Tilaa",
+    "desc": "Avaa ja sulje kuvakatselin"
+  },
+  "toggleGallery": {
+    "title": "Vaihda Galleria",
+    "desc": "Avaa ja sulje gallerian laatikko"
+  },
+  "maximizeWorkSpace": {
+    "title": "Suurenna Työtila",
+    "desc": "Sulje paneelit ja maksimoi työalue"
+  },
+  "changeTabs": {
+    "title": "Vaihda Välilehdet",
+    "desc": "Vaihda toiseen työtilaan"
+  },
+  "consoleToggle": {
+    "title": "Konsolin Vaihda",
+    "desc": "Avaa ja sulje konsoli"
+  },
+  "setPrompt": {
+    "title": "Aseta Kysely",
+    "desc": "Käytä nykyisen kuvan kehyskehystä"
+  },
+  "setSeed": {
+    "title": "Aseta Seed-luku",
+    "desc": "Käytä nykyisen kuvan seed-lukua"
+  },
+  "setParameters": {
+    "title": "Aseta Parametrit",
+    "desc": "Käytä kaikkia nykyisen kuvan parametreja"
+  },
+  "restoreFaces": {
+    "title": "Palauta Kasvot",
+    "desc": "Palauta nykyinen kuva"
+  },
+  "upscale": {
+    "title": "Parannus",
+    "desc": "Muuta nykyistä kuvaa"
+  },
+  "showInfo": {
+    "title": "Näytä Tiedot",
+    "desc": "Näytä nykyisen kuvan metadatan tiedot"
+  },
+  "sendToImageToImage": {
+    "title": "Lähetä Image To Image",
+    "desc": "Lähetä nykyinen kuva kuvaan"
+  },
+  "deleteImage": {
+    "title": "Poista Kuva",
+    "desc": "Poista nykyinen kuva"
+  },
+  "closePanels": {
+    "title": "Sulje Paneelit",
+    "desc": "Sulkee avoimet paneelit"
+  },
+  "previousImage": {
+    "title": "Edellinen Kuva",
+    "desc": "Näytä edellinen kuva galleriassa"
+  },
+  "nextImage": {
+    "title": "Seuraava Kuva",
+    "desc": "Näytä seuraava kuva galleriassa"
+  },
+  "toggleGalleryPin": {
+    "title": "Vaihda Galleria PIN-koodi",
+    "desc": "Pins ja irrottaa gallerian UI"
+  },
+  "increaseGalleryThumbSize": {
+    "title": "Lisää Gallerian Kuvien Kokoa",
+    "desc": "Lisää gallerian pienoiskokoa"
+  },
+  "decreaseGalleryThumbSize": {
+    "title": "Pienennä Kuvatiedostojen Kokoa",
+    "desc": "Pienentää gallerian pikkukuvien kokoa"
+  },
+  "selectBrush": {
+    "title": "Valitse Brush",
+    "desc": "Valitsee kankaan harjan"
+  },
+  "selectEraser": {
+    "title": "Valitse Pyyhin",
+    "desc": "Valitsee kankaan tyhjennyksen"
+  },
+  "decreaseBrushSize": {
+    "title": "Pienennä Harjakokoa",
+    "desc": "Vähentää kankaan kokoa harjalla/pyyhkimällä"
+  },
+  "increaseBrushSize": {
+    "title": "Lisää Harjakokoa",
+    "desc": "Lisää kankaan kokoa"
+  },
+  "decreaseBrushOpacity": {
+    "title": "Vähennä Harjan Läpinäkyvyyttä",
+    "desc": "Vähentää kankaan peittävyyttä"
+  },
+  "increaseBrushOpacity": {
+    "title": "Lisää Harjan Läpinäkyvyyttä",
+    "desc": "Lisää kankaan läpinäkyvyyttä"
+  },
+  "moveTool": {
+    "title": "Siirrä Työkalu",
+    "desc": "Mahdollistaa kanavien navigoinnin"
+  },
+  "fillBoundingBox": {
+    "title": "Täytä Bounding Box",
+    "desc": "Täyttää rajaavan laatikon siveltimen värillä"
+  },
+  "eraseBoundingBox": {
+    "title": "Poista Rajaava Laatikko",
+    "desc": "Poistaa rajoitetun laatikon alueen"
+  },
+  "colorPicker": {
+    "title": "Valitse Värivalitsin",
+    "desc": "Valitsee kankaan värin valitsimen"
+  },
+  "toggleSnap": {
+    "title": "Vaihda Kohdistus",
+    "desc": "Vaihtaa kohdistuksen ruudukkoon"
+  },
+  "quickToggleMove": {
+    "title": "Nopea Siirto",
+    "desc": "Väliaikaisesti toggaa siirtotila"
+  },
+  "toggleLayer": {
+    "title": "Vaihda Tasoa",
+    "desc": "Vaihtaa maskia/pohjarakennuksen valintaa"
+  },
+  "clearMask": {
+    "title": "Tyhjennä Maski",
+    "desc": "Tyhjennä koko naamio"
+  },
+  "hideMask": {
+    "title": "Piilota Maski",
+    "desc": "Piilota ja piilota maski"
+  },
+  "showHideBoundingBox": {
+    "title": "Näytä/Piilota Rajaava Laatikko",
+    "desc": "Vaihda rajaavan laatikon näkyvyyttä"
+  },
+  "mergeVisible": {
+    "title": "Yhdistä Näkyvät",
+    "desc": "Yhdistä kaikki kankaan näkyvät kerrokset"
+  },
+  "saveToGallery": {
+    "title": "Tallenna Galleriaan",
+    "desc": "Tallenna nykyinen kangas galleriaan"
+  },
+  "copyToClipboard": {
+    "title": "Kopioi leikepöydälle",
+    "desc": "Kopioi nykyiset kankaat leikepöydälle"
+  },
+  "downloadImage": {
+    "title": "Lataa Kuva",
+    "desc": "Lataa nykyiset kankaat"
+  },
+  "undoStroke": {
+    "title": "Peru Aivohalvaus",
+    "desc": "Kumoa siveltimen halvaus"
+  },
+  "redoStroke": {
+    "title": "Tee Aivohalvaus Uudelleen",
+    "desc": "Tee siveltimen halvaus uudelleen"
+  },
+  "resetView": {
+    "title": "Palauta Näkymä",
+    "desc": "Palauta Canvas Näkymä"
+  },
+  "previousStagingImage": {
+    "title": "Edellinen Julkaisun Kuva",
+    "desc": "Edellinen Vaihealueen Kuva"
+  },
+  "nextStagingImage": {
+    "title": "Seuraava Vaiheinen Kuva",
+    "desc": "Seuraava Vaihealueen Kuva"
+  },
+  "acceptStagingImage": {
+    "title": "Hyväksy Julkaisukuva",
+    "desc": "Hyväksy Nykyinen Vaihtelualueen Kuva"
+  }
+}

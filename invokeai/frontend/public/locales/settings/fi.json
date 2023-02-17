@@ -1,0 +1,13 @@
+{
+  "models": "Mallit",
+  "displayInProgress": "Näytä Progress-kuvat",
+  "saveSteps": "Tallenna kuvat joka n vaiheessa",
+  "confirmOnDelete": "Vahvista Poistossa",
+  "displayHelpIcons": "Näytä Ohjekuvakkeet",
+  "useCanvasBeta": "Käytä Canvas Beta -asettelua",
+  "enableImageDebugging": "Ota Kuvien Vianetsintä Käyttöön",
+  "resetWebUI": "Reset Web UI",
+  "resetWebUIDesc1": "Web-käyttöliittymän palauttaminen palauttaa vain kuvien paikallisen välimuistin ja muistetut asetukset. Se ei poista kuvia levyltä.",
+  "resetWebUIDesc2": "Jos kuvat eivät näy galleriassa tai jotain muuta ei toimi, yritä nollata ennen ongelman lähettämistä GitHubissa.",
+  "resetComplete": "Web-käyttöliittymä on nollattu. Päivitä sivu ladataksesi uudelleen."
+}

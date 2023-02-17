@@ -1,0 +1,207 @@
+{
+  "keyboardShortcuts": "Tastatur avskjæringer",
+  "appHotkeys": "App hurtigtaster",
+  "generalHotkeys": "Generelle hurtigtaster",
+  "galleryHotkeys": "Galleri hurtigtaster",
+  "unifiedCanvasHotkeys": "Enhetlig Canvas hurtigtaster",
+  "invoke": {
+    "title": "Invoke",
+    "desc": "Lag et bilde"
+  },
+  "cancel": {
+    "title": "Avbryt",
+    "desc": "Avbryt bildegenerering"
+  },
+  "focusPrompt": {
+    "title": "Fokus prompt",
+    "desc": "Fokuser på input fra ledetekst"
+  },
+  "toggleOptions": {
+    "title": "Veksle alternativer",
+    "desc": "Åpne og lukk opsjonspanelet"
+  },
+  "pinOptions": {
+    "title": "Fest alternativer",
+    "desc": "Fest alternativpanelet"
+  },
+  "toggleViewer": {
+    "title": "Veksle Visning",
+    "desc": "Åpne og lukk bildevisning"
+  },
+  "toggleGallery": {
+    "title": "Vis/Skjul galleri",
+    "desc": "Åpne og lukk galleri Skuff"
+  },
+  "maximizeWorkSpace": {
+    "title": "Maksimer arbeidsområde",
+    "desc": "Lukk paneler og maksimere arbeidsområde"
+  },
+  "changeTabs": {
+    "title": "Endre faner",
+    "desc": "Bytt til et annet arbeidsområde"
+  },
+  "consoleToggle": {
+    "title": "Konsoll veksle",
+    "desc": "Åpne og lukk konsollen"
+  },
+  "setPrompt": {
+    "title": "Angi prompt",
+    "desc": "Bruk ledeteksten av gjeldende bilde"
+  },
+  "setSeed": {
+    "title": "Sett hovednøkkel",
+    "desc": "Bruk hovednøkkelen for gjeldende bilde"
+  },
+  "setParameters": {
+    "title": "Definer parametre",
+    "desc": "Bruk alle parametere for gjeldende bilde"
+  },
+  "restoreFaces": {
+    "title": "Gjenopprett flater",
+    "desc": "Gjenopprett gjeldende bilde"
+  },
+  "upscale": {
+    "title": "Oppskalering",
+    "desc": "Oppskalere det nåværende bildet"
+  },
+  "showInfo": {
+    "title": "Vis informasjon",
+    "desc": "Vis metadatainformasjon for det gjeldende bildet"
+  },
+  "sendToImageToImage": {
+    "title": "Send til bilde til bilde",
+    "desc": "Send bilde til bilde"
+  },
+  "deleteImage": {
+    "title": "Slett bilde",
+    "desc": "Slett gjeldende bilde"
+  },
+  "closePanels": {
+    "title": "Lukk paneler",
+    "desc": "Lukk åpne paneler"
+  },
+  "previousImage": {
+    "title": "Forrige bilde",
+    "desc": "Vis forrige bilde i galleriet"
+  },
+  "nextImage": {
+    "title": "Neste bilde",
+    "desc": "Vis neste bilde i galleriet"
+  },
+  "toggleGalleryPin": {
+    "title": "Vis/skjul galleri",
+    "desc": "Knip og opphev galleriet til brukergrensesnittet"
+  },
+  "increaseGalleryThumbSize": {
+    "title": "Øk bildestørrelse for galleri",
+    "desc": "Øker størrelse for galleri miniatyrbilder"
+  },
+  "decreaseGalleryThumbSize": {
+    "title": "Reduser bildestørrelse for galleri",
+    "desc": "Minsker galleri miniatyrbilder størrelse"
+  },
+  "selectBrush": {
+    "title": "Velg børste",
+    "desc": "Velger lerretet pensel"
+  },
+  "selectEraser": {
+    "title": "Velg Viskelær",
+    "desc": "Velger lerretet"
+  },
+  "decreaseBrushSize": {
+    "title": "Reduser børstens størrelse",
+    "desc": "Reduserer størrelsen på lerretsbørste/laser"
+  },
+  "increaseBrushSize": {
+    "title": "Øk børstens størrelse",
+    "desc": "Øker størrelsen på lerretsbørste/laser"
+  },
+  "decreaseBrushOpacity": {
+    "title": "Reduser børs gjennomsiktighet",
+    "desc": "Reduserer tettheten til lerretet børste"
+  },
+  "increaseBrushOpacity": {
+    "title": "Ã k børstens ugjennomsiktighet",
+    "desc": "Øker tettheten til lerretet pensel"
+  },
+  "moveTool": {
+    "title": "Flytt verktøy",
+    "desc": "Tillater lerretnavigasjon"
+  },
+  "fillBoundingBox": {
+    "title": "Fyll loddboks",
+    "desc": "Fyller grenseboksen med penselfarge"
+  },
+  "eraseBoundingBox": {
+    "title": "Sletter papirkurv",
+    "desc": "Sletter avgrensingsboksen området"
+  },
+  "colorPicker": {
+    "title": "Velg fargevelger",
+    "desc": "Velger lerretets fargevelger"
+  },
+  "toggleSnap": {
+    "title": "Slå på/av stillbilde",
+    "desc": "Skifter snapper til rutenett"
+  },
+  "quickToggleMove": {
+    "title": "Hurtigveksle flytt",
+    "desc": "Midlertidig veksles flyttemodus"
+  },
+  "toggleLayer": {
+    "title": "Veksle lag",
+    "desc": "Veksler maske/base lag valg"
+  },
+  "clearMask": {
+    "title": "Fjern Maske",
+    "desc": "Fjern hele masken"
+  },
+  "hideMask": {
+    "title": "Skjul maske",
+    "desc": "Skjul og skjul maske"
+  },
+  "showHideBoundingBox": {
+    "title": "Vis/Skjul blokkeringsboks",
+    "desc": "Slå av/på visning av grenseboks"
+  },
+  "mergeVisible": {
+    "title": "Flett synlig",
+    "desc": "Slå sammen alle synlige lag av lerretet"
+  },
+  "saveToGallery": {
+    "title": "Lagre til galleri",
+    "desc": "Lagre gjeldende lerret i galleriet"
+  },
+  "copyToClipboard": {
+    "title": "Kopier til utklippstavle",
+    "desc": "Kopier gjeldende lerret til utklippstavlen"
+  },
+  "downloadImage": {
+    "title": "Last ned bilde",
+    "desc": "Last ned nåværende lerretet"
+  },
+  "undoStroke": {
+    "title": "Angre slag",
+    "desc": "Angre børsteslag"
+  },
+  "redoStroke": {
+    "title": "Gjenta Strek",
+    "desc": "Gjenta et børsteslag"
+  },
+  "resetView": {
+    "title": "Tilbakestill visning",
+    "desc": "Tilbakestill Canvas visning"
+  },
+  "previousStagingImage": {
+    "title": "Forrige testbilde",
+    "desc": "Forrige testområde bilde"
+  },
+  "nextStagingImage": {
+    "title": "Neste testbilde",
+    "desc": "Neste testområde bilde"
+  },
+  "acceptStagingImage": {
+    "title": "Aksepter testbilde",
+    "desc": "Aksepter nåværende testområde bilde"
+  }
+}

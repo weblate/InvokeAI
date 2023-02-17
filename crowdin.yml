@@ -1,0 +1,3 @@
+files:
+  - source: /invokeai/frontend/i18n/en/*.json
+    translation: /invokeai/frontend/public/locales/%file_name%/%locale%.json

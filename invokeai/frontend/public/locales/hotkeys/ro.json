@@ -1,0 +1,207 @@
+{
+  "keyboardShortcuts": "Scurtături tastatură",
+  "appHotkeys": "Hotkeys App",
+  "generalHotkeys": "Taste generale",
+  "galleryHotkeys": "Tastele pentru galerie",
+  "unifiedCanvasHotkeys": "Taste Canvas unificate",
+  "invoke": {
+    "title": "Invoke",
+    "desc": "Genereaza o imagine"
+  },
+  "cancel": {
+    "title": "Anulează",
+    "desc": "Anulează generarea imaginii"
+  },
+  "focusPrompt": {
+    "title": "Solicitare Focus",
+    "desc": "Direcționează zona de intrare promptă"
+  },
+  "toggleOptions": {
+    "title": "Activează/dezactivează opțiunile",
+    "desc": "Deschideți și închideți panoul de opțiuni"
+  },
+  "pinOptions": {
+    "title": "Opțiuni PIN",
+    "desc": "Fixează panoul de opţiuni"
+  },
+  "toggleViewer": {
+    "title": "Comutare vizualizator",
+    "desc": "Deschide și închide Vizualizatorul de Imagini"
+  },
+  "toggleGallery": {
+    "title": "Comută galeria",
+    "desc": "Deschideți și închideți sertarul de galerie"
+  },
+  "maximizeWorkSpace": {
+    "title": "Maximizează spațiul de lucru",
+    "desc": "Închide panouri și maximizează zona de lucru"
+  },
+  "changeTabs": {
+    "title": "Schimbă tab-urile",
+    "desc": "Treceți la un alt spațiu de lucru"
+  },
+  "consoleToggle": {
+    "title": "Comutare Consolă",
+    "desc": "Deschideți și închideți consola"
+  },
+  "setPrompt": {
+    "title": "Setare Prompt",
+    "desc": "Utilizaţi solicitarea imaginii curente"
+  },
+  "setSeed": {
+    "title": "Setare Secret",
+    "desc": "Folosește seed-ul imaginii curente"
+  },
+  "setParameters": {
+    "title": "Setează parametri",
+    "desc": "Folosește toți parametrii imaginii curente"
+  },
+  "restoreFaces": {
+    "title": "Restaurare fete",
+    "desc": "Restaurează imaginea curentă"
+  },
+  "upscale": {
+    "title": "Amplificare",
+    "desc": "Actualizați imaginea curentă"
+  },
+  "showInfo": {
+    "title": "Arată informații",
+    "desc": "Arată informații despre metadatele imaginii curente"
+  },
+  "sendToImageToImage": {
+    "title": "Trimite la imagine",
+    "desc": "Trimite imaginea curentă la imagine"
+  },
+  "deleteImage": {
+    "title": "Șterge imaginea",
+    "desc": "Șterge imaginea curentă"
+  },
+  "closePanels": {
+    "title": "Închide panouri",
+    "desc": "Închide panourile deschise"
+  },
+  "previousImage": {
+    "title": "Imaginea anterioară",
+    "desc": "Afișează imaginea anterioară în galerie"
+  },
+  "nextImage": {
+    "title": "Imaginea următoare",
+    "desc": "Afișează următoarea imagine în galerie"
+  },
+  "toggleGalleryPin": {
+    "title": "Comută panoul de galerie",
+    "desc": "Fixează și anulează fixarea galeriei la UI"
+  },
+  "increaseGalleryThumbSize": {
+    "title": "Mărește dimensiunea imaginii galeriei",
+    "desc": "Mărește dimensiunea miniaturilor galerie"
+  },
+  "decreaseGalleryThumbSize": {
+    "title": "Scade Dimensiunea Imaginilor Galerie",
+    "desc": "Scade dimensiunea miniaturilor galerie"
+  },
+  "selectBrush": {
+    "title": "Selectaţi pensula",
+    "desc": "Selectează pensula de pânză"
+  },
+  "selectEraser": {
+    "title": "Selectează Eraser",
+    "desc": "Selectează ștergerea pânzei"
+  },
+  "decreaseBrushSize": {
+    "title": "Scade dimensiunea pensulei",
+    "desc": "Scade dimensiunea pensulei de pânză"
+  },
+  "increaseBrushSize": {
+    "title": "Crește dimensiunea pensulei",
+    "desc": "Crește dimensiunea pensulei de pânză"
+  },
+  "decreaseBrushOpacity": {
+    "title": "Scade Opacitatea Periei",
+    "desc": "Scade opacitatea pensulei de pânză"
+  },
+  "increaseBrushOpacity": {
+    "title": "Crește Opacitatea Pânzei",
+    "desc": "Crește opacitatea pensulei de pânză"
+  },
+  "moveTool": {
+    "title": "Mută unealta",
+    "desc": "Permite navigare pânză"
+  },
+  "fillBoundingBox": {
+    "title": "Completează caseta de finanțare",
+    "desc": "Umple cutia de finanţare cu culoare pensulă"
+  },
+  "eraseBoundingBox": {
+    "title": "Șterge caseta de încadrare",
+    "desc": "Şterge zona casetei de încadrare"
+  },
+  "colorPicker": {
+    "title": "Selectaţi selectorul de culori",
+    "desc": "Selectează selectorul de culori pentru pânză"
+  },
+  "toggleSnap": {
+    "title": "Comută Snap",
+    "desc": "Activează/dezactivează Snap la grilă"
+  },
+  "quickToggleMove": {
+    "title": "Comutare rapidă",
+    "desc": "Mod de mutare temporară"
+  },
+  "toggleLayer": {
+    "title": "Comută nivel",
+    "desc": "Activează/dezactivează selecția de mască/strat de bază"
+  },
+  "clearMask": {
+    "title": "Șterge masca",
+    "desc": "Șterge toată masca"
+  },
+  "hideMask": {
+    "title": "Ascunde masca",
+    "desc": "Ascunde si ascunde masca"
+  },
+  "showHideBoundingBox": {
+    "title": "Arată/ascunde caseta de încadrare",
+    "desc": "Comută vizibilitatea casetei de încadrare"
+  },
+  "mergeVisible": {
+    "title": "Îmbinare Vizibilă",
+    "desc": "Îmbinați toate straturile vizibile ale pânzei"
+  },
+  "saveToGallery": {
+    "title": "Salvează în Galerie",
+    "desc": "Salvează planșa curentă în galerie"
+  },
+  "copyToClipboard": {
+    "title": "Copiază în clipboard",
+    "desc": "Copiază planșa curentă în clipboard"
+  },
+  "downloadImage": {
+    "title": "Descarcă imaginea",
+    "desc": "Descarcă pânza curentă"
+  },
+  "undoStroke": {
+    "title": "Anulează timbrul",
+    "desc": "Anulează un atac cerebral cu pensulă"
+  },
+  "redoStroke": {
+    "title": "Refă atacul",
+    "desc": "Repetați un atac cerebral cu pensulă"
+  },
+  "resetView": {
+    "title": "Resetare vizualizare",
+    "desc": "Resetare vizualizare Canvas"
+  },
+  "previousStagingImage": {
+    "title": "Imaginea Anterioară",
+    "desc": "Imaginea Anterioară a zonei de aşteptare"
+  },
+  "nextStagingImage": {
+    "title": "Următoarea imagine de scenă",
+    "desc": "Următoarea imagine a zonei de scenă"
+  },
+  "acceptStagingImage": {
+    "title": "Acceptați Imaginea de Staging",
+    "desc": "Acceptați imaginea curentă a zonei de aşteptare"
+  }
+}

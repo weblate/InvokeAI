@@ -1,0 +1,15 @@
+{
+  "feature": {
+    "prompt": "Este é o campo pronto. Prompt inclui objetos de geração e termos estiléticos. Você pode adicionar peso (importância do token) no prompt também, mas os comandos e parâmetros do CLI não funcionarão.",
+    "gallery": "A Galeria exibe gerações da pasta de saídas como são criadas. As configurações são armazenadas dentro dos arquivos e acessadas pelo menu de contexto.",
+    "other": "Estas opções habilitarão modos de processamento alternativos para Invoke. 'Travamento sem interrupções' irá criar padrões de repetição na saída. 'Alta resolução' é geração em duas etapas com img2img: use essa configuração quando você quiser uma imagem maior e mais coerente sem artefatos. Vai demorar mais tempo do txt2img habitual.",
+    "seed": "O valor da semente afeta o ruído inicial do qual a imagem é formatada. Você pode usar as sementes já existentes das imagens anteriores. 'Noise Threshold' é usado para mitigar artefatos em valores altos de CFG (tente o intervalo de 0-10), e o Perlin para adicionar o ruído do Perlin durante a geração: ambos servem para adicionar a variação às suas saídas.",
+    "variations": "Tente uma variação com um valor entre 0.1 e 1.0 para alterar o resultado para uma determinada semente. Variações interessantes da semente estão entre 0,1 e 0.3.",
+    "upscale": "Use ESRGAN para ampliar a imagem imediatamente após geração.",
+    "faceCorrection": "Correção facial com GFPGAN ou Codeformer: o algoritmo detecta faces na imagem e corrige quaisquer defeitos. Um alto valor mudará a imagem mais, resultando em faces mais atraentes. Codeformer com maior fidelidade preserva a imagem original à custa de uma correção de face mais forte.",
+    "imageToImage": "Imagem para imagem carrega qualquer imagem como inicial, que é usado para gerar uma nova junto com o prompt. Quanto maior o valor, mais a imagem do resultado mudará. Valores de 0.0 para 1.0 são possíveis, a faixa recomendada é de .25-.75",
+    "boundingBox": "A caixa delimitadora é a mesma que as configurações de largura e altura para texto para imagem ou imagem para imagem. Somente a área na caixa será processada.",
+    "seamCorrection": "Controla o manuseio de selos visíveis que ocorrem entre as imagens geradas na tela.",
+    "infillAndScaling": "Gerenciar métodos infill (usados em áreas mascaradas ou apagadas da tela) e dimensionamento (útil para pequenos tamanhos limitados)."
+  }
+}

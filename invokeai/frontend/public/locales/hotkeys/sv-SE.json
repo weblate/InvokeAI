@@ -1,0 +1,207 @@
+{
+  "keyboardShortcuts": "Tangentbord klippor",
+  "appHotkeys": "App snabbtangenter",
+  "generalHotkeys": "Allmänna snabbtangenter",
+  "galleryHotkeys": "Galleri snabbtangenter",
+  "unifiedCanvasHotkeys": "Unified Canvas snabbtangenter",
+  "invoke": {
+    "title": "Invoke",
+    "desc": "Generera en bild"
+  },
+  "cancel": {
+    "title": "Avbryt",
+    "desc": "Avbryt bildgenerering"
+  },
+  "focusPrompt": {
+    "title": "Fokusera Fråga",
+    "desc": "Fokusera det snabba inmatningsområdet"
+  },
+  "toggleOptions": {
+    "title": "Växla alternativ",
+    "desc": "Öppna och stäng panelen alternativ"
+  },
+  "pinOptions": {
+    "title": "Fäst alternativ",
+    "desc": "Fäst panelen alternativ"
+  },
+  "toggleViewer": {
+    "title": "Växla läsare",
+    "desc": "Öppna och stäng bildvisaren"
+  },
+  "toggleGallery": {
+    "title": "Växla Galleri",
+    "desc": "Öppna och stäng gallerilådan"
+  },
+  "maximizeWorkSpace": {
+    "title": "Maximera arbetsytan",
+    "desc": "Stäng paneler och maximera arbetsområdet"
+  },
+  "changeTabs": {
+    "title": "Ändra flikar",
+    "desc": "Växla till en annan arbetsyta"
+  },
+  "consoleToggle": {
+    "title": "Växla konsol",
+    "desc": "Öppna och stäng konsolen"
+  },
+  "setPrompt": {
+    "title": "Ställ in Fråga",
+    "desc": "Använd prompten av den aktuella bilden"
+  },
+  "setSeed": {
+    "title": "Sätt Seed",
+    "desc": "Använd fröet till den aktuella bilden"
+  },
+  "setParameters": {
+    "title": "Ange parametrar",
+    "desc": "Använd alla parametrar för den aktuella bilden"
+  },
+  "restoreFaces": {
+    "title": "Återställ ansikten",
+    "desc": "Återställ den aktuella bilden"
+  },
+  "upscale": {
+    "title": "Uppskalning",
+    "desc": "Uppskala den aktuella bilden"
+  },
+  "showInfo": {
+    "title": "Visa information",
+    "desc": "Visa metadatainfo för den aktuella bilden"
+  },
+  "sendToImageToImage": {
+    "title": "Skicka till bild till bild",
+    "desc": "Skicka aktuell bild till bild till bild"
+  },
+  "deleteImage": {
+    "title": "Ta bort bild",
+    "desc": "Ta bort den aktuella bilden"
+  },
+  "closePanels": {
+    "title": "Stäng paneler",
+    "desc": "Stänger öppna paneler"
+  },
+  "previousImage": {
+    "title": "Föregående bild",
+    "desc": "Visa föregående bild i galleriet"
+  },
+  "nextImage": {
+    "title": "Nästa bild",
+    "desc": "Visa nästa bild i galleriet"
+  },
+  "toggleGalleryPin": {
+    "title": "Växla galleristnål",
+    "desc": "Pins och lossar galleriet till UI"
+  },
+  "increaseGalleryThumbSize": {
+    "title": "Öka galleriets bildstorlek",
+    "desc": "Ökar miniatyrbilder i galleriet"
+  },
+  "decreaseGalleryThumbSize": {
+    "title": "Minska bildstorlek för galleriet",
+    "desc": "Minskar antalet miniatyrer i galleriet"
+  },
+  "selectBrush": {
+    "title": "Välj borste",
+    "desc": "Väljer canvasborsten"
+  },
+  "selectEraser": {
+    "title": "Välj Eraser",
+    "desc": "Väljer suddgummi canvas"
+  },
+  "decreaseBrushSize": {
+    "title": "Minska penselstorleken",
+    "desc": "Minskar storleken på canvas borste/suddgummi"
+  },
+  "increaseBrushSize": {
+    "title": "Öka penselstorleken",
+    "desc": "Ökar storleken på canvas borste/suddgummi"
+  },
+  "decreaseBrushOpacity": {
+    "title": "Minska borstens genomskinlighet",
+    "desc": "Minskar opaciteten hos canvas borste"
+  },
+  "increaseBrushOpacity": {
+    "title": "Öka borstens genomskinlighet",
+    "desc": "Ökar opaciteten hos canvas borste"
+  },
+  "moveTool": {
+    "title": "Flytta verktyg",
+    "desc": "Tillåter kanvas navigering"
+  },
+  "fillBoundingBox": {
+    "title": "Fyll Bounding Box",
+    "desc": "Fyller den avgränsande boxen med penselfärg"
+  },
+  "eraseBoundingBox": {
+    "title": "Radera Bounding Box",
+    "desc": "Raderar det begränsande området"
+  },
+  "colorPicker": {
+    "title": "Välj färgväljare",
+    "desc": "Väljer canvas färgväljare"
+  },
+  "toggleSnap": {
+    "title": "Växla Snap",
+    "desc": "Växlar Fäst till Grid"
+  },
+  "quickToggleMove": {
+    "title": "Snabbväxla Flytta",
+    "desc": "Växlar tillfälligt flyttläge"
+  },
+  "toggleLayer": {
+    "title": "Växla lager",
+    "desc": "Växlar mask/underlagsval"
+  },
+  "clearMask": {
+    "title": "Rensa mask",
+    "desc": "Rensa hela masken"
+  },
+  "hideMask": {
+    "title": "Dölj mask",
+    "desc": "Dölj och visa masken"
+  },
+  "showHideBoundingBox": {
+    "title": "Visa/Dölj avgränsningsruta",
+    "desc": "Växla synligheten av begränsningsboxen"
+  },
+  "mergeVisible": {
+    "title": "Slå ihop synlig",
+    "desc": "Slå samman alla synliga lager av duk"
+  },
+  "saveToGallery": {
+    "title": "Spara till Galleri",
+    "desc": "Spara aktuell duk till galleri"
+  },
+  "copyToClipboard": {
+    "title": "Kopiera till urklipp",
+    "desc": "Kopiera nuvarande duk till urklipp"
+  },
+  "downloadImage": {
+    "title": "Ladda ner bild",
+    "desc": "Ladda ner aktuell duk"
+  },
+  "undoStroke": {
+    "title": "Ångra Stroke",
+    "desc": "Ångra ett penseldrag"
+  },
+  "redoStroke": {
+    "title": "Gör om Stroke",
+    "desc": "Gör om ett penseldrag"
+  },
+  "resetView": {
+    "title": "Återställ vy",
+    "desc": "Återställ Canvas-vy"
+  },
+  "previousStagingImage": {
+    "title": "Föregående mellanlagring bild",
+    "desc": "Bild för föregående mellanlagring"
+  },
+  "nextStagingImage": {
+    "title": "Nästa mellanlagring bild",
+    "desc": "Bild för nästa mellanlagring"
+  },
+  "acceptStagingImage": {
+    "title": "Godkänn mellanlagring bild",
+    "desc": "Godkänn nuvarande mellanlagring område bild"
+  }
+}
