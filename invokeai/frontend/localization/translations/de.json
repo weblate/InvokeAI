@@ -1,0 +1,565 @@
+{
+  "common": {
+    "hotkeysLabel": "Hotkeys",
+    "themeLabel": "Thema",
+    "languagePickerLabel": "Sprachauswahl",
+    "reportBugLabel": "Fehler melden",
+    "githubLabel": "Github",
+    "discordLabel": "Discord",
+    "settingsLabel": "Einstellungen",
+    "darkTheme": "Dunkel",
+    "lightTheme": "Hell",
+    "greenTheme": "Grün",
+    "langArabic": "Arabic",
+    "langEnglish": "English",
+    "langDutch": "Dutch",
+    "langFrench": "French",
+    "langGerman": "German",
+    "langItalian": "Italian",
+    "langJapanese": "Japanese",
+    "langPolish": "Polish",
+    "langBrPortuguese": "Portuguese, Brazilian",
+    "langRussian": "Russian",
+    "langSimplifiedChinese": "Chinese Simplified",
+    "langUkranian": "Ukrainian",
+    "langSpanish": "Spanish",
+    "langCzech": "Czech",
+    "langFinnish": "Finnish",
+    "langNorwegian": "Norwegian",
+    "langSwedish": "Swedish",
+    "langRomanian": "Romanian",
+    "text2img": "Text zu Bild",
+    "img2img": "Bild zu Bild",
+    "unifiedCanvas": "Unified Canvas",
+    "nodes": "Knoten",
+    "nodesDesc": "Ein knotenbasiertes System, für die Erzeugung von Bildern, ist derzeit in der Entwicklung. Bleiben Sie gespannt auf Updates zu dieser fantastischen Funktion.",
+    "postProcessing": "Nachbearbeitung",
+    "postProcessDesc1": "InvokeAI bietet eine breite Palette von Nachbearbeitungsfunktionen. Bildhochskalierung und Gesichtsrekonstruktion sind bereits in der WebUI verfügbar. Sie können sie über das Menü Erweiterte Optionen der Reiter Text in Bild und Bild in Bild aufrufen. Sie können Bilder auch direkt bearbeiten, indem Sie die Schaltflächen für Bildaktionen oberhalb der aktuellen Bildanzeige oder im Viewer verwenden.",
+    "postProcessDesc2": "Eine spezielle Benutzeroberfläche wird in Kürze veröffentlicht, um erweiterte Nachbearbeitungs-Workflows zu erleichtern.",
+    "postProcessDesc3": "Die InvokeAI Kommandozeilen-Schnittstelle bietet verschiedene andere Funktionen, darunter Embiggen.",
+    "training": "Training",
+    "trainingDesc1": "Ein spezieller Arbeitsablauf zum Trainieren Ihrer eigenen Embeddings und Checkpoints mit Textual Inversion und Dreambooth über die Weboberfläche.",
+    "trainingDesc2": "InvokeAI unterstützt bereits das Training von benutzerdefinierten Embeddings mit Textual Inversion unter Verwendung des Hauptskripts.",
+    "upload": "Upload",
+    "close": "Schließen",
+    "load": "Laden",
+    "back": "Back",
+    "statusConnected": "Verbunden",
+    "statusDisconnected": "Getrennt",
+    "statusError": "Fehler",
+    "statusPreparing": "Vorbereiten",
+    "statusProcessingCanceled": "Verarbeitung abgebrochen",
+    "statusProcessingComplete": "Verarbeitung komplett",
+    "statusGenerating": "Generieren",
+    "statusGeneratingTextToImage": "Erzeugen von Text zu Bild",
+    "statusGeneratingImageToImage": "Erzeugen von Bild zu Bild",
+    "statusGeneratingInpainting": "Erzeuge Inpainting",
+    "statusGeneratingOutpainting": "Erzeuge Outpainting",
+    "statusGenerationComplete": "Generierung abgeschlossen",
+    "statusIterationComplete": "Iteration abgeschlossen",
+    "statusSavingImage": "Speichere Bild",
+    "statusRestoringFaces": "Gesichter restaurieren",
+    "statusRestoringFacesGFPGAN": "Gesichter restaurieren (GFPGAN)",
+    "statusRestoringFacesCodeFormer": "Gesichter restaurieren (CodeFormer)",
+    "statusUpscaling": "Hochskalierung",
+    "statusUpscalingESRGAN": "Hochskalierung (ESRGAN)",
+    "statusLoadingModel": "Laden des Modells",
+    "statusModelChanged": "Modell Geändert",
+    "statusConvertingModel": "Converting Model",
+    "statusModelConverted": "Model Converted"
+  },
+  "gallery": {
+    "generations": "Erzeugungen",
+    "showGenerations": "Zeige Erzeugnisse",
+    "uploads": "Uploads",
+    "showUploads": "Zeige Uploads",
+    "galleryImageSize": "Bildgröße",
+    "galleryImageResetSize": "Größe zurücksetzen",
+    "gallerySettings": "Galerie-Einstellungen",
+    "maintainAspectRatio": "Seitenverhältnis beibehalten",
+    "autoSwitchNewImages": "Automatisch zu neuen Bildern wechseln",
+    "singleColumnLayout": "Einspaltiges Layout",
+    "pinGallery": "Galerie anpinnen",
+    "allImagesLoaded": "Alle Bilder geladen",
+    "loadMore": "Mehr laden",
+    "noImagesInGallery": "Keine Bilder in der Galerie"
+  },
+  "hotkeys": {
+    "keyboardShortcuts": "Tastenkürzel",
+    "appHotkeys": "App-Tastenkombinationen",
+    "generalHotkeys": "Allgemeine Tastenkürzel",
+    "galleryHotkeys": "Galerie Tastenkürzel",
+    "unifiedCanvasHotkeys": "Unified Canvas Tastenkürzel",
+    "invoke": {
+      "title": "Invoke",
+      "desc": "Ein Bild erzeugen"
+    },
+    "cancel": {
+      "title": "Abbrechen",
+      "desc": "Bilderzeugung abbrechen"
+    },
+    "focusPrompt": {
+      "title": "Fokussiere Prompt",
+      "desc": "Fokussieren des Eingabefeldes für den Prompt"
+    },
+    "toggleOptions": {
+      "title": "Optionen umschalten",
+      "desc": "Öffnen und Schließen des Optionsfeldes"
+    },
+    "pinOptions": {
+      "title": "Optionen anheften",
+      "desc": "Anheften des Optionsfeldes"
+    },
+    "toggleViewer": {
+      "title": "Bildbetrachter umschalten",
+      "desc": "Bildbetrachter öffnen und schließen"
+    },
+    "toggleGallery": {
+      "title": "Galerie umschalten",
+      "desc": "Öffnen und Schließen des Galerie-Schubfachs"
+    },
+    "maximizeWorkSpace": {
+      "title": "Arbeitsbereich maximieren",
+      "desc": "Schließen Sie die Panels und maximieren Sie den Arbeitsbereich"
+    },
+    "changeTabs": {
+      "title": "Tabs wechseln",
+      "desc": "Zu einem anderen Arbeitsbereich wechseln"
+    },
+    "consoleToggle": {
+      "title": "Konsole Umschalten",
+      "desc": "Konsole öffnen und schließen"
+    },
+    "setPrompt": {
+      "title": "Prompt setzen",
+      "desc": "Verwende den Prompt des aktuellen Bildes"
+    },
+    "setSeed": {
+      "title": "Seed setzen",
+      "desc": "Verwende den Seed des aktuellen Bildes"
+    },
+    "setParameters": {
+      "title": "Parameter setzen",
+      "desc": "Alle Parameter des aktuellen Bildes verwenden"
+    },
+    "restoreFaces": {
+      "title": "Gesicht restaurieren",
+      "desc": "Das aktuelle Bild restaurieren"
+    },
+    "upscale": {
+      "title": "Hochskalieren",
+      "desc": "Das aktuelle Bild hochskalieren"
+    },
+    "showInfo": {
+      "title": "Info anzeigen",
+      "desc": "Metadaten des aktuellen Bildes anzeigen"
+    },
+    "sendToImageToImage": {
+      "title": "An Bild zu Bild senden",
+      "desc": "Aktuelles Bild an Bild zu Bild senden"
+    },
+    "deleteImage": {
+      "title": "Bild löschen",
+      "desc": "Aktuelles Bild löschen"
+    },
+    "closePanels": {
+      "title": "Panels schließen",
+      "desc": "Schließt offene Panels"
+    },
+    "previousImage": {
+      "title": "Vorheriges Bild",
+      "desc": "Vorheriges Bild in der Galerie anzeigen"
+    },
+    "nextImage": {
+      "title": "Nächstes Bild",
+      "desc": "Nächstes Bild in Galerie anzeigen"
+    },
+    "toggleGalleryPin": {
+      "title": "Galerie anheften umschalten",
+      "desc": "Heftet die Galerie an die Benutzeroberfläche bzw. löst die sie."
+    },
+    "increaseGalleryThumbSize": {
+      "title": "Größe der Galeriebilder erhöhen",
+      "desc": "Vergrößert die Galerie-Miniaturansichten"
+    },
+    "decreaseGalleryThumbSize": {
+      "title": "Größe der Galeriebilder verringern",
+      "desc": "Verringert die Größe der Galerie-Miniaturansichten"
+    },
+    "selectBrush": {
+      "title": "Pinsel auswählen",
+      "desc": "Wählt den Leinwandpinsel aus"
+    },
+    "selectEraser": {
+      "title": "Radiergummi auswählen",
+      "desc": "Wählt den Radiergummi für die Leinwand aus"
+    },
+    "decreaseBrushSize": {
+      "title": "Pinselgröße verkleinern",
+      "desc": "Verringert die Größe des Pinsels/Radiergummis"
+    },
+    "increaseBrushSize": {
+      "title": "Pinselgröße erhöhen",
+      "desc": "Erhöht die Größe des Pinsels/Radiergummis"
+    },
+    "decreaseBrushOpacity": {
+      "title": "Deckkraft des Pinsels vermindern",
+      "desc": "Verringert die Deckkraft des Pinsels"
+    },
+    "increaseBrushOpacity": {
+      "title": "Deckkraft des Pinsels erhöhen",
+      "desc": "Erhöht die Deckkraft des Pinsels"
+    },
+    "moveTool": {
+      "title": "Verschieben Werkzeug",
+      "desc": "Ermöglicht die Navigation auf der Leinwand"
+    },
+    "fillBoundingBox": {
+      "title": "Begrenzungsrahmen füllen",
+      "desc": "Füllt den Begrenzungsrahmen mit Pinselfarbe"
+    },
+    "eraseBoundingBox": {
+      "title": "Begrenzungsrahmen löschen",
+      "desc": "Löscht den Bereich des Begrenzungsrahmens"
+    },
+    "colorPicker": {
+      "title": "Farbpipette",
+      "desc": "Farben aus dem Bild aufnehmen"
+    },
+    "toggleSnap": {
+      "title": "Einrasten umschalten",
+      "desc": "Schaltet Einrasten am Raster ein und aus"
+    },
+    "quickToggleMove": {
+      "title": "Schnell Verschiebemodus",
+      "desc": "Schaltet vorübergehend den Verschiebemodus um"
+    },
+    "toggleLayer": {
+      "title": "Ebene umschalten",
+      "desc": "Schaltet die Auswahl von Maske/Basisebene um"
+    },
+    "clearMask": {
+      "title": "Lösche Maske",
+      "desc": "Die gesamte Maske löschen"
+    },
+    "hideMask": {
+      "title": "Maske ausblenden",
+      "desc": "Maske aus- und einblenden"
+    },
+    "showHideBoundingBox": {
+      "title": "Begrenzungsrahmen ein-/ausblenden",
+      "desc": "Sichtbarkeit des Begrenzungsrahmens ein- und ausschalten"
+    },
+    "mergeVisible": {
+      "title": "Sichtbares Zusammenführen",
+      "desc": "Alle sichtbaren Ebenen der Leinwand zusammenführen"
+    },
+    "saveToGallery": {
+      "title": "In Galerie speichern",
+      "desc": "Aktuelle Leinwand in Galerie speichern"
+    },
+    "copyToClipboard": {
+      "title": "In die Zwischenablage kopieren",
+      "desc": "Aktuelle Leinwand in die Zwischenablage kopieren"
+    },
+    "downloadImage": {
+      "title": "Bild herunterladen",
+      "desc": "Aktuelle Leinwand herunterladen"
+    },
+    "undoStroke": {
+      "title": "Pinselstrich rückgängig machen",
+      "desc": "Einen Pinselstrich rückgängig machen"
+    },
+    "redoStroke": {
+      "title": "Pinselstrich wiederherstellen",
+      "desc": "Einen Pinselstrich wiederherstellen"
+    },
+    "resetView": {
+      "title": "Ansicht zurücksetzen",
+      "desc": "Leinwandansicht zurücksetzen"
+    },
+    "previousStagingImage": {
+      "title": "Vorheriges Staging-Bild",
+      "desc": "Bild des vorherigen Staging-Bereichs"
+    },
+    "nextStagingImage": {
+      "title": "Nächstes Staging-Bild",
+      "desc": "Bild des nächsten Staging-Bereichs"
+    },
+    "acceptStagingImage": {
+      "title": "Staging-Bild akzeptieren",
+      "desc": "Akzeptieren Sie das aktuelle Bild des Staging-Bereichs"
+    }
+  },
+  "modelManager": {
+    "modelManager": "Model Manager",
+    "model": "Model",
+    "allModels": "All Models",
+    "checkpointModels": "Checkpoints",
+    "diffusersModels": "Diffusers",
+    "safetensorModels": "SafeTensors",
+    "modelAdded": "Model hinzugefügt",
+    "modelUpdated": "Model aktualisiert",
+    "modelEntryDeleted": "Modelleintrag gelöscht",
+    "cannotUseSpaces": "Leerzeichen können nicht verwendet werden",
+    "addNew": "Neue hinzufügen",
+    "addNewModel": "Neues Model hinzufügen",
+    "addCheckpointModel": "Add Checkpoint / Safetensor Model",
+    "addDiffuserModel": "Add Diffusers",
+    "addManually": "Manuell hinzufügen",
+    "manual": "Manual",
+    "name": "Name",
+    "nameValidationMsg": "Geben Sie einen Namen für Ihr Model ein",
+    "description": "Beschreibung",
+    "descriptionValidationMsg": "Fügen Sie eine Beschreibung für Ihr Model hinzu",
+    "config": "Konfiguration",
+    "configValidationMsg": "Pfad zur Konfigurationsdatei Ihres Models.",
+    "modelLocation": "Ort des Models",
+    "modelLocationValidationMsg": "Pfad zum Speicherort Ihres Models.",
+    "repo_id": "Repo ID",
+    "repoIDValidationMsg": "Online repository of your model",
+    "vaeLocation": "VAE Ort",
+    "vaeLocationValidationMsg": "Pfad zum Speicherort Ihres VAE.",
+    "vaeRepoID": "VAE Repo ID",
+    "vaeRepoIDValidationMsg": "Online repository of your VAE",
+    "width": "Breite",
+    "widthValidationMsg": "Standardbreite Ihres Models.",
+    "height": "Höhe",
+    "heightValidationMsg": "Standardbhöhe Ihres Models.",
+    "addModel": "Model hinzufügen",
+    "updateModel": "Model aktualisieren",
+    "availableModels": "Verfügbare Models",
+    "search": "Suche",
+    "load": "Laden",
+    "active": "Aktiv",
+    "notLoaded": "nicht geladen",
+    "cached": "zwischengespeichert",
+    "checkpointFolder": "Checkpoint-Ordner",
+    "clearCheckpointFolder": "Checkpoint-Ordner löschen",
+    "findModels": "Models finden",
+    "scanAgain": "Erneut scannen",
+    "modelsFound": "Models gefunden",
+    "selectFolder": "Ordner auswählen",
+    "selected": "Ausgewählt",
+    "selectAll": "Alles auswählen",
+    "deselectAll": "Alle abwählen",
+    "showExisting": "Vorhandene anzeigen",
+    "addSelected": "Auswahl hinzufügen",
+    "modelExists": "Model existiert",
+    "selectAndAdd": "Unten aufgeführte Models auswählen und hinzufügen",
+    "noModelsFound": "Keine Models gefunden",
+    "delete": "Löschen",
+    "deleteModel": "Model löschen",
+    "deleteConfig": "Konfiguration löschen",
+    "deleteMsg1": "Möchten Sie diesen Model-Eintrag wirklich aus InvokeAI löschen?",
+    "deleteMsg2": "Dadurch wird die Modellprüfpunktdatei nicht von Ihrer Festplatte gelöscht. Sie können sie bei Bedarf erneut hinzufügen.",
+    "formMessageDiffusersModelLocation": "Diffusers Model Location",
+    "formMessageDiffusersModelLocationDesc": "Please enter at least one.",
+    "formMessageDiffusersVAELocation": "VAE Ort",
+    "formMessageDiffusersVAELocationDesc": "If not provided, InvokeAI will look for the VAE file inside the model location given above.",
+    "convert": "Convert",
+    "convertToDiffusers": "Convert To Diffusers",
+    "convertToDiffusersHelpText1": "This model will be converted to the 🧨 Diffusers format.",
+    "convertToDiffusersHelpText2": "This process will replace your Model Manager entry with the Diffusers version of the same model.",
+    "convertToDiffusersHelpText3": "Your checkpoint file on the disk will NOT be deleted or modified in anyway. You can add your checkpoint to the Model Manager again if you want to.",
+    "convertToDiffusersHelpText4": "This is a one time process only. It might take around 30s-60s depending on the specifications of your computer.",
+    "convertToDiffusersHelpText5": "Please make sure you have enough disk space. Models generally vary between 4GB-7GB in size.",
+    "convertToDiffusersHelpText6": "Do you wish to convert this model?",
+    "convertToDiffusersSaveLocation": "Save Location",
+    "v1": "v1",
+    "v2": "v2",
+    "inpainting": "v1 Inpainting",
+    "customConfig": "Custom Config",
+    "pathToCustomConfig": "Path To Custom Config",
+    "statusConverting": "Converting",
+    "modelConverted": "Model Converted",
+    "sameFolder": "Same folder",
+    "invokeRoot": "InvokeAI folder",
+    "custom": "Custom",
+    "customSaveLocation": "Custom Save Location"
+  },
+  "parameters": {
+    "images": "Bilder",
+    "steps": "Schritte",
+    "cfgScale": "CFG-Skala",
+    "width": "Breite",
+    "height": "Höhe",
+    "sampler": "Sampler",
+    "seed": "Seed",
+    "randomizeSeed": "Zufälliger Seed",
+    "shuffle": "Mischen",
+    "noiseThreshold": "Rausch-Schwellenwert",
+    "perlinNoise": "Perlin-Rauschen",
+    "variations": "Variationen",
+    "variationAmount": "Höhe der Abweichung",
+    "seedWeights": "Seed-Gewichte",
+    "faceRestoration": "Gesichtsrestaurierung",
+    "restoreFaces": "Gesichter wiederherstellen",
+    "type": "Art",
+    "strength": "Stärke",
+    "upscaling": "Hochskalierung",
+    "upscale": "Hochskalieren",
+    "upscaleImage": "Bild hochskalieren",
+    "denoisingStrength": "Denoising Strength",
+    "scale": "Maßstab",
+    "otherOptions": "Andere Optionen",
+    "seamlessTiling": "Nahtlose Kacheln",
+    "hiresOptim": "High-Res-Optimierung",
+    "hiresStrength": "High Res Strength",
+    "imageFit": "Ausgangsbild an Ausgabegröße anpassen",
+    "codeformerFidelity": "Glaubwürdigkeit",
+    "seamSize": "Nahtgröße",
+    "seamBlur": "Nahtunschärfe",
+    "seamStrength": "Stärke der Naht",
+    "seamSteps": "Nahtstufen",
+    "scaleBeforeProcessing": "Skalieren vor der Verarbeitung",
+    "scaledWidth": "Skaliert W",
+    "scaledHeight": "Skaliert H",
+    "infillMethod": "Infill-Methode",
+    "tileSize": "Kachelgröße",
+    "boundingBoxHeader": "Begrenzungsrahmen",
+    "seamCorrectionHeader": "Nahtkorrektur",
+    "infillScalingHeader": "Infill und Skalierung",
+    "img2imgStrength": "Bild-zu-Bild-Stärke",
+    "toggleLoopback": "Toggle Loopback",
+    "invoke": "Invoke",
+    "cancel": "Abbrechen",
+    "promptPlaceholder": "Prompt hier eingeben. [negative Token], (mehr Gewicht)++, (geringeres Gewicht)--, Tausch und Überblendung sind verfügbar (siehe Dokumente)",
+    "negativePrompts": "Negative Prompts",
+    "sendTo": "Senden an",
+    "sendToImg2Img": "Senden an Bild zu Bild",
+    "sendToUnifiedCanvas": "Senden an Unified Canvas",
+    "copyImage": "Copy Image",
+    "copyImageToLink": "Bild-Link kopieren",
+    "downloadImage": "Bild herunterladen",
+    "openInViewer": "Im Viewer öffnen",
+    "closeViewer": "Viewer schließen",
+    "usePrompt": "Prompt verwenden",
+    "useSeed": "Seed verwenden",
+    "useAll": "Alle verwenden",
+    "useInitImg": "Ausgangsbild verwenden",
+    "info": "Info",
+    "deleteImage": "Bild löschen",
+    "initialImage": "Ursprüngliches Bild",
+    "showOptionsPanel": "Optionsleiste zeigen"
+  },
+  "settings": {
+    "models": "Models",
+    "displayInProgress": "Bilder in Bearbeitung anzeigen",
+    "saveSteps": "Speichern der Bilder alle n Schritte",
+    "confirmOnDelete": "Bestätigen beim Löschen",
+    "displayHelpIcons": "Hilfesymbole anzeigen",
+    "useCanvasBeta": "Canvas Beta Layout verwenden",
+    "enableImageDebugging": "Bild-Debugging aktivieren",
+    "resetWebUI": "Web-Oberfläche zurücksetzen",
+    "resetWebUIDesc1": "Das Zurücksetzen der Web-Oberfläche setzt nur den lokalen Cache des Browsers mit Ihren Bildern und gespeicherten Einstellungen zurück. Es werden keine Bilder von der Festplatte gelöscht.",
+    "resetWebUIDesc2": "Wenn die Bilder nicht in der Galerie angezeigt werden oder etwas anderes nicht funktioniert, versuchen Sie bitte, die Einstellungen zurückzusetzen, bevor Sie einen Fehler auf GitHub melden.",
+    "resetComplete": "Die Web-Oberfläche wurde zurückgesetzt. Aktualisieren Sie die Seite, um sie neu zu laden."
+  },
+  "toast": {
+    "tempFoldersEmptied": "Temp-Ordner geleert",
+    "uploadFailed": "Hochladen fehlgeschlagen",
+    "uploadFailedMultipleImagesDesc": "Mehrere Bilder eingefügt, es kann nur ein Bild auf einmal hochgeladen werden",
+    "uploadFailedUnableToLoadDesc": "Datei kann nicht geladen werden",
+    "downloadImageStarted": "Bild wird heruntergeladen",
+    "imageCopied": "Bild kopiert",
+    "imageLinkCopied": "Bildlink kopiert",
+    "imageNotLoaded": "Kein Bild geladen",
+    "imageNotLoadedDesc": "Kein Bild gefunden, das an das Bild zu Bild-Modul gesendet werden kann",
+    "imageSavedToGallery": "Bild in die Galerie gespeichert",
+    "canvasMerged": "Leinwand zusammengeführt",
+    "sentToImageToImage": "Gesendet an Bild zu Bild",
+    "sentToUnifiedCanvas": "Gesendet an Unified Canvas",
+    "parametersSet": "Parameter festlegen",
+    "parametersNotSet": "Parameter nicht festgelegt",
+    "parametersNotSetDesc": "Keine Metadaten für dieses Bild gefunden.",
+    "parametersFailed": "Problem beim Laden der Parameter",
+    "parametersFailedDesc": "Ausgangsbild kann nicht geladen werden.",
+    "seedSet": "Seed festlegen",
+    "seedNotSet": "Saatgut nicht festgelegt",
+    "seedNotSetDesc": "Für dieses Bild wurde kein Seed gefunden.",
+    "promptSet": "Prompt festgelegt",
+    "promptNotSet": "Prompt nicht festgelegt",
+    "promptNotSetDesc": "Für dieses Bild wurde kein Prompt gefunden.",
+    "upscalingFailed": "Hochskalierung fehlgeschlagen",
+    "faceRestoreFailed": "Gesichtswiederherstellung fehlgeschlagen",
+    "metadataLoadFailed": "Metadaten konnten nicht geladen werden",
+    "initialImageSet": "Ausgangsbild festgelegt",
+    "initialImageNotSet": "Ausgangsbild nicht festgelegt",
+    "initialImageNotSetDesc": "Ausgangsbild konnte nicht geladen werden"
+  },
+  "tooltip": {
+    "feature": {
+      "prompt": "Dies ist das Prompt-Feld. Ein Prompt enthält Generierungsobjekte und stilistische Begriffe. Sie können auch Gewichtungen (Token-Bedeutung) dem Prompt hinzufügen, aber CLI-Befehle und Parameter funktionieren nicht.",
+      "gallery": "Die Galerie zeigt erzeugte Bilder aus dem Ausgabeordner an, sobald sie erstellt wurden. Die Einstellungen werden in den Dateien gespeichert und können über das Kontextmenü aufgerufen werden.",
+      "other": "Mit diesen Optionen werden alternative Verarbeitungsmodi für InvokeAI aktiviert. 'Nahtlose Kachelung' erzeugt sich wiederholende Muster in der Ausgabe. 'Hohe Auflösungen' werden in zwei Schritten mit img2img erzeugt: Verwenden Sie diese Einstellung, wenn Sie ein größeres und kohärenteres Bild ohne Artefakte wünschen. Es dauert länger als das normale txt2img.",
+      "seed": "Der Seed-Wert beeinflusst das Ausgangsrauschen, aus dem das Bild erstellt wird. Sie können die bereits vorhandenen Seeds von früheren Bildern verwenden. 'Der Rauschschwellenwert' wird verwendet, um Artefakte bei hohen CFG-Werten abzuschwächen (versuchen Sie es im Bereich 0-10), und Perlin, um während der Erzeugung Perlin-Rauschen hinzuzufügen: Beide dienen dazu, Ihre Ergebnisse zu variieren.",
+      "variations": "Versuchen Sie eine Variation mit einem Wert zwischen 0,1 und 1,0, um das Ergebnis für ein bestimmtes Seed zu ändern. Interessante Variationen des Seeds liegen zwischen 0,1 und 0,3.",
+      "upscale": "Verwenden Sie ESRGAN, um das Bild unmittelbar nach der Erzeugung zu vergrößern.",
+      "faceCorrection": "Gesichtskorrektur mit GFPGAN oder Codeformer: Der Algorithmus erkennt Gesichter im Bild und korrigiert alle Fehler. Ein hoher Wert verändert das Bild stärker, was zu attraktiveren Gesichtern führt. Codeformer mit einer höheren Genauigkeit bewahrt das Originalbild auf Kosten einer stärkeren Gesichtskorrektur.",
+      "imageToImage": "Bild zu Bild lädt ein beliebiges Bild als Ausgangsbild, aus dem dann zusammen mit dem Prompt ein neues Bild erzeugt wird. Je höher der Wert ist, desto stärker wird das Ergebnisbild verändert. Werte von 0,0 bis 1,0 sind möglich, der empfohlene Bereich ist .25-.75",
+      "boundingBox": "Der Begrenzungsrahmen ist derselbe wie die Einstellungen für Breite und Höhe bei Text zu Bild oder Bild zu Bild. Es wird nur der Bereich innerhalb des Rahmens verarbeitet.",
+      "seamCorrection": "Steuert die Behandlung von sichtbaren Übergängen, die zwischen den erzeugten Bildern auf der Leinwand auftreten.",
+      "infillAndScaling": "Verwalten Sie Infill-Methoden (für maskierte oder gelöschte Bereiche der Leinwand) und Skalierung (nützlich für kleine Begrenzungsrahmengrößen)."
+    }
+  },
+  "unifiedCanvas": {
+    "layer": "Ebene",
+    "base": "Basis",
+    "mask": "Maske",
+    "maskingOptions": "Maskierungsoptionen",
+    "enableMask": "Maske aktivieren",
+    "preserveMaskedArea": "Maskierten Bereich bewahren",
+    "clearMask": "Maske löschen",
+    "brush": "Pinsel",
+    "eraser": "Radierer",
+    "fillBoundingBox": "Begrenzungsrahmen füllen",
+    "eraseBoundingBox": "Begrenzungsrahmen löschen",
+    "colorPicker": "Farbpipette",
+    "brushOptions": "Pinseloptionen",
+    "brushSize": "Größe",
+    "move": "Bewegen",
+    "resetView": "Ansicht zurücksetzen",
+    "mergeVisible": "Sichtbare Zusammenführen",
+    "saveToGallery": "In Galerie speichern",
+    "copyToClipboard": "In Zwischenablage kopieren",
+    "downloadAsImage": "Als Bild herunterladen",
+    "undo": "Rückgängig",
+    "redo": "Wiederherstellen",
+    "clearCanvas": "Leinwand löschen",
+    "canvasSettings": "Leinwand-Einstellungen",
+    "showIntermediates": "Zwischenprodukte anzeigen",
+    "showGrid": "Gitternetz anzeigen",
+    "snapToGrid": "Am Gitternetz einrasten",
+    "darkenOutsideSelection": "Außerhalb der Auswahl verdunkeln",
+    "autoSaveToGallery": "Automatisch in Galerie speichern",
+    "saveBoxRegionOnly": "Nur Auswahlbox speichern",
+    "limitStrokesToBox": "Striche auf Box beschränken",
+    "showCanvasDebugInfo": "Leinwand-Debug-Infos anzeigen",
+    "clearCanvasHistory": "Leinwand-Verlauf löschen",
+    "clearHistory": "Verlauf löschen",
+    "clearCanvasHistoryMessage": "Wenn Sie den Verlauf der Leinwand löschen, bleibt die aktuelle Leinwand intakt, aber der Verlauf der Rückgängig- und Wiederherstellung wird unwiderruflich gelöscht.",
+    "clearCanvasHistoryConfirm": "Sind Sie sicher, dass Sie den Verlauf der Leinwand löschen möchten?",
+    "emptyTempImageFolder": "Temp-Image Ordner leeren",
+    "emptyFolder": "Leerer Ordner",
+    "emptyTempImagesFolderMessage": "Wenn Sie den Ordner für temporäre Bilder leeren, wird auch der Unified Canvas vollständig zurückgesetzt. Dies umfasst den gesamten Verlauf der Rückgängig-/Wiederherstellungsvorgänge, die Bilder im Bereitstellungsbereich und die Leinwand-Basisebene.",
+    "emptyTempImagesFolderConfirm": "Sind Sie sicher, dass Sie den temporären Ordner leeren wollen?",
+    "activeLayer": "Aktive Ebene",
+    "canvasScale": "Leinwand Maßstab",
+    "boundingBox": "Begrenzungsrahmen",
+    "scaledBoundingBox": "Skalierter Begrenzungsrahmen",
+    "boundingBoxPosition": "Begrenzungsrahmen Position",
+    "canvasDimensions": "Maße der Leinwand",
+    "canvasPosition": "Leinwandposition",
+    "cursorPosition": "Position des Cursors",
+    "previous": "Vorherige",
+    "next": "Nächste",
+    "accept": "Akzeptieren",
+    "showHide": "Einblenden/Ausblenden",
+    "discardAll": "Alles verwerfen",
+    "betaClear": "Löschen",
+    "betaDarkenOutside": "Außen abdunkeln",
+    "betaLimitToBox": "Begrenzung auf das Feld",
+    "betaPreserveMasked": "Maskiertes bewahren"
+  }
+}
