@@ -1,18 +1,14 @@
 {
   "common": {
-    "hotkeysLabel": "Hotkeys",
     "themeLabel": "Thema",
     "languagePickerLabel": "Sprachauswahl",
     "reportBugLabel": "Fehler melden",
-    "githubLabel": "Github",
-    "discordLabel": "Discord",
     "settingsLabel": "Einstellungen",
     "darkTheme": "Dunkel",
     "lightTheme": "Hell",
     "greenTheme": "Grün",
     "text2img": "Text zu Bild",
     "img2img": "Bild zu Bild",
-    "unifiedCanvas": "Unified Canvas",
     "nodes": "Knoten",
     "nodesDesc": "Ein knotenbasiertes System, für die Erzeugung von Bildern, ist derzeit in der Entwicklung. Bleiben Sie gespannt auf Updates zu dieser fantastischen Funktion.",
     "postProcessing": "Nachbearbeitung",
@@ -70,7 +66,6 @@
     "galleryHotkeys": "Galerie Tastenkürzel",
     "unifiedCanvasHotkeys": "Unified Canvas Tastenkürzel",
     "invoke": {
-      "title": "Invoke",
       "desc": "Ein Bild erzeugen"
     },
     "cancel": {
@@ -271,8 +266,6 @@
     }
   },
   "modelManager": {
-    "modelManager": "Model Manager",
-    "model": "Model",
     "modelAdded": "Model hinzugefügt",
     "modelUpdated": "Model aktualisiert",
     "modelEntryDeleted": "Modelleintrag gelöscht",
@@ -280,8 +273,6 @@
     "addNew": "Neue hinzufügen",
     "addNewModel": "Neues Model hinzufügen",
     "addManually": "Manuell hinzufügen",
-    "manual": "Manual",
-    "name": "Name",
     "nameValidationMsg": "Geben Sie einen Namen für Ihr Model ein",
     "description": "Beschreibung",
     "descriptionValidationMsg": "Fügen Sie eine Beschreibung für Ihr Model hinzu",
@@ -330,7 +321,6 @@
     "width": "Breite",
     "height": "Höhe",
     "sampler": "Sampler",
-    "seed": "Seed",
     "randomizeSeed": "Zufälliger Seed",
     "shuffle": "Mischen",
     "noiseThreshold": "Rausch-Schwellenwert",
@@ -379,13 +369,11 @@
     "useSeed": "Seed verwenden",
     "useAll": "Alle verwenden",
     "useInitImg": "Ausgangsbild verwenden",
-    "info": "Info",
     "deleteImage": "Bild löschen",
     "initialImage": "Ursprüngliches Bild",
     "showOptionsPanel": "Optionsleiste zeigen"
   },
   "settings": {
-    "models": "Models",
     "displayInProgress": "Bilder in Bearbeitung anzeigen",
     "saveSteps": "Speichern der Bilder alle n Schritte",
     "confirmOnDelete": "Bestätigen beim Löschen",
