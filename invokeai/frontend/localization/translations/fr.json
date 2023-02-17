@@ -1,0 +1,565 @@
+{
+  "common": {
+    "hotkeysLabel": "Raccourcis clavier",
+    "themeLabel": "Thème",
+    "languagePickerLabel": "Sélecteur de langue",
+    "reportBugLabel": "Signaler un bug",
+    "githubLabel": "Github",
+    "discordLabel": "Discord",
+    "settingsLabel": "Paramètres",
+    "darkTheme": "Sombre",
+    "lightTheme": "Clair",
+    "greenTheme": "Vert",
+    "langArabic": "Arabic",
+    "langEnglish": "English",
+    "langDutch": "Dutch",
+    "langFrench": "French",
+    "langGerman": "German",
+    "langItalian": "Italian",
+    "langJapanese": "Japanese",
+    "langPolish": "Polish",
+    "langBrPortuguese": "Portuguese, Brazilian",
+    "langRussian": "Russian",
+    "langSimplifiedChinese": "Chinese Simplified",
+    "langUkranian": "Ukrainian",
+    "langSpanish": "Spanish",
+    "langCzech": "Czech",
+    "langFinnish": "Finnish",
+    "langNorwegian": "Norwegian",
+    "langSwedish": "Swedish",
+    "langRomanian": "Romanian",
+    "text2img": "Texte en image",
+    "img2img": "Image en image",
+    "unifiedCanvas": "Canvas unifié",
+    "nodes": "Nœuds",
+    "nodesDesc": "Un système basé sur les nœuds pour la génération d'images est actuellement en développement. Restez à l'écoute pour des mises à jour à ce sujet.",
+    "postProcessing": "Post-traitement",
+    "postProcessDesc1": "Invoke AI offre une grande variété de fonctionnalités de post-traitement. Le redimensionnement d'images et la restauration de visages sont déjà disponibles dans la WebUI. Vous pouvez y accéder à partir du menu Options avancées des onglets Texte en image et Image en image. Vous pouvez également traiter les images directement en utilisant les boutons d'action d'image ci-dessus l'affichage d'image actuel ou dans le visualiseur.",
+    "postProcessDesc2": "Une interface utilisateur dédiée sera bientôt disponible pour faciliter les workflows de post-traitement plus avancés.",
+    "postProcessDesc3": "L'interface en ligne de commande d'Invoke AI offre diverses autres fonctionnalités, notamment Embiggen.",
+    "training": "Formation",
+    "trainingDesc1": "Un workflow dédié pour former vos propres embeddings et checkpoints en utilisant Textual Inversion et Dreambooth depuis l'interface web.",
+    "trainingDesc2": "InvokeAI prend déjà en charge la formation d'embeddings personnalisés en utilisant Textual Inversion en utilisant le script principal.",
+    "upload": "Télécharger",
+    "close": "Fermer",
+    "load": "Charger",
+    "back": "Retour",
+    "statusConnected": "Connecté",
+    "statusDisconnected": "Déconnecté",
+    "statusError": "Erreur",
+    "statusPreparing": "Préparation",
+    "statusProcessingCanceled": "Traitement Annulé",
+    "statusProcessingComplete": "Traitement Terminé",
+    "statusGenerating": "Génération",
+    "statusGeneratingTextToImage": "Génération Texte vers Image",
+    "statusGeneratingImageToImage": "Génération Image vers Image",
+    "statusGeneratingInpainting": "Génération de Réparation",
+    "statusGeneratingOutpainting": "Génération de Completion",
+    "statusGenerationComplete": "Génération Terminée",
+    "statusIterationComplete": "Itération Terminée",
+    "statusSavingImage": "Sauvegarde de l'Image",
+    "statusRestoringFaces": "Restauration des Visages",
+    "statusRestoringFacesGFPGAN": "Restauration des Visages (GFPGAN)",
+    "statusRestoringFacesCodeFormer": "Restauration des Visages (CodeFormer)",
+    "statusUpscaling": "Mise à Échelle",
+    "statusUpscalingESRGAN": "Mise à Échelle (ESRGAN)",
+    "statusLoadingModel": "Chargement du Modèle",
+    "statusModelChanged": "Modèle Changé",
+    "statusConvertingModel": "Converting Model",
+    "statusModelConverted": "Model Converted"
+  },
+  "gallery": {
+    "generations": "Générations",
+    "showGenerations": "Afficher les générations",
+    "uploads": "Téléchargements",
+    "showUploads": "Afficher les téléchargements",
+    "galleryImageSize": "Taille de l'image",
+    "galleryImageResetSize": "Réinitialiser la taille",
+    "gallerySettings": "Paramètres de la galerie",
+    "maintainAspectRatio": "Maintenir le rapport d'aspect",
+    "autoSwitchNewImages": "Basculer automatiquement vers de nouvelles images",
+    "singleColumnLayout": "Mise en page en colonne unique",
+    "pinGallery": "Épingler la galerie",
+    "allImagesLoaded": "Toutes les images chargées",
+    "loadMore": "Charger plus",
+    "noImagesInGallery": "Aucune image dans la galerie"
+  },
+  "hotkeys": {
+    "keyboardShortcuts": "Raccourcis clavier",
+    "appHotkeys": "Raccourcis de l'application",
+    "generalHotkeys": "General Hotkeys",
+    "galleryHotkeys": "Raccourcis de la galerie",
+    "unifiedCanvasHotkeys": "Raccourcis du Canvas unifié",
+    "invoke": {
+      "title": "Invoquer",
+      "desc": "Générer une image"
+    },
+    "cancel": {
+      "title": "Annuler",
+      "desc": "Annuler la génération d'image"
+    },
+    "focusPrompt": {
+      "title": "Prompt de Focus",
+      "desc": "Mettre en focus la zone de saisie de la commande"
+    },
+    "toggleOptions": {
+      "title": "Basculer Options",
+      "desc": "Ouvrir et fermer le panneau d'options"
+    },
+    "pinOptions": {
+      "title": "Epingler Options",
+      "desc": "Epingler le panneau d'options"
+    },
+    "toggleViewer": {
+      "title": "Basculer Visionneuse",
+      "desc": "Ouvrir et fermer la visionneuse d'image"
+    },
+    "toggleGallery": {
+      "title": "Basculer Galerie",
+      "desc": "Ouvrir et fermer le tiroir de galerie"
+    },
+    "maximizeWorkSpace": {
+      "title": "Maximiser Espace de travail",
+      "desc": "Fermer les panneaux et maximiser la zone de travail"
+    },
+    "changeTabs": {
+      "title": "Changer d'onglets",
+      "desc": "Passer à un autre espace de travail"
+    },
+    "consoleToggle": {
+      "title": "Bascule de la console",
+      "desc": "Ouvrir et fermer la console"
+    },
+    "setPrompt": {
+      "title": "Définir le prompt",
+      "desc": "Utiliser le prompt de l'image actuelle"
+    },
+    "setSeed": {
+      "title": "Définir la graine",
+      "desc": "Utiliser la graine de l'image actuelle"
+    },
+    "setParameters": {
+      "title": "Définir les paramètres",
+      "desc": "Utiliser tous les paramètres de l'image actuelle"
+    },
+    "restoreFaces": {
+      "title": "Restaurer les faces",
+      "desc": "Restaurer l'image actuelle"
+    },
+    "upscale": {
+      "title": "Agrandir",
+      "desc": "Agrandir l'image actuelle"
+    },
+    "showInfo": {
+      "title": "Afficher les informations",
+      "desc": "Afficher les informations de métadonnées de l'image actuelle"
+    },
+    "sendToImageToImage": {
+      "title": "Envoyer à l'image à l'image",
+      "desc": "Envoyer l'image actuelle à l'image à l'image"
+    },
+    "deleteImage": {
+      "title": "Supprimer l'image",
+      "desc": "Supprimer l'image actuelle"
+    },
+    "closePanels": {
+      "title": "Fermer les panneaux",
+      "desc": "Fermer les panneaux ouverts"
+    },
+    "previousImage": {
+      "title": "Image précédente",
+      "desc": "Afficher l'image précédente dans la galerie"
+    },
+    "nextImage": {
+      "title": "Image suivante",
+      "desc": "Afficher l'image suivante dans la galerie"
+    },
+    "toggleGalleryPin": {
+      "title": "Activer/désactiver l'épinglage de la galerie",
+      "desc": "Épingle ou dépingle la galerie à l'interface utilisateur"
+    },
+    "increaseGalleryThumbSize": {
+      "title": "Augmenter la taille des miniatures de la galerie",
+      "desc": "Augmente la taille des miniatures de la galerie"
+    },
+    "decreaseGalleryThumbSize": {
+      "title": "Diminuer la taille des miniatures de la galerie",
+      "desc": "Diminue la taille des miniatures de la galerie"
+    },
+    "selectBrush": {
+      "title": "Sélectionner un pinceau",
+      "desc": "Sélectionne le pinceau de la toile"
+    },
+    "selectEraser": {
+      "title": "Sélectionner un gomme",
+      "desc": "Sélectionne la gomme de la toile"
+    },
+    "decreaseBrushSize": {
+      "title": "Diminuer la taille du pinceau",
+      "desc": "Diminue la taille du pinceau/gomme de la toile"
+    },
+    "increaseBrushSize": {
+      "title": "Augmenter la taille du pinceau",
+      "desc": "Augmente la taille du pinceau/gomme de la toile"
+    },
+    "decreaseBrushOpacity": {
+      "title": "Diminuer l'opacité du pinceau",
+      "desc": "Diminue l'opacité du pinceau de la toile"
+    },
+    "increaseBrushOpacity": {
+      "title": "Augmenter l'opacité du pinceau",
+      "desc": "Augmente l'opacité du pinceau de la toile"
+    },
+    "moveTool": {
+      "title": "Outil de déplacement",
+      "desc": "Permet la navigation sur la toile"
+    },
+    "fillBoundingBox": {
+      "title": "Remplir la boîte englobante",
+      "desc": "Remplit la boîte englobante avec la couleur du pinceau"
+    },
+    "eraseBoundingBox": {
+      "title": "Effacer la boîte englobante",
+      "desc": "Efface la zone de la boîte englobante"
+    },
+    "colorPicker": {
+      "title": "Sélectionnez le sélecteur de couleur",
+      "desc": "Sélectionne le sélecteur de couleur de la toile"
+    },
+    "toggleSnap": {
+      "title": "Basculer Snap",
+      "desc": "Basculer Snap à la grille"
+    },
+    "quickToggleMove": {
+      "title": "Basculer rapidement déplacer",
+      "desc": "Basculer temporairement le mode Déplacer"
+    },
+    "toggleLayer": {
+      "title": "Basculer la couche",
+      "desc": "Basculer la sélection de la couche masque/base"
+    },
+    "clearMask": {
+      "title": "Effacer le masque",
+      "desc": "Effacer entièrement le masque"
+    },
+    "hideMask": {
+      "title": "Masquer le masque",
+      "desc": "Masquer et démasquer le masque"
+    },
+    "showHideBoundingBox": {
+      "title": "Afficher/Masquer la boîte englobante",
+      "desc": "Basculer la visibilité de la boîte englobante"
+    },
+    "mergeVisible": {
+      "title": "Fusionner visible",
+      "desc": "Fusionner toutes les couches visibles de la toile"
+    },
+    "saveToGallery": {
+      "title": "Enregistrer dans la galerie",
+      "desc": "Enregistrer la toile actuelle dans la galerie"
+    },
+    "copyToClipboard": {
+      "title": "Copier dans le presse-papiers",
+      "desc": "Copier la toile actuelle dans le presse-papiers"
+    },
+    "downloadImage": {
+      "title": "Télécharger l'image",
+      "desc": "Télécharger la toile actuelle"
+    },
+    "undoStroke": {
+      "title": "Annuler le trait",
+      "desc": "Annuler un coup de pinceau"
+    },
+    "redoStroke": {
+      "title": "Rétablir le trait",
+      "desc": "Rétablir un coup de pinceau"
+    },
+    "resetView": {
+      "title": "Réinitialiser la vue",
+      "desc": "Réinitialiser la vue de la toile"
+    },
+    "previousStagingImage": {
+      "title": "Image de mise en scène précédente",
+      "desc": "Image précédente de la zone de mise en scène"
+    },
+    "nextStagingImage": {
+      "title": "Image de mise en scène suivante",
+      "desc": "Image suivante de la zone de mise en scène"
+    },
+    "acceptStagingImage": {
+      "title": "Accepter l'image de mise en scène",
+      "desc": "Accepter l'image actuelle de la zone de mise en scène"
+    }
+  },
+  "modelManager": {
+    "modelManager": "Gestionnaire de modèle",
+    "model": "Modèle",
+    "allModels": "Tous les modèles",
+    "checkpointModels": "Points de contrôle",
+    "diffusersModels": "Diffuseurs",
+    "safetensorModels": "SafeTensors",
+    "modelAdded": "Modèle ajouté",
+    "modelUpdated": "Modèle mis à jour",
+    "modelEntryDeleted": "Entrée de modèle supprimée",
+    "cannotUseSpaces": "Ne peut pas utiliser d'espaces",
+    "addNew": "Ajouter un nouveau",
+    "addNewModel": "Ajouter un nouveau modèle",
+    "addCheckpointModel": "Ajouter un modèle de point de contrôle / SafeTensor",
+    "addDiffuserModel": "Ajouter des diffuseurs",
+    "addManually": "Ajouter manuellement",
+    "manual": "Manuel",
+    "name": "Nom",
+    "nameValidationMsg": "Entrez un nom pour votre modèle",
+    "description": "Description",
+    "descriptionValidationMsg": "Ajoutez une description pour votre modèle",
+    "config": "Config",
+    "configValidationMsg": "Chemin vers le fichier de configuration de votre modèle.",
+    "modelLocation": "Emplacement du modèle",
+    "modelLocationValidationMsg": "Chemin vers où votre modèle est situé localement.",
+    "repo_id": "ID de dépôt",
+    "repoIDValidationMsg": "Dépôt en ligne de votre modèle",
+    "vaeLocation": "Emplacement VAE",
+    "vaeLocationValidationMsg": "Chemin vers où votre VAE est situé.",
+    "vaeRepoID": "ID de dépôt VAE",
+    "vaeRepoIDValidationMsg": "Dépôt en ligne de votre VAE",
+    "width": "Largeur",
+    "widthValidationMsg": "Largeur par défaut de votre modèle.",
+    "height": "Hauteur",
+    "heightValidationMsg": "Hauteur par défaut de votre modèle.",
+    "addModel": "Ajouter un modèle",
+    "updateModel": "Mettre à jour le modèle",
+    "availableModels": "Modèles disponibles",
+    "search": "Rechercher",
+    "load": "Charger",
+    "active": "actif",
+    "notLoaded": "non chargé",
+    "cached": "en cache",
+    "checkpointFolder": "Dossier de point de contrôle",
+    "clearCheckpointFolder": "Effacer le dossier de point de contrôle",
+    "findModels": "Trouver des modèles",
+    "scanAgain": "Scanner à nouveau",
+    "modelsFound": "Modèles trouvés",
+    "selectFolder": "Sélectionner un dossier",
+    "selected": "Sélectionné",
+    "selectAll": "Tout sélectionner",
+    "deselectAll": "Tout désélectionner",
+    "showExisting": "Afficher existant",
+    "addSelected": "Ajouter sélectionné",
+    "modelExists": "Modèle existant",
+    "selectAndAdd": "Sélectionner et ajouter les modèles listés ci-dessous",
+    "noModelsFound": "Aucun modèle trouvé",
+    "delete": "Supprimer",
+    "deleteModel": "Supprimer le modèle",
+    "deleteConfig": "Supprimer la configuration",
+    "deleteMsg1": "Êtes-vous sûr de vouloir supprimer cette entrée de modèle dans InvokeAI?",
+    "deleteMsg2": "Cela n'effacera pas le fichier de point de contrôle du modèle de votre disque. Vous pouvez les réajouter si vous le souhaitez.",
+    "formMessageDiffusersModelLocation": "Emplacement du modèle de diffuseurs",
+    "formMessageDiffusersModelLocationDesc": "Veuillez en entrer au moins un.",
+    "formMessageDiffusersVAELocation": "Emplacement VAE",
+    "formMessageDiffusersVAELocationDesc": "Si non fourni, InvokeAI recherchera le fichier VAE à l'emplacement du modèle donné ci-dessus.",
+    "convert": "Convert",
+    "convertToDiffusers": "Convert To Diffusers",
+    "convertToDiffusersHelpText1": "This model will be converted to the 🧨 Diffusers format.",
+    "convertToDiffusersHelpText2": "This process will replace your Model Manager entry with the Diffusers version of the same model.",
+    "convertToDiffusersHelpText3": "Your checkpoint file on the disk will NOT be deleted or modified in anyway. You can add your checkpoint to the Model Manager again if you want to.",
+    "convertToDiffusersHelpText4": "This is a one time process only. It might take around 30s-60s depending on the specifications of your computer.",
+    "convertToDiffusersHelpText5": "Please make sure you have enough disk space. Models generally vary between 4GB-7GB in size.",
+    "convertToDiffusersHelpText6": "Do you wish to convert this model?",
+    "convertToDiffusersSaveLocation": "Save Location",
+    "v1": "v1",
+    "v2": "v2",
+    "inpainting": "v1 Inpainting",
+    "customConfig": "Custom Config",
+    "pathToCustomConfig": "Path To Custom Config",
+    "statusConverting": "Converting",
+    "modelConverted": "Model Converted",
+    "sameFolder": "Same folder",
+    "invokeRoot": "InvokeAI folder",
+    "custom": "Custom",
+    "customSaveLocation": "Custom Save Location"
+  },
+  "parameters": {
+    "images": "Images",
+    "steps": "Etapes",
+    "cfgScale": "CFG Echelle",
+    "width": "Largeur",
+    "height": "Hauteur",
+    "sampler": "Echantillonneur",
+    "seed": "Graine",
+    "randomizeSeed": "Graine Aléatoire",
+    "shuffle": "Mélanger",
+    "noiseThreshold": "Seuil de Bruit",
+    "perlinNoise": "Bruit de Perlin",
+    "variations": "Variations",
+    "variationAmount": "Montant de Variation",
+    "seedWeights": "Poids des Graines",
+    "faceRestoration": "Restauration de Visage",
+    "restoreFaces": "Restaurer les Visages",
+    "type": "Type",
+    "strength": "Force",
+    "upscaling": "Agrandissement",
+    "upscale": "Agrandir",
+    "upscaleImage": "Image en Agrandissement",
+    "denoisingStrength": "Denoising Strength",
+    "scale": "Echelle",
+    "otherOptions": "Autres Options",
+    "seamlessTiling": "Carreau Sans Joint",
+    "hiresOptim": "Optimisation Haute Résolution",
+    "hiresStrength": "High Res Strength",
+    "imageFit": "Ajuster Image Initiale à la Taille de Sortie",
+    "codeformerFidelity": "Fidélité",
+    "seamSize": "Taille des Joints",
+    "seamBlur": "Flou des Joints",
+    "seamStrength": "Force des Joints",
+    "seamSteps": "Etapes des Joints",
+    "scaleBeforeProcessing": "Echelle Avant Traitement",
+    "scaledWidth": "Larg. Échelle",
+    "scaledHeight": "Haut. Échelle",
+    "infillMethod": "Méthode de Remplissage",
+    "tileSize": "Taille des Tuiles",
+    "boundingBoxHeader": "Boîte Englobante",
+    "seamCorrectionHeader": "Correction des Joints",
+    "infillScalingHeader": "Remplissage et Mise à l'Échelle",
+    "img2imgStrength": "Force de l'Image à l'Image",
+    "toggleLoopback": "Activer/Désactiver la Boucle",
+    "invoke": "Invoker",
+    "cancel": "Annuler",
+    "promptPlaceholder": "Tapez le prompt ici. [tokens négatifs], (poids positif)++, (poids négatif)--, swap et blend sont disponibles (voir les docs)",
+    "negativePrompts": "Negative Prompts",
+    "sendTo": "Envoyer à",
+    "sendToImg2Img": "Envoyer à Image à Image",
+    "sendToUnifiedCanvas": "Envoyer au Canvas Unifié",
+    "copyImage": "Copier Image",
+    "copyImageToLink": "Copier l'Image en Lien",
+    "downloadImage": "Télécharger Image",
+    "openInViewer": "Ouvrir dans le visualiseur",
+    "closeViewer": "Fermer le visualiseur",
+    "usePrompt": "Utiliser la suggestion",
+    "useSeed": "Utiliser la graine",
+    "useAll": "Tout utiliser",
+    "useInitImg": "Utiliser l'image initiale",
+    "info": "Info",
+    "deleteImage": "Supprimer l'image",
+    "initialImage": "Image initiale",
+    "showOptionsPanel": "Afficher le panneau d'options"
+  },
+  "settings": {
+    "models": "Modèles",
+    "displayInProgress": "Afficher les images en cours",
+    "saveSteps": "Enregistrer les images tous les n étapes",
+    "confirmOnDelete": "Confirmer la suppression",
+    "displayHelpIcons": "Afficher les icônes d'aide",
+    "useCanvasBeta": "Utiliser la mise en page bêta de Canvas",
+    "enableImageDebugging": "Activer le débogage d'image",
+    "resetWebUI": "Réinitialiser l'interface Web",
+    "resetWebUIDesc1": "Réinitialiser l'interface Web ne réinitialise que le cache local du navigateur de vos images et de vos paramètres enregistrés. Cela n'efface pas les images du disque.",
+    "resetWebUIDesc2": "Si les images ne s'affichent pas dans la galerie ou si quelque chose d'autre ne fonctionne pas, veuillez essayer de réinitialiser avant de soumettre une demande sur GitHub.",
+    "resetComplete": "L'interface Web a été réinitialisée. Rafraîchissez la page pour recharger."
+  },
+  "toast": {
+    "tempFoldersEmptied": "Dossiers temporaires vidés",
+    "uploadFailed": "Téléchargement échoué",
+    "uploadFailedMultipleImagesDesc": "Plusieurs images collées, peut uniquement télécharger une image à la fois",
+    "uploadFailedUnableToLoadDesc": "Impossible de charger le fichier",
+    "downloadImageStarted": "Téléchargement de l'image démarré",
+    "imageCopied": "Image copiée",
+    "imageLinkCopied": "Lien d'image copié",
+    "imageNotLoaded": "Aucune image chargée",
+    "imageNotLoadedDesc": "Aucune image trouvée pour envoyer à module d'image",
+    "imageSavedToGallery": "Image enregistrée dans la galerie",
+    "canvasMerged": "Canvas fusionné",
+    "sentToImageToImage": "Envoyé à Image à Image",
+    "sentToUnifiedCanvas": "Envoyé à Canvas unifié",
+    "parametersSet": "Paramètres définis",
+    "parametersNotSet": "Paramètres non définis",
+    "parametersNotSetDesc": "Aucune métadonnée trouvée pour cette image.",
+    "parametersFailed": "Problème de chargement des paramètres",
+    "parametersFailedDesc": "Impossible de charger l'image d'initiation.",
+    "seedSet": "Graine définie",
+    "seedNotSet": "Graine non définie",
+    "seedNotSetDesc": "Impossible de trouver la graine pour cette image.",
+    "promptSet": "Invite définie",
+    "promptNotSet": "Invite non définie",
+    "promptNotSetDesc": "Impossible de trouver l'invite pour cette image.",
+    "upscalingFailed": "Échec de la mise à l'échelle",
+    "faceRestoreFailed": "Échec de la restauration du visage",
+    "metadataLoadFailed": "Échec du chargement des métadonnées",
+    "initialImageSet": "Image initiale définie",
+    "initialImageNotSet": "Image initiale non définie",
+    "initialImageNotSetDesc": "Impossible de charger l'image initiale"
+  },
+  "tooltip": {
+    "feature": {
+      "prompt": "Ceci est le champ prompt. Le prompt inclut des objets de génération et des termes stylistiques. Vous pouvez également ajouter un poids (importance du jeton) dans le prompt, mais les commandes CLI et les paramètres ne fonctionneront pas.",
+      "gallery": "La galerie affiche les générations à partir du dossier de sortie à mesure qu'elles sont créées. Les paramètres sont stockés dans des fichiers et accessibles via le menu contextuel.",
+      "other": "Ces options activent des modes de traitement alternatifs pour Invoke. 'Tuilage seamless' créera des motifs répétitifs dans la sortie. 'Haute résolution' est la génération en deux étapes avec img2img: utilisez ce paramètre lorsque vous souhaitez une image plus grande et plus cohérente sans artefacts. Cela prendra plus de temps que d'habitude txt2img.",
+      "seed": "La valeur de grain affecte le bruit initial à partir duquel l'image est formée. Vous pouvez utiliser les graines déjà existantes provenant d'images précédentes. 'Seuil de bruit' est utilisé pour atténuer les artefacts à des valeurs CFG élevées (essayez la plage de 0 à 10), et Perlin pour ajouter du bruit Perlin pendant la génération: les deux servent à ajouter de la variété à vos sorties.",
+      "variations": "Essayez une variation avec une valeur comprise entre 0,1 et 1,0 pour changer le résultat pour une graine donnée. Des variations intéressantes de la graine sont entre 0,1 et 0,3.",
+      "upscale": "Utilisez ESRGAN pour agrandir l'image immédiatement après la génération.",
+      "faceCorrection": "Correction de visage avec GFPGAN ou Codeformer: l'algorithme détecte les visages dans l'image et corrige tout défaut. La valeur élevée changera plus l'image, ce qui donnera des visages plus attirants. Codeformer avec une fidélité plus élevée préserve l'image originale au prix d'une correction de visage plus forte.",
+      "imageToImage": "Image to Image charge n'importe quelle image en tant qu'initiale, qui est ensuite utilisée pour générer une nouvelle avec le prompt. Plus la valeur est élevée, plus l'image de résultat changera. Des valeurs de 0,0 à 1,0 sont possibles, la plage recommandée est de 0,25 à 0,75",
+      "boundingBox": "La boîte englobante est la même que les paramètres Largeur et Hauteur pour Texte à Image ou Image à Image. Seulement la zone dans la boîte sera traitée.",
+      "seamCorrection": "Contrôle la gestion des coutures visibles qui se produisent entre les images générées sur la toile.",
+      "infillAndScaling": "Gérer les méthodes de remplissage (utilisées sur les zones masquées ou effacées de la toile) et le redimensionnement (utile pour les petites tailles de boîte englobante)."
+    }
+  },
+  "unifiedCanvas": {
+    "layer": "Couche",
+    "base": "Base",
+    "mask": "Masque",
+    "maskingOptions": "Options de masquage",
+    "enableMask": "Activer le masque",
+    "preserveMaskedArea": "Préserver la zone masquée",
+    "clearMask": "Effacer le masque",
+    "brush": "Pinceau",
+    "eraser": "Gomme",
+    "fillBoundingBox": "Remplir la boîte englobante",
+    "eraseBoundingBox": "Effacer la boîte englobante",
+    "colorPicker": "Sélecteur de couleur",
+    "brushOptions": "Options de pinceau",
+    "brushSize": "Taille",
+    "move": "Déplacer",
+    "resetView": "Réinitialiser la vue",
+    "mergeVisible": "Fusionner les visibles",
+    "saveToGallery": "Enregistrer dans la galerie",
+    "copyToClipboard": "Copier dans le presse-papiers",
+    "downloadAsImage": "Télécharger en tant qu'image",
+    "undo": "Annuler",
+    "redo": "Refaire",
+    "clearCanvas": "Effacer le canvas",
+    "canvasSettings": "Paramètres du canvas",
+    "showIntermediates": "Afficher les intermédiaires",
+    "showGrid": "Afficher la grille",
+    "snapToGrid": "Aligner sur la grille",
+    "darkenOutsideSelection": "Assombrir à l'extérieur de la sélection",
+    "autoSaveToGallery": "Enregistrement automatique dans la galerie",
+    "saveBoxRegionOnly": "Enregistrer uniquement la région de la boîte",
+    "limitStrokesToBox": "Limiter les traits à la boîte",
+    "showCanvasDebugInfo": "Afficher les informations de débogage du canvas",
+    "clearCanvasHistory": "Effacer l'historique du canvas",
+    "clearHistory": "Effacer l'historique",
+    "clearCanvasHistoryMessage": "Effacer l'historique du canvas laisse votre canvas actuel intact, mais efface de manière irréversible l'historique annuler et refaire.",
+    "clearCanvasHistoryConfirm": "Êtes-vous sûr de vouloir effacer l'historique du canvas?",
+    "emptyTempImageFolder": "Vider le dossier d'images temporaires",
+    "emptyFolder": "Vider le dossier",
+    "emptyTempImagesFolderMessage": "Vider le dossier d'images temporaires réinitialise également complètement le canvas unifié. Cela inclut tout l'historique annuler/refaire, les images dans la zone de mise en attente et la couche de base du canvas.",
+    "emptyTempImagesFolderConfirm": "Êtes-vous sûr de vouloir vider le dossier temporaire?",
+    "activeLayer": "Calque actif",
+    "canvasScale": "Échelle du canevas",
+    "boundingBox": "Boîte englobante",
+    "scaledBoundingBox": "Boîte englobante mise à l'échelle",
+    "boundingBoxPosition": "Position de la boîte englobante",
+    "canvasDimensions": "Dimensions du canevas",
+    "canvasPosition": "Position du canevas",
+    "cursorPosition": "Position du curseur",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "accept": "Accepter",
+    "showHide": "Afficher/Masquer",
+    "discardAll": "Tout abandonner",
+    "betaClear": "Effacer",
+    "betaDarkenOutside": "Assombrir à l'extérieur",
+    "betaLimitToBox": "Limiter à la boîte",
+    "betaPreserveMasked": "Conserver masqué"
+  }
+}
