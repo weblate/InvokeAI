@@ -1863,7 +1863,6 @@
         "enableAutoNegative": "Включить авто негатив",
         "maskFill": "Заполнение маски",
         "viewProgressInViewer": "Просматривайте прогресс и результаты в <Btn>Просмотрщике изображений</Btn>.",
-        "convertToRasterLayer": "Конвертировать в растровый слой",
         "tool": {
             "move": "Двигать",
             "bbox": "Ограничительная рамка",
@@ -1931,7 +1930,6 @@
         "newGallerySession": "Новая сессия галереи",
         "sendToCanvasDesc": "Нажатие кнопки Invoke отображает вашу текущую работу на холсте.",
         "globalReferenceImages_withCount_hidden": "Глобальные эталонные изображения ({{count}} скрыто)",
-        "convertToControlLayer": "Конвертировать в контрольный слой",
         "layer_withCount_one": "Слой ({{count}})",
         "layer_withCount_few": "Слои ({{count}})",
         "layer_withCount_many": "Слои ({{count}})",
